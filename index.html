@@ -71,6 +71,32 @@ const GUIDE_IMAGES = {
             );
         };
 
+        const ProductCards = ({ products }) => (
+            <div className="mt-6 space-y-3">
+                <div className="flex items-center gap-2 text-xs font-black uppercase text-slate-500 tracking-widest">
+                    <span>💊</span> Product Reference
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {products.map((p, i) => (
+                        <div key={i} className="rounded-2xl border-2 border-slate-200 bg-white overflow-hidden shadow-sm">
+                            <div className="px-4 py-2 text-xs font-black uppercase tracking-wider bg-slate-700 text-white">
+                                {p.tag}
+                            </div>
+                            <div className="p-4 space-y-2 text-[11px]">
+                                <p className="font-black text-slate-800 text-sm">{p.name}</p>
+                                {p.ingredient && <p className="text-slate-500"><span className="font-bold text-slate-600">Active: </span>{p.ingredient}</p>}
+                                {p.dose && <p className="text-slate-500"><span className="font-bold text-slate-600">Dose: </span>{p.dose}</p>}
+                                {p.notes && p.notes.map((n, j) => (
+                                    <p key={j} className="text-slate-600 border-l-2 border-slate-200 pl-2">{n}</p>
+                                ))}
+                                {p.warning && <p className="text-slate-600 font-bold">⚠ {p.warning}</p>}
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        );
+
         const PrescriptionCard = ({ rx }) => (
             <div className="mt-4 border-2 border-slate-300 rounded-2xl overflow-hidden shadow-lg bg-white font-mono">
                 <div className="bg-slate-700 text-white px-5 py-3 flex items-center gap-2">
@@ -241,7 +267,12 @@ const GUIDE_IMAGES = {
                 { id: "c22", title: "Case 22: Skin (Jake Grass Rash)", initialInfo: "Mrs Johansson arrives with her 10 year old grandson Jake. Itchy rash on arms/legs.", hiddenInfo: { background: "Playing in the back yard with the neighbour\'s children. Assumes it\'s from the grass.", medicalHistory: "No medical conditions and takes no medicines. Not allergic to any medicines." }, checklists: buildNewWWHAMMPA(false, "Contact Urticaria (Grass allergy).", "Oral Antihistamine + Calamine/Hydrocortisone.", "Cool shower after playing; wear long pants.", [])},
                 { id: "c23", title: "Case 23: Skin (UK Bites)", initialInfo: "Mary, who is 58, is on holiday from the UK. The mosquitos are driving her mad.", hiddenInfo: { background: "Loves NZ summer. Wants something for the bites she already has (very itchy, skin not broken) and a repellent.", medicalHistory: "No medical conditions and takes no medicines. No allergies." }, checklists: buildNewWWHAMMPA(false, "NZ mosquito local reactions.", "Anthisan/Hydrocortisone + Repellent.", "Don\'t scratch to prevent infection.", [])},
                 { id: "c24", title: "Case 24: First Aid (Bee Stings)", initialInfo: "Kayla is a school teacher. She is taking a class on a field trip to a dairy farm.", hiddenInfo: { background: "The farmer has warned her that there are a lot of bees around, as he has hives. Would like something on hand.", medicalHistory: "The class is between 12 and 13 years of age." }, checklists: buildNewWWHAMMPA(true, "Difference between local reaction and systemic allergy.", "Antihistamine and mild Steroid for First Aid kit.", "Explain Anaphylaxis Red Flags (Call 111).", [{ step: "Lifestyle", behaviour: "Scrape stinger off (don\'t squeeze); apply ice pack." }])},
-                { id: "c25", title: "Case 25: Worms (Woman in 30s)", initialInfo: "A woman in her 30s wants something for worms. Pretty sure her 3-year-old has them – scratching bottom at night.", hiddenInfo: { background: "Started a few nights ago, nothing at home to treat it. Also has a 6-year-old and an 8-year-old. Husband also in the house.", medicalHistory: "None of the children have any medical conditions or take any medicines. Nor does her husband. She is neither pregnant nor breastfeeding. No-one has any allergies." }, checklists: [
+                { id: "c25", title: "Case 25: Worms (Woman in 30s)", initialInfo: "A woman in her 30s wants something for worms. Pretty sure her 3-year-old has them – scratching bottom at night.", hiddenInfo: { background: "Started a few nights ago, nothing at home to treat it. Also has a 6-year-old and an 8-year-old. Husband also in the house.", medicalHistory: "None of the children have any medical conditions or take any medicines. Nor does her husband. She is neither pregnant nor breastfeeding. No-one has any allergies." }, products: [
+                    { name: "Combantrin-1 Choc Squares", tag: "Mebendazole", ingredient: "Mebendazole 100mg", dose: "1 square, single dose. Repeat in 2 weeks.", notes: ["Suitable from 2 years+", "Treat ALL family members same day"], warning: "NOT in pregnancy / children <2 yrs" },
+                    { name: "Combantrin Choc Squares", tag: "Pyrantel", ingredient: "Pyrantel 100mg/square", dose: "Dose by weight (mg/kg). Single dose.", notes: ["Suitable from 1 year+", "Can be chewed — multiple members"] },
+                    { name: "Vermox Choc Chews", tag: "Mebendazole", ingredient: "Mebendazole 100mg", dose: "2 tablets, single dose.", notes: ["Same dose for all ages 2+"] },
+                    { name: "de-Worm Extra Strength", tag: "Pyrantel", ingredient: "Pyrantel 250mg", dose: "Once. All family members. Repeat dose 2–4 weeks.", notes: ["Chocolate flavoured chewable"] }
+                ], checklists: [
                     { step: "Mihimihi – Greeting", behaviour: "Introduces self and role clearly and respectfully." },
                     { step: "Whakawhanaungatanga – Connection", behaviour: "Builds rapport; shows interest in the person; acknowledges context where appropriate." },
                     { step: "Kaupapa – Purpose & Agenda", behaviour: "States purpose of consultation; explains what will happen." },
@@ -261,7 +292,12 @@ const GUIDE_IMAGES = {
                     { step: "Kaupapa – Checking Understanding", behaviour: "Checks understanding (e.g., teach-back)." },
                     { step: "Whakamutunga – Closing", behaviour: "Confirms next steps; invites questions; respectful closing." }
                 ]},
-                { id: "c26", title: "Case 26: Headlice (Katie)", initialInfo: "A grandmother arrives with her granddaughter Katie who has arrived home from school with a note saying a few children in her class have headlice.", hiddenInfo: { background: "Explain how she can check to see if Katie has them. You check together and can see some eggs and some live lice. Recommend a treatment and explain how to use it. Include appropriate home healthcare advice and give advice on how to avoid reinfestation.", medicalHistory: "No relevant medical history provided." }, checklists: [
+                { id: "c26", title: "Case 26: Headlice (Katie)", initialInfo: "A grandmother arrives with her granddaughter Katie who has arrived home from school with a note saying a few children in her class have headlice.", hiddenInfo: { background: "Explain how she can check to see if Katie has them. You check together and can see some eggs and some live lice. Recommend a treatment and explain how to use it. Include appropriate home healthcare advice and give advice on how to avoid reinfestation.", medicalHistory: "No relevant medical history provided." }, products: [
+                    { name: "NitWits", tag: "Pine Silicone", ingredient: "Pine silicone (dimethicone)", dose: "Spray to head until hair & scalp covered. Massage well. Leave 8–14 hrs. Rinse + normal shampoo. Repeat 9 days.", notes: ["Optional: comb"] },
+                    { name: "Moov Head Lice Solution", tag: "Alternative", ingredient: "Eucalyptus oil 11%", dose: "Apply behind hair and neck first. Divide hair into segments. 10 mins. Ensure every wet. Remove and use normal shampoo.", notes: ["Repeat 7 & 14 days"] },
+                    { name: "Licener", tag: "Neem extract", ingredient: "Neem extract formulation", dose: "Step 1: Apply Licener shampoo to dry hair. Step 2: Massage well, recommend 1 bottle/person. After 10 mins rinse out. Step 3: Comb — optional.", notes: ["✱ Treat all family members", "✱ Also necessary using normal shampoo care"] },
+                    { name: "Moov Head Spray", tag: "Prevention", ingredient: "Alcohol", dose: "Apply a leave-in spray to dry hair including neck & behind ears. Brush/comb hair to ensure spread. Daily. Don't rinse." }
+                ], checklists: [
                     { step: "Mihimihi – Greeting", behaviour: "Introduces self and role clearly and respectfully." },
                     { step: "Whakawhanaungatanga – Connection", behaviour: "Builds rapport; shows interest in the person; acknowledges context where appropriate." },
                     { step: "Kaupapa – Purpose & Agenda", behaviour: "States purpose of consultation; explains what will happen." },
@@ -280,7 +316,9 @@ const GUIDE_IMAGES = {
                     { step: "Kaupapa – Checking Understanding", behaviour: "Checks understanding (e.g., teach-back)." },
                     { step: "Whakamutunga – Closing", behaviour: "Confirms next steps; invites questions; respectful closing." }
                 ]},
-                { id: "c27", title: "Case 27: Scabies (Brazil Couple)", initialInfo: "A young couple from Brazil ask your advice. They have been travelling around NZ for 3 months staying in backpackers. Both have a very itchy rash mainly between their fingers, wrists, elbows and feet.", hiddenInfo: { background: "The rash has been there a few weeks. They tried antihistamines which settle the itch a bit but the rash has not resolved. They ask: What do you think could be going on? Explain how this has happened. Recommend a treatment and explain how to use it. How long will the rash take to resolve?", medicalHistory: "No relevant medical history provided." }, checklists: [
+                { id: "c27", title: "Case 27: Scabies (Brazil Couple)", initialInfo: "A young couple from Brazil ask your advice. They have been travelling around NZ for 3 months staying in backpackers. Both have a very itchy rash mainly between their fingers, wrists, elbows and feet.", hiddenInfo: { background: "The rash has been there a few weeks. They tried antihistamines which settle the itch a bit but the rash has not resolved. They ask: What do you think could be going on? Explain how this has happened. Recommend a treatment and explain how to use it. How long will the rash take to resolve?", medicalHistory: "No relevant medical history provided." }, products: [
+                    { name: "A-Scabies (Permethrin 5%)", tag: "Scabicide", ingredient: "Permethrin 5%", dose: "Apply whole body except head & face. Leave 8–14 hrs then wash out completely. Repeat 9 days.", notes: ["② head/face — apply to whole body", "Rash may persist 2–4 weeks after treatment (allergic reaction)"] }
+                ], checklists: [
                     { step: "Mihimihi – Greeting", behaviour: "Introduces self and role clearly and respectfully." },
                     { step: "Whakawhanaungatanga – Connection", behaviour: "Builds rapport; shows interest in the person; acknowledges context where appropriate." },
                     { step: "Kaupapa – Purpose & Agenda", behaviour: "States purpose of consultation; explains what will happen." },
@@ -300,7 +338,12 @@ const GUIDE_IMAGES = {
                     { step: "Kaupapa – Checking Understanding", behaviour: "Checks understanding (e.g., teach-back)." },
                     { step: "Whakamutunga – Closing", behaviour: "Confirms next steps; invites questions; respectful closing." }
                 ]},
-                { id: "c28", title: "Case 28: Strains & Sprains", initialInfo: "A young man hobbles up to you. He twisted his ankle this morning while running. He has taken a couple of paracetamol but it's still quite sore. What do you recommend?", hiddenInfo: { background: "He twisted his ankle this morning while running. Paracetamol taken but still sore. He asks if you can tell if it's a strain or a sprain – explain the difference.", medicalHistory: "No medical conditions, takes no medicines and has no allergies." }, checklists: [
+                { id: "c28", title: "Case 28: Strains & Sprains", initialInfo: "A young man hobbles up to you. He twisted his ankle this morning while running. He has taken a couple of paracetamol but it's still quite sore. What do you recommend?", hiddenInfo: { background: "He twisted his ankle this morning while running. Paracetamol taken but still sore. He asks if you can tell if it's a strain or a sprain – explain the difference.", medicalHistory: "No medical conditions, takes no medicines and has no allergies." }, products: [
+                    { name: "Voltaren Emulgel (Diclofenac)", tag: "NSAID Topical", ingredient: "Diclofenac diethylamine 11.6mg/g", dose: "Apply thin layer, massage in until absorbed. 3–4x daily. Clean/dry skin.", notes: ["EPS: clean/dry skin"], warning: "NOT if skin is broken/cracked" },
+                    { name: "Voltaren Rapid (Diclofenac K)", tag: "NSAID Oral", ingredient: "Diclofenac potassium 12.5mg", dose: "Max 150mg/day." },
+                    { name: "Anti-Flamme Everyday", tag: "Topical — Muscle", ingredient: "Arnica, Calendula", dose: "Apply to affected area.", notes: ["ETP — strain muscle"] },
+                    { name: "Deep Heat Extra Strength", tag: "Heat Rub", ingredient: "Methyl Salicylate, Menthol", dose: "Apply thin layer and massage into affected area until absorbed. Hand wash after use. Repeat 2–3x daily.", warning: "NOT if skin is broken/cracked" }
+                ], checklists: [
                     { step: "Mihimihi – Greeting", behaviour: "Introduces self and role clearly and respectfully." },
                     { step: "Whakawhanaungatanga – Connection", behaviour: "Builds rapport; acknowledges context where appropriate." },
                     { step: "Kaupapa – Purpose & Agenda", behaviour: "States purpose of consultation; explains what will happen." },
@@ -483,6 +526,10 @@ const GUIDE_IMAGES = {
 
                                     {role === 'pharmacist' && currentCase.guideId && (
                                         <PDFViewer guideId={currentCase.guideId} />
+                                    )}
+
+                                    {role === 'pharmacist' && currentCase.products && (
+                                        <ProductCards products={currentCase.products} />
                                     )}
 
                                     {(role === 'patient' || role === 'evaluator') && [13, 14, 15].includes(caseIndex) && (
