@@ -96,7 +96,66 @@ const GUIDE_IMAGES = {
                 </div>
             </div>
         );
+const EthicalPrescriptionCard = ({ rx }) => (
+    <div className="mt-4 max-w-lg mx-auto border border-slate-300 rounded-lg shadow-lg bg-white font-mono text-[13px] text-slate-800">
+        {/* Clinic Header */}
+        <div className="p-5 border-b border-slate-200">
+            <p className="font-black text-sm">{rx.clinic}</p>
+            <p>{rx.address}</p>
+            <p>{rx.phone}</p>
+        </div>
 
+        {/* Prescriber + Item Count box */}
+        <div className="p-5 border-b border-slate-200 flex justify-between items-start">
+            <div>
+                <p className="font-black">{rx.prescriber}</p>
+                <p className="text-slate-500">{rx.prescriberClinic || rx.prescriberReg || ""}</p>
+            </div>
+            <div className="border border-slate-400 text-[10px] p-2 text-right leading-tight">
+                <p>Item Count:</p>
+                <p>Subsidy Card:</p>
+                <p>Page: 1 of 1</p>
+            </div>
+        </div>
+
+        {/* Patient Info */}
+        <div className="p-5 border-b border-slate-200 space-y-0.5">
+            <p className="font-bold">{rx.patient}</p>
+            <p>{rx.patientAddress}</p>
+            <div className="flex gap-6 mt-1">
+                <span>GMS: {rx.gms}</span>
+                <span>DOB: {rx.dob}</span>
+            </div>
+            {rx.nhi && <p className="font-bold">NHI: {rx.nhi}</p>}
+            {rx.rxDate && <p className="mt-1">Rx {rx.rxDate}</p>}
+        </div>
+
+        {/* Dispense note */}
+        <div className="px-5 pt-3 text-[11px] text-slate-500">
+            Dispense stat list medicines once only unless Frequent Dispense specified
+        </div>
+
+        {/* Drug */}
+        <div className="p-5 space-y-1">
+            <p className="font-black text-base">{rx.drug}</p>
+            <p>Sig: {rx.sig}</p>
+            <p>Mitte: {rx.mitte}</p>
+            {rx.noBrand && <p className="text-slate-500">(no brand substitution)</p>}
+        </div>
+
+        {/* Signature + Date */}
+        <div className="px-5 pb-5 flex justify-between text-[11px] text-slate-600 border-t border-slate-200 pt-4 mt-2">
+            <div>
+                <p className="font-black">{rx.prescriberInitials || ""}</p>
+                <p className="italic">Signature of prescriber</p>
+            </div>
+            <div className="text-right">
+                <p>{rx.signDate || rx.rxDate || ""}</p>
+                <p className="italic">Date (dd/mm/yy)</p>
+            </div>
+        </div>
+    </div>
+);
         const PrescriptionCard = ({ rx }) => (
             <div className="mt-4 border-2 border-slate-300 rounded-2xl overflow-hidden shadow-lg bg-white font-mono">
                 <div className="bg-slate-700 text-white px-5 py-3 flex items-center gap-2">
@@ -493,18 +552,288 @@ const GUIDE_IMAGES = {
                     { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "Involves person in decision making, checks preferences." },
                     { step: "Kaupapa – Checking Understanding", behaviour: "Checks understanding (e.g., teach-back)." },
                     { step: "Whakamutunga – Closing", behaviour: "Confirms next steps; invites questions; respectful closing." }
-                ]}
+                ]},
+                { id: "c35", title: "Case 35: Computer Eye Strain", initialInfo: "A male in his 40s approaches. He's recently started a new office job and has been getting sore, sandy-feeling eyes by the end of the day.", hiddenInfo: { background: "Started a new office job about 2 weeks ago involving screen work all day. Eyes feel sandy/uncomfortable and look slightly redder than normal by end of day. Redness doesn't bother him but wants something to soothe them.", medicalHistory: "Allergy to preserved eye drops — finds them irritating. Preservative-free drops are fine. No meds or medical conditions." }, products: [
+    { name: "Hylo-Forte", tag: "Preservative-Free Lubricant", ingredient: "Sodium hyaluronate 2mg/mL", dose: "1–2 drops per eye as needed.", notes: ["Preservative-free — safe for this patient", "Multi-dose bottle with one-way valve"] },
+    { name: "Celluvisc", tag: "Preservative-Free Lubricant", ingredient: "Carmellose sodium 10mg/mL", dose: "1–2 drops per eye as needed.", notes: ["Preservative-free single-use vials", "Thicker — good for nighttime use"] },
+    { name: "Systane Ultra PF", tag: "Preservative-Free Lubricant", ingredient: "PEG-400, propylene glycol", dose: "1–2 drops per eye as needed.", notes: ["Preservative-free option", "Good for daytime use with contacts"] }
+], checklists: [
+    { step: "Mihimihi – Greeting", behaviour: "Introduces self and role clearly and respectfully." },
+    { step: "Whakawhanaungatanga – Connection", behaviour: "Builds rapport; acknowledges the new job context." },
+    { step: "Kaupapa – Purpose & Agenda", behaviour: "States purpose of consultation; explains what will happen." },
+    { step: "Kaupapa – Understanding Existing Knowledge", behaviour: "Asks what the person already knows or has tried." },
+    { step: "Kaupapa – Information Gathering", behaviour: "Confirms it's for himself." },
+    { step: "Kaupapa – Information Gathering", behaviour: "Confirms symptoms, onset, and duration (new job, screen use)." },
+    { step: "Kaupapa – Information Gathering", behaviour: "★ Checks meds/med conds/allergies — identifies preserved eye drop allergy.", critical: true },
+    { step: "Kaupapa – Information Gathering", behaviour: "★ Screens for red flags: pain, photophobia, vision changes.", critical: true },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "Recommends preservative-free lubricant eye drops." },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "Explains why preservative-free is important for this patient." },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "Gives lifestyle advice: 20-20-20 rule, screen breaks, monitor positioning." },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "Involves person in decision making, checks preferences." },
+    { step: "Kaupapa – Checking Understanding", behaviour: "Checks understanding (e.g., teach-back)." },
+    { step: "Whakamutunga – Closing", behaviour: "Confirms next steps; invites questions; respectful closing." }
+]},
+
+                { id: "c36", title: "Case 36: Dry Eye (Reflex Tearing)", initialInfo: "A person in their 50s approaches. Their eyes keep watering — especially outdoors and in heated environments.", hiddenInfo: { background: "Eyes tear up during morning walks and sometimes when in the car with the heater on. No other symptoms. Finds it strange because 'my eyes aren't dry — they're waterier than they've ever been!'", medicalHistory: "No meds, conditions, or allergies." }, products: [
+    { name: "Hylo-Forte", tag: "Lubricant — Sodium Hyaluronate", ingredient: "Sodium hyaluronate 2mg/mL", dose: "1–2 drops per eye as needed.", notes: ["Preservative-free", "Restores tear film stability"] },
+    { name: "Systane Ultra", tag: "Lubricant — Polymer", ingredient: "PEG-400, propylene glycol", dose: "1–2 drops per eye as needed.", notes: ["Available in PF single-use vials", "Suitable for daytime use"] },
+    { name: "Poly Visc", tag: "Lubricant Ointment — Overnight", ingredient: "Liquid paraffin, white soft paraffin", dose: "Apply small amount inside lower eyelid at night.", notes: ["For overnight use", "Blurs vision temporarily after application"] }
+], checklists: [
+    { step: "Mihimihi – Greeting", behaviour: "Introduces self and role clearly and respectfully." },
+    { step: "Whakawhanaungatanga – Connection", behaviour: "Builds rapport; acknowledges the person's concern." },
+    { step: "Kaupapa – Purpose & Agenda", behaviour: "States purpose of consultation; explains what will happen." },
+    { step: "Kaupapa – Understanding Existing Knowledge", behaviour: "Asks what the person thinks is happening." },
+    { step: "Kaupapa – Information Gathering", behaviour: "Confirms it's for herself/himself." },
+    { step: "Kaupapa – Information Gathering", behaviour: "Confirms symptoms: reflex tearing, triggers (wind, heat, outdoors)." },
+    { step: "Kaupapa – Information Gathering", behaviour: "★ Checks meds/med conds/allergies.", critical: true },
+    { step: "Kaupapa – Information Gathering", behaviour: "★ Screens for red flags: pain, photophobia, vision changes.", critical: true },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "★ Explains the concept of dry eye causing reflex tearing — addresses the paradox.", critical: true },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "Recommends lubricant eye drops to stabilise tear film." },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "Gives lifestyle advice: avoid wind, humidifier, avoid direct heater airflow." },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "Involves person in decision making, checks preferences." },
+    { step: "Kaupapa – Checking Understanding", behaviour: "Checks understanding (e.g., teach-back)." },
+    { step: "Whakamutunga – Closing", behaviour: "Confirms next steps; invites questions; respectful closing." }
+]},
+
+                { id: "c37", title: "Case 37: Viral Conjunctivitis", initialInfo: "A person in their 20s–30s approaches. Their eyes are watery, red, and gritty — and they feel like they're coming down with a cold.", hiddenInfo: { background: "Watery, teary eyes with redness including eyelids. Started ~2 days ago in one eye, now both affected. Also has sore throat and blocked nose but has medication at home for that. Wants something just for the eyes.", medicalHistory: "No vision changes, no light sensitivity. No meds, conditions, allergies. Not pregnant or breastfeeding." }, products: [
+    { name: "Hylo-Forte / Systane", tag: "Lubricant — Supportive Care", ingredient: "Sodium hyaluronate / PEG-400", dose: "1–2 drops per eye as needed.", notes: ["No antibiotic needed — viral cause", "Lubricants soothe and help clear discharge"] },
+    { name: "Cool Compress", tag: "Non-Pharmacological", dose: "Apply cool damp cloth to closed eyes for comfort.", notes: ["Helps relieve irritation", "Use disposable or freshly washed cloth each time"] }
+], checklists: [
+    { step: "Mihimihi – Greeting", behaviour: "Introduces self and role clearly and respectfully." },
+    { step: "Whakawhanaungatanga – Connection", behaviour: "Builds rapport; shows empathy for discomfort." },
+    { step: "Kaupapa – Purpose & Agenda", behaviour: "States purpose of consultation; explains what will happen." },
+    { step: "Kaupapa – Understanding Existing Knowledge", behaviour: "Asks what the person thinks is wrong / has tried." },
+    { step: "Kaupapa – Information Gathering", behaviour: "Confirms it's for herself/himself." },
+    { step: "Kaupapa – Information Gathering", behaviour: "Confirms symptoms: watery discharge, bilateral spread, URTI symptoms." },
+    { step: "Kaupapa – Information Gathering", behaviour: "★ Checks meds/med conds/allergies.", critical: true },
+    { step: "Kaupapa – Information Gathering", behaviour: "★ Screens for red flags: pain, photophobia, vision changes, contact lens use.", critical: true },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "★ Correctly identifies as viral conjunctivitis — does NOT recommend antibiotics.", critical: true },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "Recommends supportive care: lubricant drops, cool compress." },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "Advises on hygiene: handwashing, no sharing towels, stay home from work/school while watery." },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "Advises self-limiting (up to 3 weeks) — when to seek further care." },
+    { step: "Kaupapa – Checking Understanding", behaviour: "Checks understanding (e.g., teach-back)." },
+    { step: "Whakamutunga – Closing", behaviour: "Confirms next steps; invites questions; respectful closing." }
+]},
+
+                { id: "c38", title: "Case 38: ZOOMeds Online Consultation", initialInfo: "You are working for an online pharmacy called ZOOMeds. A patient video-calls wanting to discuss the prescription items they've just received by courier.", hiddenInfo: { background: "This is a role-play between two pharmacists. One acts as the dispensing pharmacist taking the video call; the other acts as the patient. Focus on telephone/video consultation skills, checking patient understanding, and counselling on dispensed items remotely.", medicalHistory: "To be explored during consultation." }, checklists: [
+    { step: "Mihimihi – Greeting", behaviour: "Introduces self, role, and pharmacy clearly at start of video call." },
+    { step: "Whakawhanaungatanga – Connection", behaviour: "Builds rapport appropriately for a remote/online consultation." },
+    { step: "Kaupapa – Purpose & Agenda", behaviour: "Clarifies purpose of the call; confirms patient identity and DOB." },
+    { step: "Kaupapa – Understanding Existing Knowledge", behaviour: "Asks if patient has used these medications before." },
+    { step: "Kaupapa – Information Gathering", behaviour: "Confirms which items were received and checks they match the prescription." },
+    { step: "Kaupapa – Information Gathering", behaviour: "★ Checks meds/med conds/allergies remotely.", critical: true },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "Counsels on each medication: dose, frequency, technique." },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "Addresses any patient questions or concerns." },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "Advises what to do if problems arise (who to contact)." },
+    { step: "Kaupapa – Checking Understanding", behaviour: "Checks understanding remotely (e.g., verbal teach-back)." },
+    { step: "Whakamutunga – Closing", behaviour: "Confirms next steps; provides contact details; respectful closing." }
+]},
+
+                { id: "c39", title: "Case 39: Allergic Conjunctivitis (Outdoor)", initialInfo: "A male in his mid 30s approaches. He's been at a soccer tournament all weekend and his eyes have become very watery, swollen, and scratchy.", hiddenInfo: { background: "Eyes suddenly became very watery, almost swollen-feeling, and very scratchy over the weekend outdoors. If asked about other symptoms: also can't stop sneezing and has a runny nose (clear mucous).", medicalHistory: "No vision changes, no light sensitivity. No meds, conditions, allergies." }, products: [
+    { name: "Livostin Eye Drops", tag: "Antihistamine Eye Drops", ingredient: "Levocabastine 0.5mg/mL", dose: "1–2 drops per eye up to QID.", notes: ["Pharmacist only", "Fast-acting antihistamine — good for acute symptoms"] },
+    { name: "Albalon-A Allergy", tag: "Combination — Antihistamine + Decongestant", ingredient: "Naphazoline + Antazoline", dose: "1–2 drops per eye up to QID.", notes: ["Short-term use only (max 3–4 days)", "Avoid in glaucoma"] },
+    { name: "Zaditen Eye Drops", tag: "Antihistamine + Mast Cell Stabiliser", ingredient: "Ketotifen 0.025%", dose: "1 drop per eye BD.", notes: ["Dual action: antihistamine + mast cell stabiliser", "Good for ongoing allergic conjunctivitis"] },
+    { name: "Oral Loratadine / Cetirizine", tag: "Oral Antihistamine", ingredient: "Loratadine 10mg / Cetirizine 10mg", dose: "1 tablet daily.", notes: ["Useful if systemic allergic symptoms present (sneezing, runny nose)", "Non-drowsy options available"] }
+], checklists: [
+    { step: "Mihimihi – Greeting", behaviour: "Introduces self and role clearly and respectfully." },
+    { step: "Whakawhanaungatanga – Connection", behaviour: "Builds rapport; acknowledges the weekend tournament context." },
+    { step: "Kaupapa – Purpose & Agenda", behaviour: "States purpose of consultation; explains what will happen." },
+    { step: "Kaupapa – Understanding Existing Knowledge", behaviour: "Asks if he's had similar symptoms before / knows what triggered it." },
+    { step: "Kaupapa – Information Gathering", behaviour: "Confirms it's for himself." },
+    { step: "Kaupapa – Information Gathering", behaviour: "Confirms symptoms: watery, swollen, scratchy — and probes for systemic symptoms (sneezing, runny nose)." },
+    { step: "Kaupapa – Information Gathering", behaviour: "★ Checks meds/med conds/allergies.", critical: true },
+    { step: "Kaupapa – Information Gathering", behaviour: "★ Screens for red flags: pain, photophobia, vision changes.", critical: true },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "★ Correctly identifies as allergic conjunctivitis — recommends antihistamine eye drops ± oral antihistamine.", critical: true },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "Advises on allergen avoidance, wraparound glasses outdoors." },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "Involves person in decision making, checks preferences." },
+    { step: "Kaupapa – Checking Understanding", behaviour: "Checks understanding (e.g., teach-back)." },
+    { step: "Whakamutunga – Closing", behaviour: "Confirms next steps; invites questions; respectful closing." }
+]},
+
+                { id: "c40", title: "Case 40: Bacterial Conjunctivitis (Daycare Worker)", initialInfo: "A woman in her mid 40s approaches. She works at a daycare and has woken up with one eye 'glued shut' with yellowish crust.", hiddenInfo: { background: "Woke up with one eye hard to open due to yellow gunk/crust. After wiping it away it came back within hours. Both eyes are slightly red, the affected one more so. Works at a daycare.", medicalHistory: "No vision changes, no light sensitivity. No meds, conditions, allergies. Not pregnant or breastfeeding." }, products: [
+    { name: "Chlorafast Eye Drops", tag: "Antibiotic — First Line", ingredient: "Chloramphenicol 0.5%", dose: "1–2 drops every 2–6 hours for 2–3 days, then reduce. Continue 48 hrs after eye appears normal.", notes: ["Pharmacist only", "Broad-spectrum bacteriostatic", "Wash hands before/after use"] },
+    { name: "Chloramphenicol Eye Ointment 1%", tag: "Antibiotic Ointment — Overnight", ingredient: "Chloramphenicol 1%", dose: "Apply 1.5cm inside lower eyelid every 3 hrs, or once at night if using drops during day.", notes: ["Prolongs contact time", "Use at night with drops during the day"] }
+], checklists: [
+    { step: "Mihimihi – Greeting", behaviour: "Introduces self and role clearly and respectfully." },
+    { step: "Whakawhanaungatanga – Connection", behaviour: "Builds rapport; acknowledges the daycare context." },
+    { step: "Kaupapa – Purpose & Agenda", behaviour: "States purpose of consultation; explains what will happen." },
+    { step: "Kaupapa – Understanding Existing Knowledge", behaviour: "Has she had this before? What does she think it is?" },
+    { step: "Kaupapa – Information Gathering", behaviour: "Confirms it's for herself." },
+    { step: "Kaupapa – Information Gathering", behaviour: "Confirms symptoms: purulent discharge, crusting, bilateral redness." },
+    { step: "Kaupapa – Information Gathering", behaviour: "★ Checks meds/med conds/allergies/pregnancy/breastfeeding.", critical: true },
+    { step: "Kaupapa – Information Gathering", behaviour: "★ Screens for red flags: pain, photophobia, vision changes, contact lens use.", critical: true },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "★ Correctly identifies as bacterial conjunctivitis — recommends chloramphenicol.", critical: true },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "Explains correct technique: how to instil drops/ointment." },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "Advises on hygiene and infection control — especially important for daycare worker." },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "Advises when to return/refer if not improving in 2–3 days." },
+    { step: "Kaupapa – Checking Understanding", behaviour: "Checks understanding (e.g., teach-back)." },
+    { step: "Whakamutunga – Closing", behaviour: "Confirms next steps; invites questions; respectful closing." }
+]},
+
+                { id: "c41", title: "Case 41: Stye (Teen Before School Ball)", initialInfo: "A person in their 50s approaches urgently. Their teenage daughter has woken up with a 'pimple on her eyelid' and the school ball is this weekend!", hiddenInfo: { background: "Teenage daughter has a tender red lump on her eyelid (lash line). Parent wants eye drops to make it go away ASAP. Daughter is threatening to pop it with a needle. No vision changes, no light sensitivity, no meds, conditions, allergies.", medicalHistory: "No meds, conditions, or allergies (as far as parent knows). Not pregnant or breastfeeding (as far as parent knows)." }, products: [
+    { name: "Warm Compress", tag: "First-Line Treatment", dose: "Apply warm compress for 10–15 minutes, 3–4 times per day.", notes: ["Most effective treatment", "Use a clean cloth soaked in warm water", "DO NOT squeeze or pop"] }
+], checklists: [
+    { step: "Mihimihi – Greeting", behaviour: "Introduces self and role clearly and respectfully." },
+    { step: "Whakawhanaungatanga – Connection", behaviour: "Builds rapport; acknowledges the urgency and emotional context (school ball)." },
+    { step: "Kaupapa – Purpose & Agenda", behaviour: "States purpose of consultation; explains what will happen." },
+    { step: "Kaupapa – Understanding Existing Knowledge", behaviour: "Asks what the parent thinks it is / what they've tried." },
+    { step: "Kaupapa – Information Gathering", behaviour: "Confirms it's for the daughter — not for the person presenting." },
+    { step: "Kaupapa – Information Gathering", behaviour: "Confirms symptoms: tender, localised lump on eyelid lash line (stye/hordeolum)." },
+    { step: "Kaupapa – Information Gathering", behaviour: "★ Screens for red flags: vision changes, photophobia, spreading redness.", critical: true },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "★ Correctly identifies as a stye — explains antibiotic drops are NOT appropriate.", critical: true },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "★ Strongly advises NOT to squeeze or pop — risk of spreading infection.", critical: true },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "Recommends warm compress technique: 10–15 mins, 3–4x daily." },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "Advises when to refer: if not resolving in a few days or getting worse." },
+    { step: "Kaupapa – Checking Understanding", behaviour: "Checks understanding (e.g., teach-back)." },
+    { step: "Whakamutunga – Closing", behaviour: "Confirms next steps; invites questions; respectful closing." }
+]},
+
+                { id: "c42", title: "Case 42: Blepharitis (Elderly Koro)", initialInfo: "A young person in their late teens/early 20s approaches. They want something for their 70-year-old koro who has 'crusty eyes'.", hiddenInfo: { background: "70yo koro has had small flakes around his eyes — like dandruff or thin yellow crust — for over a year. It's been annoying him but he keeps forgetting to ask the doctor. Grandchild decided to come get something.", medicalHistory: "No vision changes, no light sensitivity. Takes some medications but grandchild doesn't know what. No known medical conditions or allergies." }, products: [
+    { name: "Lid Wipes (e.g. Blephaclean)", tag: "Eyelid Hygiene", dose: "Wipe along the eyelid margin once daily.", notes: ["Main treatment for blepharitis", "Pre-moistened wipes — convenient for elderly", "Consistent daily use is key"] },
+    { name: "Baby Shampoo Compress", tag: "DIY Lid Hygiene", dose: "½ tsp baby shampoo in warm water. Soak cloth, apply to closed eyes for a few mins, then clean along lash line with cotton bud.", notes: ["Low-cost alternative", "Do daily", "Not a cure — aim is to control symptoms"] },
+    { name: "Lubricant Eye Drops", tag: "Supportive Care", ingredient: "Sodium hyaluronate or carmellose", dose: "1–2 drops as needed for dryness/grittiness.", notes: ["Soothe associated dry eye symptoms"] }
+], checklists: [
+    { step: "Mihimihi – Greeting", behaviour: "Introduces self and role clearly and respectfully." },
+    { step: "Whakawhanaungatanga – Connection", behaviour: "Builds rapport; acknowledges the grandchild coming in on behalf of koro." },
+    { step: "Kaupapa – Purpose & Agenda", behaviour: "States purpose of consultation; explains what will happen." },
+    { step: "Kaupapa – Understanding Existing Knowledge", behaviour: "Has koro seen a doctor about this? Does grandchild know what it is?" },
+    { step: "Kaupapa – Information Gathering", behaviour: "Confirms it's for the koro — not the person presenting. Establishes age (70yo)." },
+    { step: "Kaupapa – Information Gathering", behaviour: "Confirms symptoms: chronic flaking/crusting along lash line for >1 year (blepharitis)." },
+    { step: "Kaupapa – Information Gathering", behaviour: "★ Checks meds/med conds/allergies as best as possible (third-party).", critical: true },
+    { step: "Kaupapa – Information Gathering", behaviour: "★ Screens for red flags: vision changes, photophobia, pain.", critical: true },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "★ Correctly identifies as blepharitis — explains there is no cure, only management.", critical: true },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "Recommends daily lid hygiene routine (lid wipes or baby shampoo method)." },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "Recommends referral to GP/optometrist given duration (>1 year, unknown meds)." },
+    { step: "Kaupapa – Checking Understanding", behaviour: "Checks understanding — ensures grandchild can relay instructions to koro." },
+    { step: "Whakamutunga – Closing", behaviour: "Confirms next steps; invites questions; respectful closing." }
+]},
+
+                { id: "c43", title: "Case 43: Foreign Body in Eye (Construction Site)", initialInfo: "A young person in their late teens/early 20s approaches. They've been working on a dusty construction site and think there's something in their eye.", hiddenInfo: { background: "Was helping dad on construction site on uni holidays. Very dusty with wood shavings and debris flying around in wind. Feels like something is in the eye but can't see anything to remove. No vision changes, no light sensitivity.", medicalHistory: "No meds, conditions, or allergies. Not pregnant or breastfeeding." }, products: [
+    { name: "Eyewash / Saline Solution", tag: "Eye Irrigation", dose: "Irrigate the eye with sterile saline or eyewash solution. Can also use clean running water.", notes: ["First-line for foreign body — flush thoroughly", "Do NOT rub the eye", "If not resolved after irrigation → refer to ED or optometrist"] }
+], checklists: [
+    { step: "Mihimihi – Greeting", behaviour: "Introduces self and role clearly and respectfully." },
+    { step: "Whakawhanaungatanga – Connection", behaviour: "Builds rapport; acknowledges the work context." },
+    { step: "Kaupapa – Purpose & Agenda", behaviour: "States purpose of consultation; explains what will happen." },
+    { step: "Kaupapa – Information Gathering", behaviour: "Confirms it's for themselves." },
+    { step: "Kaupapa – Information Gathering", behaviour: "Clarifies what they were doing and what may have entered the eye (dust, wood shavings)." },
+    { step: "Kaupapa – Information Gathering", behaviour: "★ Screens for red flags: sharp pain, photophobia, vision changes, chemical exposure.", critical: true },
+    { step: "Kaupapa – Information Gathering", behaviour: "★ Asks if anything was projected at high speed (nail gun, grinding) — refer immediately if yes.", critical: true },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "Advises eye irrigation with sterile saline / eyewash — explains technique." },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "Advises NOT to rub the eye." },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "Advises when to refer: if irrigation does not resolve, pain worsens, or vision affected → ED/optometrist." },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "Advises on future eye protection (safety glasses on construction sites)." },
+    { step: "Kaupapa – Checking Understanding", behaviour: "Checks understanding (e.g., teach-back)." },
+    { step: "Whakamutunga – Closing", behaviour: "Confirms next steps; invites questions; respectful closing." }
+]},
+
+                { id: "c44", title: "Case 44: Eye Drop Technique (Post-Laser Surgery)", initialInfo: "An elderly person approaches. They had laser eye surgery yesterday and have been dispensed three sets of eye drops — but are struggling with the technique.", hiddenInfo: { background: "Has shaky hands and can't get the drops into their eye. Also confused about how to manage 3 different eye drops — some QID and one every 2 hours. Needs help with technique and a schedule/reminder system.", medicalHistory: "Recently had laser eye surgery. Three sets of post-operative eye drops prescribed." }, checklists: [
+    { step: "Mihimihi – Greeting", behaviour: "Introduces self and role clearly and respectfully." },
+    { step: "Whakawhanaungatanga – Connection", behaviour: "Builds rapport; shows patience and empathy for the elderly patient." },
+    { step: "Kaupapa – Purpose & Agenda", behaviour: "States purpose of consultation; explains what will happen." },
+    { step: "Kaupapa – Understanding Existing Knowledge", behaviour: "Asks what technique they have been trying; what's been difficult." },
+    { step: "Kaupapa – Information Gathering", behaviour: "Confirms which drops they have and the prescribed regimen." },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "★ Demonstrates/explains correct eye drop technique: tilt head back, pull lower lid, drop into pocket, close eye gently, press inner corner.", critical: true },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "Suggests aids for shaky hands: autodropper device, lying down, using a mirror." },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "★ Helps create a practical dosing schedule: separate the drops by at least 5 minutes; suggest a written timetable or phone alarm.", critical: true },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "Advises to wait 5 minutes between different eye drops." },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "Involves patient in decision making; checks what support they have at home." },
+    { step: "Kaupapa – Checking Understanding", behaviour: "Asks patient to demonstrate or repeat back technique and schedule." },
+    { step: "Whakamutunga – Closing", behaviour: "Confirms next steps; offers written instructions if helpful; respectful closing." }
+]}
             ];
 
             const ethicalScenarios = [
-                { title: "Ethical 1: Missing Signature", text: "You are phoning because the prescription is missing a signature." },
-                { title: "Ethical 2: Wrong Patient Age", text: "You are phoning because the doctor has prescribed an oral contraceptive for an 18-month-old (boy)." },
-                { title: "Ethical 3: Receptionist Signing", text: "You are phoning because the specialist (prescriber) has got their receptionist to sign the prescription on their behalf." },
-                { title: "Ethical 4: Non-Prescriber Nurse", text: "You are phoning because the prescription you have received is from a Nurse (who is NOT a registered prescriber)." },
-                { title: "Ethical 5: Missing Details", text: "You are phoning because the prescription is missing patient details – the patient dropped it in but has since walked away." },
-                { title: "Ethical 6: Controlled Drug Format", text: "You are calling because the prescription is for a medicine that requires specific controlled drug formatting which is missing." },
-                { title: "Ethical 7: Missing Dose", text: "You are phoning because the doctor has not written a dose or frequency on the script – it is for \'poly tears\'  eye drops and says \'Use daily\'." }
-            ];
+    { title: "Ethical 1: Missing Signature", text: "You are phoning because the prescription is missing a signature." },
+    { title: "Ethical 2: Wrong Patient Age", text: "You are phoning because the doctor has prescribed an oral contraceptive for an 18-month-old (boy)." },
+    { title: "Ethical 3: Receptionist Signing", text: "You are phoning because the specialist (prescriber) has got their receptionist to sign the prescription on their behalf." },
+    { title: "Ethical 4: Non-Prescriber Nurse", text: "You are phoning because the prescription you have received is from a Nurse (who is NOT a registered prescriber)." },
+    { title: "Ethical 5: Missing Details", text: "You are phoning because the prescription is missing patient details – the patient dropped it in but has since walked away." },
+    { title: "Ethical 6: Controlled Drug Format", text: "You are calling because the prescription is for a medicine that requires specific controlled drug formatting which is missing." },
+    { title: "Ethical 7: Missing Dose", text: "You are phoning because the doctor has not written a dose or frequency on the script – it is for 'poly tears' eye drops and says 'Use daily'." },
+    {
+        title: "Ethical 8: Controlled Drug Supply Limit",
+        text: "You are reviewing a prescription for Zopiclone. The prescriber has written Mitte: 180 days, but this is a Class C controlled drug.",
+        rx: {
+            clinic: "Marvel Medical Centre", address: "123 Victorian St, Hamilton Central, Hamilton 3240", phone: "021 222 333",
+            prescriber: "Dr Donald Duck", prescriberClinic: "Marvel Medical Centre",
+            patient: "Jerry Smith", patientAddress: "114 Steward Street", gms: "S4", dob: "12 Mar 1956",
+            rxDate: "22 Apr 2026",
+            drug: "Zopiclone 7.5mg tablets",
+            sig: "1t OD at night",
+            mitte: "180 days",
+prescriberInitials: "D. Duck",
+signDate: "22/04/2026",
+            noBrand: true
+        },
+        issues: [
+            "Mitte is 180 days — Class C controlled drugs can only be supplied for a maximum of 30 days at a time",
+            "Pharmacist must contact prescriber to reduce supply to 30 days"
+        ]
+    },
+    {
+        title: "Ethical 9: Incomplete Controlled Drug Prescription",
+        text: "You are reviewing a prescription for Morphine sulphate. The sig is 'Daily prn' but critical information is missing.",
+        rx: {
+            clinic: "Marvel Medical Centre", address: "PO Box 23226, Hamilton Central, Hamilton 3240", phone: "07 111 222 333",
+            prescriber: "Dr Donald Duck", prescriberClinic: "Marvel Medical Centre",
+            patient: "Jerry Smith", patientAddress: "114 Steward Street", gms: "S4", dob: "12 Mar",
+            nhi: "ABC1234", rxDate: "22 Apr 2026",
+            drug: "Morphine sulphate 10mg tablets",
+            sig: "Daily prn",
+            mitte: "30 days",
+prescriberInitials: "D. Duck",
+signDate: "22/04/2026",
+            noBrand: true
+        },
+        issues: [
+            "Sig is 'Daily prn' — missing dose (how many tablets per dose)",
+            "Missing frequency (how many times per day)",
+            "For controlled drugs, total quantity in words and figures is required"
+        ]
+    },
+    {
+        title: "Ethical 10: Incomplete Sig",
+        text: "You are reviewing a prescription for Paracetamol. The sig is 'Daily prn' but is incomplete.",
+        rx: {
+            clinic: "Marvel Medical Centre", address: "PO Box 23226, Hamilton Central, Hamilton 3240", phone: "07 111 222 333",
+            prescriber: "Dr Donald Duck", prescriberClinic: "Marvel Medical Centre",
+            patient: "Jerry Smith", patientAddress: "114 Steward Street", gms: "S4", dob: "12 Mar",
+            nhi: "ABC1234", rxDate: "22 Apr 2026",
+            drug: "Paracetamol 500mg",
+            sig: "Daily prn",
+            mitte: "30 days",
+prescriberInitials: "D. Duck",
+signDate: "22/04/2026",
+            noBrand: true
+        },
+        issues: [
+            "Sig is 'Daily prn' — missing dose (how many tablets per dose)",
+            "Missing frequency (how many times per day)",
+            "Missing formulation/dosage form (e.g. tablets, capsules)"
+        ]
+    },
+    {
+        title: "Ethical 11: Valid Prescription",
+        text: "You are reviewing the following prescription. Assess whether it is valid and can be dispensed.",
+        rx: {
+            clinic: "Disney Medical Centre", address: "123 Walt Lane, Hamilton", phone: "07 111 222 333",
+            prescriber: "Dr David Duck", prescriberReg: "NZMC Reg No. 7010 HPI Facility. F39094-H",
+            patient: "John Smith", patientAddress: "114 Steward Street", gms: "S1", dob: "12 Mar 1952",
+            nhi: "XXX123", rxDate: "22 Apr 2026 8:31am",
+            drug: "Klacid 500mg tablets",
+            sig: "1t bd (recommended by infectious disease consultant Dr I Fection)",
+            mitte: "7 days",
+prescriberInitials: "D. Duck",
+signDate: "22/04/2026",
+            noBrand: true
+        },
+        issues: [
+            "This is a VALID prescription — all required elements are present",
+            "The note 'recommended by infectious disease consultant' is additional information only; the legal prescriber is Dr David Duck who has signed the prescription",
+            "Can be dispensed as written"
+        ]
+    }
+];
 
             useEffect(() => {
                 if (currentTab === 'ethical' || (currentTab === 'clinical' && [13, 14, 15].includes(caseIndex))) {
@@ -597,7 +926,23 @@ const GUIDE_IMAGES = {
                                     {role === 'pharmacist' && currentCase.prescription && (
                                         <PrescriptionCard rx={currentCase.prescription} />
                                     )}
+{role === 'pharmacist' && ethicalScenarios[caseIndex] && ethicalScenarios[caseIndex].rx && (
+    <EthicalPrescriptionCard rx={ethicalScenarios[caseIndex].rx} />
+)}
 
+{role === 'evaluator' && ethicalScenarios[caseIndex] && ethicalScenarios[caseIndex].issues && (
+    <div className="bg-white border-2 border-emerald-600 rounded-2xl overflow-hidden shadow">
+        <div className="bg-emerald-700 text-white px-5 py-3 text-xs font-black uppercase tracking-widest">📋 Assessor Notes — Prescription Issues</div>
+        <ul className="p-5 space-y-3">
+            {ethicalScenarios[caseIndex].issues.map((issue, i) => (
+                <li key={i} className={`flex gap-3 text-sm ${issue.startsWith('This is a VALID') ? 'text-emerald-700 font-bold' : 'text-slate-700'}`}>
+                    <span className="shrink-0">{issue.startsWith('This is a VALID') || issue.startsWith('Can be') ? '✅' : '⚠️'}</span>
+                    {issue}
+                </li>
+            ))}
+        </ul>
+    </div>
+)}
                                     {(role === 'patient' || role === 'evaluator') && (
                                         <div className="bg-orange-50 border border-orange-200 p-6 rounded-2xl">
                                             <p className="text-xs font-black text-orange-800 uppercase mb-2">Patient Script (Hidden Details)</p>
@@ -688,11 +1033,31 @@ const GUIDE_IMAGES = {
                                         </button>
                                         <h2 className="text-xl font-black text-slate-800 uppercase border-l-4 border-red-700 pl-3">#{caseIndex + 1}: {ethicalScenarios[caseIndex].title}</h2>
                                     </div>
-                                    <div className="bg-red-50 border-2 border-red-100 p-8 rounded-3xl text-center relative overflow-hidden shadow-sm">
-                                        <Icon name="shield-alert" className="absolute -bottom-4 -right-4 text-red-200 opacity-30" size={120} />
-                                        <p className="text-[10px] font-black uppercase text-red-500 mb-4 tracking-widest italic">Professional Ethics Scenario</p>
-                                        <p className="text-xl font-serif italic text-red-900 leading-relaxed">"{ethicalScenarios[caseIndex].text}"</p>
-                                    </div>
+ {!ethicalScenarios[caseIndex].rx && (
+    <div className="bg-red-50 border-2 border-red-100 p-8 rounded-3xl text-center relative overflow-hidden shadow-sm">
+        <Icon name="shield-alert" className="absolute -bottom-4 -right-4 text-red-200 opacity-30" size={120} />
+        <p className="text-[10px] font-black uppercase text-red-500 mb-4 tracking-widest italic">Professional Ethics Scenario</p>
+        <p className="text-xl font-serif italic text-red-900 leading-relaxed">"{ethicalScenarios[caseIndex].text}"</p>
+    </div>
+)}
+
+{role === 'pharmacist' && ethicalScenarios[caseIndex].rx && (
+    <EthicalPrescriptionCard rx={ethicalScenarios[caseIndex].rx} />
+)}
+
+{role === 'evaluator' && ethicalScenarios[caseIndex].issues && (
+    <div className="bg-white border-2 border-emerald-600 rounded-2xl overflow-hidden shadow">
+        <div className="bg-emerald-700 text-white px-5 py-3 text-xs font-black uppercase tracking-widest">📋 Assessor Notes — Prescription Issues</div>
+        <ul className="p-5 space-y-3">
+            {ethicalScenarios[caseIndex].issues.map((issue, i) => (
+                <li key={i} className={`flex gap-3 text-sm ${issue.startsWith('This is a VALID') || issue.startsWith('Can be') ? 'text-emerald-700 font-bold' : 'text-slate-700'}`}>
+                    <span className="shrink-0">{issue.startsWith('This is a VALID') || issue.startsWith('Can be') ? '✅' : '⚠️'}</span>
+                    {issue}
+                </li>
+            ))}
+        </ul>
+    </div>
+)}
                                     {(role === 'patient' || role === 'evaluator') && (
                                         <div className="bg-[#1e293b] text-white p-6 rounded-3xl shadow-xl border-l-8 border-amber-500 space-y-4">
                                             <div className="flex flex-col sm:flex-row justify-between gap-4 border-b border-white/10 pb-4">
