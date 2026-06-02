@@ -833,6 +833,292 @@ signDate: "22/04/2026",
             "Can be dispensed as written"
         ]
     }
+    ,{
+    title: "Ethical 12: Opioid Supply Duration + Incomplete Sig",
+    text: "You are reviewing a prescription for Morphine. There are multiple issues with this prescription.",
+    rx: {
+        clinic: "Harbour Medical Centre", address: "PO Box 5021, Auckland Central, Auckland 1010", phone: "09 111 2222",
+        prescriber: "Dr Sarah Wong", prescriberClinic: "Harbour Medical Centre",
+        patient: "James Taylor", patientAddress: "45 Karangahape Road, Auckland", gms: "S4", dob: "15 Jun 1978",
+        nhi: "BCD5678", rxDate: "22 Apr 2026",
+        drug: "Morphine sulphate 10mg tablets",
+        sig: "Take as directed",
+        mitte: "90 days",
+        noBrand: true,
+        prescriberInitials: "S. Wong", signDate: "22/04/2026"
+    },
+    issues: [
+        "Mitte is 90 days — Class B opioid controlled drugs (morphine) have a maximum prescription duration of 30 days",
+        "Class B opioids must be dispensed in 10-day lots as per Pharmac rules (unless exception criteria met)",
+        "Sig is 'Take as directed' — missing dose (how many tablets), frequency (how many times per day), and route",
+        "Prescriber address is a PO Box — prescriber address must be a street address or postal address of place of work"
+    ]
+},
+{
+    title: "Ethical 13: Expired Prescription + Missing Prescriber Phone",
+    text: "You are reviewing a prescription for Zopiclone that has been brought in today.",
+    rx: {
+        clinic: "Ferndale Family Practice", address: "88 Ferndale Street, Wellington 6011", phone: "",
+        prescriber: "Dr Mark Patel", prescriberClinic: "Ferndale Family Practice",
+        patient: "Linda Chen", patientAddress: "22 Aro Street, Wellington", gms: "S3", dob: "03 Mar 1965",
+        nhi: "EFG9012", rxDate: "10 Jan 2026",
+        drug: "Zopiclone 7.5mg tablets",
+        sig: "1 tablet at night",
+        mitte: "90 days",
+        noBrand: true,
+        prescriberInitials: "M. Patel", signDate: "10/01/2026"
+    },
+    issues: [
+        "Prescription is EXPIRED — written 10 Jan 2026, presented in May 2026 (>3 months). Cannot be dispensed [Regulation 42(3)(c)]",
+        "Zopiclone is Class C non-opioid controlled drug — maximum prescription duration is 3 months (90 days), but given expiry this is now irrelevant",
+        "Prescriber telephone number is missing — required by law"
+    ]
+},
+{
+    title: "Ethical 14: PO Box Patient Address + Missing Strength",
+    text: "You are reviewing a prescription for Ritalin. You notice several issues before dispensing.",
+    rx: {
+        clinic: "Northshore Specialists", address: "120 Lake Road, Takapuna, Auckland 0622", phone: "09 333 4444",
+        prescriber: "Dr Emily Brown", prescriberClinic: "Northshore Specialists",
+        patient: "Tom Wilson", patientAddress: "PO Box 1234, Takapuna, Auckland", gms: "S1", dob: "22 Sep 2010",
+        nhi: "HIJ3456", rxDate: "28 Apr 2026",
+        drug: "Ritalin tablets",
+        sig: "1 tablet in the morning",
+        mitte: "30 days",
+        noBrand: true,
+        prescriberInitials: "E. Brown", signDate: "28/04/2026"
+    },
+    issues: [
+        "Patient address is a PO Box — patient address must be a street address, not a PO Box or Rural Delivery number [Medicines Regulations]",
+        "Patient DOB is 22 Sep 2010 — patient is under 13 years old, so date of birth is mandatory. It is present here, but verify it matches ID",
+        "Drug strength is missing — 'Ritalin tablets' does not specify the strength (e.g. 10mg). The strength of the medicine is required on the prescription",
+        "Ritalin (methylphenidate) is a Class B non-opioid controlled drug — dispensed in monthly lots"
+    ]
+},
+{
+    title: "Ethical 15: Opioid Supply Duration + Missing Signature",
+    text: "You are reviewing a prescription for Codeine. You identify critical issues before dispensing.",
+    rx: {
+        clinic: "Eastside Medical", address: "55 Pakuranga Highway, Pakuranga, Auckland 2010", phone: "09 555 6666",
+        prescriber: "Dr James Lee", prescriberClinic: "Eastside Medical",
+        patient: "Rachel Kim", patientAddress: "8 Ti Rakau Drive, Pakuranga", gms: "S2", dob: "14 Nov 1990",
+        nhi: "KLM7890", rxDate: "25 Apr 2026",
+        drug: "Codeine phosphate 30mg tablets",
+        sig: "1–2 tablets every 4–6 hours as needed",
+        mitte: "90 days",
+        noBrand: true,
+        prescriberInitials: "", signDate: "25/04/2026"
+    },
+    issues: [
+        "Prescription is NOT signed — a prescription must be signed personally by the prescriber with their usual signature (not a facsimile or stamp) [Medicines Act]",
+        "Mitte is 90 days — Codeine is a Class C opioid controlled drug. Maximum prescription duration is 30 days",
+        "Class C opioids must be dispensed in a single lot (unless smaller lots specified)"
+    ]
+},
+{
+    title: "Ethical 16: Missing DOB (Child) + Missing Total Amount",
+    text: "You are reviewing a prescription for a Fentanyl patch for a paediatric patient.",
+    rx: {
+        clinic: "Starship Outpatient Clinic", address: "2 Park Road, Grafton, Auckland 1023", phone: "09 307 4949",
+        prescriber: "Dr Aroha Ngata", prescriberClinic: "Starship Outpatient Clinic",
+        patient: "Sam Tūhoe", patientAddress: "14 Manukau Road, Epsom, Auckland", gms: "S1", dob: "",
+        nhi: "NOP2345", rxDate: "29 Apr 2026",
+        drug: "Fentanyl 25 mcg/hr transdermal patch",
+        sig: "Apply one patch every 72 hours",
+        mitte: "30 days",
+        noBrand: true,
+        prescriberInitials: "A. Ngata", signDate: "29/04/2026"
+    },
+    issues: [
+        "Date of birth is MISSING — for patients under 13 years old, DOB is mandatory on the prescription [Medicines Regulations]",
+        "Total amount/quantity is not stated — for controlled drugs, the total amount of medicine or total period of supply must be clearly stated",
+        "Fentanyl is a Class B opioid controlled drug — must be dispensed in 10-day lots as per Pharmac rules",
+        "Maximum prescription duration for Class B opioids is 30 days — verify this is within limits"
+    ]
+},
+{
+    title: "Ethical 17: Expired Prescription + Missing Patient Address",
+    text: "You are reviewing a prescription for Diazepam brought in by a patient.",
+    rx: {
+        clinic: "Central City Clinic", address: "300 Queen Street, Auckland Central, Auckland 1010", phone: "09 777 8888",
+        prescriber: "Dr Peter Chan", prescriberClinic: "Central City Clinic",
+        patient: "Maria Santos", patientAddress: "", gms: "S4", dob: "07 Jul 1972",
+        nhi: "QRS6789", rxDate: "15 Jan 2026",
+        drug: "Diazepam 5mg tablets",
+        sig: "1 tablet TDS",
+        mitte: "90 days",
+        noBrand: false,
+        prescriberInitials: "P. Chan", signDate: "15/01/2026"
+    },
+    issues: [
+        "Prescription is EXPIRED — written 15 Jan 2026, presented in May 2026 (>3 months). Cannot be dispensed [Regulation 42(3)(c)]",
+        "Patient address is MISSING — full name and address of the patient is required [Medicines Regulations]",
+        "Diazepam is a Class C non-opioid controlled drug — maximum prescription duration is 3 months (90 days)"
+    ]
+},
+{
+    title: "Ethical 18: Missing Prescriber Address + Ambiguous Dose",
+    text: "You are reviewing a prescription for Methadone. Several elements require clarification before dispensing.",
+    rx: {
+        clinic: "Wellington Pain Clinic", address: "", phone: "04 999 0000",
+        prescriber: "Dr Tane Parata", prescriberClinic: "Wellington Pain Clinic",
+        patient: "Gary Thompson", patientAddress: "67 Cuba Street, Wellington", gms: "S3", dob: "30 Aug 1955",
+        nhi: "TUV1234", rxDate: "30 Apr 2026",
+        drug: "Methadone 10mg tablets",
+        sig: "Take some tablets daily",
+        mitte: "30 days",
+        noBrand: true,
+        prescriberInitials: "T. Parata", signDate: "30/04/2026"
+    },
+    issues: [
+        "Prescriber address is MISSING — the street address or postal address of the prescriber's place of work is required by law",
+        "Sig is ambiguous — 'Take some tablets daily' does not specify the dose (how many tablets). Dose and frequency must be stated clearly",
+        "Methadone is a Class B opioid controlled drug (non-OST) — must be dispensed in 10-day lots, maximum 30 days supply",
+        "Pharmacist must contact prescriber to clarify dose before dispensing"
+    ]
+},
+{
+    title: "Ethical 19: Multiple Errors (3 Medicines)",
+    text: "You are reviewing a prescription containing three medicines. Identify all issues before proceeding.",
+    rx: {
+        clinic: "Suburban Health Centre", address: "PO Box 999, Hamilton 3240", phone: "",
+        prescriber: "Dr Fiona McDonald", prescriberClinic: "Suburban Health Centre",
+        patient: "David Park", patientAddress: "PO Box 4567, Hamilton", gms: "S2", dob: "",
+        nhi: "", rxDate: "10 Jan 2026",
+        drug: "1. Zopiclone 7.5mg tablets\n2. Ibuprofen 400mg tablets\n3. Amoxicillin capsules",
+        sig: "1. Use daily\n2. Take as needed\n3. Take 3 times a day",
+        mitte: "1. 180 days   2. 30 days   3. 7 days",
+        noBrand: true,
+        prescriberInitials: "F. McDonald", signDate: "10/01/2026"
+    },
+    issues: [
+        "Prescription is EXPIRED — written 10 Jan 2026, presented in May 2026 (>3 months). Cannot be dispensed [Regulation 42(3)(c)]",
+        "Prescriber address is a PO Box — must be a street address of place of work",
+        "Prescriber telephone number is MISSING",
+        "Patient address is a PO Box — must be a street address, not PO Box",
+        "Patient NHI and DOB are MISSING",
+        "Zopiclone: Mitte 180 days — Class C non-opioid controlled drug, maximum 90 days. Also sig 'Use daily' is missing dose and frequency",
+        "Amoxicillin: strength is missing — 'Amoxicillin capsules' does not specify strength (e.g. 500mg)",
+        "Ibuprofen: sig 'Take as needed' is missing dose and frequency"
+    ]
+}
+,{
+    title: "Ethical 20: Special Authority Required",
+    text: "A patient presents a prescription for Sildenafil. They expect it to be funded but you need to check before dispensing.",
+    rx: {
+        clinic: "Auckland City Medical", address: "150 Queen Street, Auckland Central, Auckland 1010", phone: "09 111 3333",
+        prescriber: "Dr Helen Park", prescriberClinic: "Auckland City Medical",
+        patient: "Michael Brown", patientAddress: "23 Symonds Street, Auckland", gms: "S4", dob: "12 May 1968",
+        nhi: "ABC1234", rxDate: "28 Apr 2026",
+        drug: "Sildenafil 25mg tablets",
+        sig: "1 tablet 1 hour before activity as needed. Max 1 per day.",
+        mitte: "30 days",
+        noBrand: true,
+        prescriberInitials: "H. Park", signDate: "28/04/2026"
+    },
+    issues: [
+        "✅ Prescription format is VALID — all legal elements are present",
+        "⚠️ FUNDING ISSUE: Sildenafil is only funded under Special Authority (SA) for specific indications (e.g. pulmonary arterial hypertension)",
+        "⚠️ For erectile dysfunction: Sildenafil is NOT funded — patient must pay full cost",
+        "Pharmacist should check if a valid SA number is present on the prescription",
+        "If no SA: explain to patient that the medicine is available but at full cost, and advise prescriber to apply for SA if clinically appropriate",
+        "Where to check: Pharmac website (pharmac.govt.nz) or New Zealand Formulary (nzf.org.nz)"
+    ]
+},
+{
+    title: "Ethical 21: Brand Substitution — Funded Generic Only",
+    text: "A patient presents a prescription for Losec (omeprazole). They insist on the brand name product.",
+    rx: {
+        clinic: "Remuera Medical Centre", address: "210 Remuera Road, Remuera, Auckland 1050", phone: "09 222 4444",
+        prescriber: "Dr John Smith", prescriberClinic: "Remuera Medical Centre",
+        patient: "Susan Lee", patientAddress: "5 Victoria Avenue, Remuera, Auckland", gms: "S2", dob: "30 Nov 1975",
+        nhi: "DEF5678", rxDate: "30 Apr 2026",
+        drug: "Losec (omeprazole) 20mg capsules",
+        sig: "1 capsule daily",
+        mitte: "30 days",
+        noBrand: false,
+        prescriberInitials: "J. Smith", signDate: "30/04/2026"
+    },
+    issues: [
+        "✅ Prescription format is VALID — all legal elements are present",
+        "⚠️ FUNDING ISSUE: Pharmac funds the generic omeprazole brand only — Losec (originator brand) is NOT subsidised",
+        "Patient can receive funded generic omeprazole (e.g. Omeprazole AFT or similar) at no cost",
+        "If patient insists on Losec brand: available but patient pays the full cost (no subsidy)",
+        "Prescription does NOT say 'no brand substitution' — pharmacist may substitute with funded generic",
+        "If prescription said 'no brand substitution': patient would need to pay the difference or prescriber contacted to amend",
+        "Where to check: Pharmac Schedule (schedule.pharmac.govt.nz)"
+    ]
+},
+{
+    title: "Ethical 22: Prescription Funding Expired (>3 Months)",
+    text: "A patient presents a prescription written 4 months ago. They want it dispensed and funded today.",
+    rx: {
+        clinic: "Hamilton Central Practice", address: "88 Victoria Street, Hamilton Central, Hamilton 3204", phone: "07 333 5555",
+        prescriber: "Dr Ngaio Henare", prescriberClinic: "Hamilton Central Practice",
+        patient: "Robert Tane", patientAddress: "14 Grey Street, Hamilton", gms: "S3", dob: "22 Jan 1960",
+        nhi: "GHI9012", rxDate: "15 Jan 2026",
+        drug: "Atorvastatin 40mg tablets",
+        sig: "1 tablet at night",
+        mitte: "90 days",
+        noBrand: true,
+        prescriberInitials: "N. Henare", signDate: "15/01/2026"
+    },
+    issues: [
+        "⚠️ FUNDING EXPIRED: Prescription written 15 Jan 2026 — presented in May 2026 (>3 months)",
+        "A prescription is eligible for funding only if presented within 3 months of the date written [Pharmaceutical Schedule, General Rules]",
+        "The prescription CANNOT be dispensed as a funded item",
+        "Options: (1) Patient pays full cost unfunded, or (2) Patient returns to prescriber for a new prescription",
+        "Note: the prescription is also legally expired for dispensing purposes after 3 months [Regulation 42(3)(c)]",
+        "Pharmacist should explain this clearly and sensitively to the patient, and advise them to get a new script"
+    ]
+},
+{
+    title: "Ethical 23: Unfunded Medicine",
+    text: "A patient presents a prescription for Melatonin. They are surprised when told there is a cost.",
+    rx: {
+        clinic: "Tauranga Family Health", address: "45 Cameron Road, Tauranga 3110", phone: "07 444 6666",
+        prescriber: "Dr Lisa Wan", prescriberClinic: "Tauranga Family Health",
+        patient: "Anna White", patientAddress: "32 Devonport Road, Tauranga", gms: "S1", dob: "08 Mar 1985",
+        nhi: "JKL3456", rxDate: "29 Apr 2026",
+        drug: "Melatonin 2mg modified-release tablets",
+        sig: "1 tablet 30 minutes before bed",
+        mitte: "30 days",
+        noBrand: true,
+        prescriberInitials: "L. Wan", signDate: "29/04/2026"
+    },
+    issues: [
+        "✅ Prescription format is VALID — all legal elements are present",
+        "⚠️ FUNDING ISSUE: Melatonin is NOT funded on the Pharmac schedule — patient pays full cost",
+        "Pharmacist should inform patient clearly and sensitively that this medicine is not subsidised",
+        "Pharmacist should provide cost estimate before dispensing so patient can make an informed decision",
+        "Patient may wish to discuss alternatives with their prescriber if cost is a barrier",
+        "Where to check: Pharmac website (pharmac.govt.nz) — search medicine name to confirm funded status"
+    ]
+},
+{
+    title: "Ethical 24: Special Authority Expired",
+    text: "A patient presents a repeat prescription for Adalimumab. You check the system and find their Special Authority has expired.",
+    rx: {
+        clinic: "Wellington Rheumatology Clinic", address: "250 Willis Street, Wellington 6011", phone: "04 555 7777",
+        prescriber: "Dr Callum Reid", prescriberClinic: "Wellington Rheumatology Clinic",
+        patient: "Priya Sharma", patientAddress: "88 Kelburn Parade, Wellington", gms: "S2", dob: "14 Sep 1979",
+        nhi: "MNO7890", rxDate: "01 May 2026",
+        drug: "Adalimumab 40mg/0.8mL injection",
+        sig: "40mg subcutaneous injection every 2 weeks",
+        mitte: "90 days",
+        noBrand: true,
+        prescriberInitials: "C. Reid", signDate: "01/05/2026"
+    },
+    issues: [
+        "✅ Prescription format is VALID — all legal elements are present",
+        "⚠️ FUNDING ISSUE: Adalimumab requires a valid Special Authority (SA) for funding",
+        "Special Authority for this patient has EXPIRED — prescription cannot be dispensed as a funded item until SA is renewed",
+        "Pharmacist should contact the prescriber's clinic to request SA renewal before dispensing",
+        "Patient should be informed of the delay and that dispensing will proceed once SA is renewed",
+        "Do NOT dispense unfunded without patient's explicit informed consent and cost discussion — Adalimumab is extremely expensive unfunded",
+        "Where to check: Pharmac SA database or dispensing software (e.g. Minfos, Fred Dispense)"
+    ]
+}
 ];
 
             useEffect(() => {
