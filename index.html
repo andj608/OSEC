@@ -215,7 +215,7 @@ const EthicalPrescriptionCard = ({ rx }) => (
         };
 
         const App = () => {
-            const [currentTab, setCurrentTab] = useState('clinical');
+            const [currentTab, setCurrentTab] = useState('case575');
             const [caseIndex, setCaseIndex] = useState(0);
             const [role, setRole] = useState('pharmacist');
 
@@ -223,7 +223,11 @@ const EthicalPrescriptionCard = ({ rx }) => (
                 try { return JSON.parse(localStorage.getItem('osce_checked') || '{}'); } catch { return {}; }
             });
             const [practicedCases, setPracticedCases] = useState(() => {
-                try { return JSON.parse(localStorage.getItem('osce_practiced') || '{"clinical":{},"ethical":{}}'); } catch { return { clinical: {}, ethical: {} }; }
+                const defaults = { clinical: {}, ethical: {}, case575: {} };
+                try {
+                    const saved = JSON.parse(localStorage.getItem('osce_practiced') || '{}');
+                    return { ...defaults, ...saved };
+                } catch { return defaults; }
             });
             const [showConfirm, setShowConfirm] = useState(false);
 
@@ -238,7 +242,7 @@ const EthicalPrescriptionCard = ({ rx }) => (
             const togglePracticed = () => {
                 setPracticedCases(prev => ({
                     ...prev,
-                    [currentTab]: { ...prev[currentTab], [caseIndex]: !prev[currentTab][caseIndex] }
+                    [currentTab]: { ...(prev[currentTab] || {}), [caseIndex]: !(prev[currentTab] || {})[caseIndex] }
                 }));
             };
             const [prescriberMood, setPrescriberMood] = useState({ mood: "Friendly & Grateful", dialogue: "Oh, thank you so much for catching that! Let me fix that right away. I appreciate the call." });
@@ -1124,6 +1128,119 @@ const EthicalPrescriptionCard = ({ rx }) => (
 }
 ];
 
+            const case575Cases = [
+                { id: "p1", title: "Case 1: Retrieve Cream for Acne (Emma)", initialInfo: "Emma Wilson (22) has been prescribed Retrieve® cream by her GP for acne affecting her face. She has never used a retinoid before and has come to the pharmacy to collect her prescription.", hiddenInfo: { background: [
+    "Current medicines: combined oral contraceptive pill; benzoyl peroxide 5% wash (used most mornings).",
+    "Has sensitive skin.",
+    "Hoping her acne will improve before a friend's wedding in one month.",
+    "Enjoys spending time outdoors and regularly runs after work.",
+    "Asks: 'How quickly will this work? I've heard it can make your skin worse.'"
+], medicalHistory: [
+    "Combined oral contraceptive pill.",
+    "Benzoyl peroxide 5% wash most mornings.",
+    "Sensitive skin.",
+    "No known allergies."
+] }, checklists: [
+    { step: "Mihimihi – Greeting", behaviour: "Introduces self and role clearly and respectfully." },
+    { step: "Whakawhanaungatanga – Connection", behaviour: "Builds rapport; acknowledges this is her first retinoid and any nervousness about it." },
+    { step: "Kaupapa – Purpose & Agenda", behaviour: "States purpose of consultation; explains what will happen." },
+    { step: "Kaupapa – Understanding Existing Knowledge", behaviour: "Asks what she already knows/has heard about retinoids and this cream." },
+    { step: "Kaupapa – Information Gathering", behaviour: "Confirms current skincare routine, including the benzoyl peroxide wash." },
+    { step: "Kaupapa – Information Gathering", behaviour: "Checks for sensitive skin, other medicines, medical conditions and allergies." },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "★ Explains correct application: pea-sized amount, at night, to dry skin (wait ~20 min after washing), avoiding eyes/lips/broken skin.", critical: true },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "★ Explains an initial 'retinoid reaction' (redness, dryness, flaking) is common and expected, and how to manage it (moisturiser, reduce to alternate nights initially, short-contact therapy).", critical: true },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "Advises on continuing/adjusting the benzoyl peroxide wash — e.g. use in the morning only, or space apart from the cream, and stop if excessive irritation occurs." },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "★ Advises on sun sensitivity — use daily sunscreen and sun-protective measures, relevant given she runs outdoors after work.", critical: true },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "Sets realistic expectations: improvement typically takes 6–12 weeks, may look worse before it gets better — manages expectations around the 1-month wedding timeframe." },
+    { step: "Kaupapa – Checking Understanding", behaviour: "Checks understanding (e.g., teach-back)." },
+    { step: "Whakamutunga – Closing", behaviour: "Confirms next steps; invites questions; respectful closing." }
+]},
+                { id: "p2", title: "Case 2: Metronidazole Cream for Rosacea (Margaret)", initialInfo: "Margaret Wilson (52) has been prescribed metronidazole cream for rosacea. She says: 'The doctor said it's rosacea, but honestly I think it's just acne. I've had these bumps and redness for months.'", hiddenInfo: { background: [
+    "Redness is mainly on cheeks and nose.",
+    "Face sometimes feels warm or stings.",
+    "Bumps come and go.",
+    "Has never had significant acne before.",
+    "Currently uses a strong exfoliating scrub every day ('thought I needed to clean my skin better').",
+    "Reports her face often gets red when drinking red wine with friends."
+], medicalHistory: "No relevant medical history provided; explore current skincare products and possible triggers." }, checklists: [
+    { step: "Mihimihi – Greeting", behaviour: "Introduces self and role clearly and respectfully." },
+    { step: "Whakawhanaungatanga – Connection", behaviour: "Builds rapport; acknowledges her frustration/confusion at the diagnosis." },
+    { step: "Kaupapa – Purpose & Agenda", behaviour: "States purpose of consultation; explains what will happen." },
+    { step: "Kaupapa – Understanding Existing Knowledge", behaviour: "Asks what she understands about her diagnosis and this medicine." },
+    { step: "Kaupapa – Information Gathering", behaviour: "Asks about her current skincare routine (uncovers the daily exfoliating scrub)." },
+    { step: "Kaupapa – Information Gathering", behaviour: "Asks whether anything makes it worse (uncovers red wine/alcohol trigger)." },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "★ Explains that rosacea is different from acne, in patient-friendly terms.", critical: true },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "★ Explains how and when to apply the metronidazole cream correctly.", critical: true },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "Discusses the importance of regular, ongoing use even without immediate visible results." },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "Explains that improvement may take several weeks." },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "★ Advises stopping/replacing the harsh daily scrub with gentle, fragrance-free skincare products.", critical: true },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "★ Explores and discusses rosacea triggers such as alcohol, heat, spicy foods, and sun exposure.", critical: true },
+    { step: "Kaupapa – Checking Understanding", behaviour: "Checks understanding (e.g., teach-back)." },
+    { step: "Whakamutunga – Closing", behaviour: "Confirms next steps; invites questions; respectful closing." }
+]},
+                { id: "p3", title: "Case 3: Enstilar Foam for Plaque Psoriasis (Chris)", initialInfo: "Chris Martin (28) says: 'Hi, I've just picked up this Enstilar foam. I've never used anything like this before and I'm not really sure what to do with it.'", hiddenInfo: { background: [
+    "Diagnosed with plaque psoriasis about 6 months ago.",
+    "Has plaques on his elbows and lower legs.",
+    "Has previously only used moisturisers — this is his first prescription treatment.",
+    "Doctor said it 'should help clear the plaques' but he doesn't know much more.",
+    "Has a wedding coming up in a couple of weeks and asks how quickly it will work.",
+    "Also asks whether he needs to rub in a huge amount, whether he can keep using it once the psoriasis clears, and whether he should be worried about steroid creams thinning his skin."
+], medicalHistory: "No other medical conditions or medicines mentioned; explore before dispensing." }, checklists: [
+    { step: "Mihimihi – Greeting", behaviour: "Introduces self and role clearly and respectfully." },
+    { step: "Whakawhanaungatanga – Connection", behaviour: "Builds rapport; acknowledges this is his first prescription treatment." },
+    { step: "Kaupapa – Purpose & Agenda", behaviour: "States purpose of consultation; explains what will happen." },
+    { step: "Kaupapa – Understanding Existing Knowledge", behaviour: "Asks what he already knows about the medicine and his condition." },
+    { step: "Kaupapa – Information Gathering", behaviour: "Confirms site/extent of plaques and previous treatments (moisturisers only)." },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "★ Explains the can should be shaken well before use.", critical: true },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "★ Demonstrates or explains correct foam application — thin layer to affected areas only, once daily, not to be rubbed in vigorously.", critical: true },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "★ Explains the product contains a corticosteroid (plus vitamin D analogue) and should be used exactly as directed, not indefinitely.", critical: true },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "Explains duration of treatment (typically up to 4 weeks continuous use) and that review may be needed if not settling or before continuing longer-term." },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "Discusses expected improvement and gives realistic timelines, addressing his wedding timeframe sensitively." },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "★ Discusses appropriate use to minimise steroid-related adverse effects (e.g. skin thinning) — reassures with correct use but does not minimise the risk of overuse.", critical: true },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "Reinforces ongoing use of emollients/moisturisers alongside treatment." },
+    { step: "Kaupapa – Checking Understanding", behaviour: "Checks understanding (e.g., teach-back)." },
+    { step: "Whakamutunga – Closing", behaviour: "Confirms next steps; invites questions; respectful closing." }
+]},
+                { id: "p4", title: "Case 4: Isotretinoin, Doxycycline & Ginet (Miss RK, 16)", initialInfo: "Miss RK, 16 years old, attends the pharmacy with her mother to collect a repeat supply of isotretinoin (Oratane), recently started for severe acne. Her medication list also shows doxycycline 100mg once daily (started before the isotretinoin) and Ginet 35 (started around the same time).", hiddenInfo: { actors: [
+    { name: "🧑 RK — the patient (16yo)", sections: [
+        { heading: "While mum is in the room", points: [
+            "Can honestly confirm she's still taking the doxycycline — it's not secret, she's just not sure if she was supposed to stop it.",
+            "Sticks to the story (agreed with mum) that Ginet is 'for my skin' — will not mention contraception or her boyfriend.",
+            "If asked directly whether she is sexually active: denies it, becomes brief and closed off ('can we just get the prescription?')."
+        ]},
+        { heading: "Once she's alone with you", points: [
+            "No one actually told her to stop the doxycycline — she's just kept taking it alongside the isotretinoin because nobody said otherwise.",
+            "The Ginet was started mainly because she'd mentioned having a boyfriend — it's doing double duty for her skin AND as contraception.",
+            "She has a boyfriend, is sexually active, and takes Ginet fairly consistently — but doesn't always use condoms as well."
+        ]}
+    ]},
+    { name: "👩 Mum", sections: [
+        { heading: "What she believes", points: [
+            "Doxycycline was never actively stopped — she assumed the doctor would mention it if it needed to.",
+            "Ginet was started purely for skin (and maybe periods) — has no idea it is also being used as contraception, or that RK has a boyfriend.",
+            "Isn't expecting any of this to come up today."
+        ]},
+        { heading: "How she reacts", points: [
+            "If asked to step outside for privacy: a little surprised but agreeable, and steps out without resistance."
+        ]}
+    ]}
+] }, checklists: [
+    { step: "Mihimihi – Greeting", behaviour: "Greets RK and her mother at the counter and begins the consultation to hand over the isotretinoin." },
+    { step: "Whakawhanaungatanga – Connection", behaviour: "Builds rapport with both RK and her mother; friendly, unhurried, non-judgemental manner." },
+    { step: "Kaupapa – Purpose & Agenda", behaviour: "States purpose of consultation; explains a few things need to be checked before dispensing." },
+    { step: "Kaupapa – Information Gathering", behaviour: "Reviews the medication list and notices doxycycline and Ginet are still listed alongside the isotretinoin." },
+    { step: "Kaupapa – Information Gathering", behaviour: "★ Asks about the doxycycline and recognises the doxycycline–isotretinoin interaction (raised intracranial pressure risk), treating it as something to resolve before dispensing.", critical: true },
+    { step: "Kaupapa – Information Gathering", behaviour: "★ Asks about the Ginet and does not assume it means contraception is 'sorted' — explores why it was actually started rather than accepting mum's explanation at face value.", critical: true },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "★ CRITICAL MOMENT: Recognises the need for privacy/confidentiality and asks to speak with RK alone before asking about sexual activity or contraception, rather than questioning her in front of her mother.", critical: true },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "Once private, sensitively and non-judgementally asks RK directly about sexual activity and contraceptive use." },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "★ Checks whether contraception is adequate given isotretinoin's teratogenicity — explains guidance recommends two complementary methods (e.g. Ginet plus condoms) if sexually active.", critical: true },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "Explains clearly why the interaction and the contraception adequacy both matter, in terms RK can understand." },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "Agrees a plan for resolving the doxycycline before continuing/dispensing the isotretinoin (e.g. contacting prescriber)." },
+    { step: "Kaupapa – Checking Understanding", behaviour: "Checks RK's understanding (e.g., teach-back) in a way that preserves her privacy and dignity." },
+    { step: "Whakamutunga – Closing", behaviour: "Professional, kind closing; brings mum back in appropriately; confirms next steps for both parties." }
+]}
+            ];
+
             useEffect(() => {
     if (currentTab === 'clinical' && [13, 14, 15].includes(caseIndex)) {
         setPrescriberMood(prescriberPersonalities[0]);
@@ -1136,7 +1253,7 @@ const EthicalPrescriptionCard = ({ rx }) => (
 }, [caseIndex, currentTab]);
 
             const nextCase = () => {
-                const max = currentTab === 'clinical' ? clinicalCases.length - 1 : ethicalScenarios.length - 1;
+                const max = currentTab === 'clinical' ? clinicalCases.length - 1 : currentTab === 'case575' ? case575Cases.length - 1 : ethicalScenarios.length - 1;
                 if (caseIndex < max) { setCaseIndex(caseIndex + 1); }
             };
             const prevCase = () => {
@@ -1155,7 +1272,7 @@ const EthicalPrescriptionCard = ({ rx }) => (
                 setShowConfirm(false);
             };
 
-            const currentCase = currentTab === 'clinical' ? clinicalCases[caseIndex] : null;
+            const currentCase = currentTab === 'clinical' ? clinicalCases[caseIndex] : currentTab === 'case575' ? case575Cases[caseIndex] : null;
 
             return (
                 <div className="min-h-screen bg-slate-100 p-2 sm:p-4 text-slate-900 flex flex-col items-center">
@@ -1171,8 +1288,8 @@ const EthicalPrescriptionCard = ({ rx }) => (
                             <div className="flex flex-col items-end gap-1">
                                 <select value={caseIndex} onChange={(e) => {setCaseIndex(parseInt(e.target.value)); setCheckedState({});}}
                                     className="bg-slate-800 text-white text-[11px] font-bold p-2 rounded-lg border border-white/20 focus:ring-2 focus:ring-amber-500">
-                                    {(currentTab === 'clinical' ? clinicalCases : ethicalScenarios).map((c, i) => (
-                                        <option key={i} value={i}>{practicedCases[currentTab][i] ? '✅' : '⬜'} #{i+1}: {c.title ? (c.title.split(':')[1] || c.title) : c.title}</option>
+                                    {(currentTab === 'clinical' ? clinicalCases : currentTab === 'case575' ? case575Cases : ethicalScenarios).map((c, i) => (
+                                        <option key={i} value={i}>{(practicedCases[currentTab] || {})[i] ? '✅' : '⬜'} #{i+1}: {c.title ? (c.title.split(':')[1] || c.title) : c.title}</option>
                                     ))}
                                 </select>
                                 <button onClick={() => setShowConfirm(true)} className="text-[9px] text-red-300 hover:text-red-400 font-bold uppercase tracking-wider transition">↺ Clear All Progress</button>
@@ -1192,7 +1309,8 @@ const EthicalPrescriptionCard = ({ rx }) => (
                             </div>
                         )}
 
-                        <div className="flex border-b bg-slate-50 sticky top-0 z-20">
+                        <div className="flex border-b bg-slate-50">
+                            <button onClick={() => {setCurrentTab('case575'); setCaseIndex(0); setCheckedState({});}} className={`flex-1 py-4 text-[11px] font-black transition-all ${currentTab === 'case575' ? 'bg-white text-purple-700 border-b-4 border-purple-700' : 'text-slate-400'}`}>575 - CASE</button>
                             <button onClick={() => {setCurrentTab('clinical'); setCaseIndex(0); setCheckedState({});}} className={`flex-1 py-4 text-[11px] font-black transition-all ${currentTab === 'clinical' ? 'bg-white text-[#1a365d] border-b-4 border-[#1a365d]' : 'text-slate-400'}`}>CLINICAL CASES</button>
                             <button onClick={() => {setCurrentTab('ethical'); setCaseIndex(0); setCheckedState({});}} className={`flex-1 py-4 text-[11px] font-black transition-all ${currentTab === 'ethical' ? 'bg-white text-red-700 border-b-4 border-red-700' : 'text-slate-400'}`}>ETHICAL SCENARIOS</button>
                         </div>
@@ -1203,13 +1321,13 @@ const EthicalPrescriptionCard = ({ rx }) => (
                             <button onClick={() => setRole('evaluator')} className={`flex items-center gap-1 px-5 py-2 rounded-xl text-[10px] font-black transition ${role === 'evaluator' ? 'bg-emerald-700 text-white shadow-lg' : 'bg-white border text-slate-400'}`}><Icon name="clipboard-check" size={14} /> ASSESSOR</button>
                         </div>
 
-                        <div className="flex-1 p-4 sm:p-8 custom-scrollbar overflow-y-auto max-h-[65vh]">
-                            {currentTab === 'clinical' ? (
+                        <div className="flex-1 p-4 sm:p-8">
+                            {(currentTab === 'clinical' || currentTab === 'case575') ? (
                                 <div className="space-y-6">
                                 <div className="flex items-center gap-3">
                                     <button onClick={togglePracticed}
-                                        className={`w-7 h-7 rounded-lg border-2 flex items-center justify-center shrink-0 transition ${practicedCases.clinical[caseIndex] ? 'bg-emerald-500 border-emerald-500 text-white' : 'border-slate-300 hover:border-emerald-400'}`}>
-                                        {practicedCases.clinical[caseIndex] && <Icon name="check" size={16} className="text-white" />}
+                                        className={`w-7 h-7 rounded-lg border-2 flex items-center justify-center shrink-0 transition ${(practicedCases[currentTab] || {})[caseIndex] ? 'bg-emerald-500 border-emerald-500 text-white' : 'border-slate-300 hover:border-emerald-400'}`}>
+                                        {(practicedCases[currentTab] || {})[caseIndex] && <Icon name="check" size={16} className="text-white" />}
                                     </button>
                                     <h2 className="text-xl font-black text-slate-800 uppercase border-l-4 border-slate-800 pl-3">#{caseIndex + 1}: {currentCase.title}</h2>
                                 </div>
@@ -1220,11 +1338,47 @@ const EthicalPrescriptionCard = ({ rx }) => (
                                     {role === 'pharmacist' && currentCase.prescription && (
     <PrescriptionCard rx={currentCase.prescription} />
 )}
-                                    {(role === 'patient' || role === 'evaluator') && (
-                                        <div className="bg-orange-50 border border-orange-200 p-6 rounded-2xl">
+                                    {role === 'patient' && (
+                                        <div className="bg-orange-50 border border-orange-200 p-6 rounded-2xl space-y-4">
                                             <p className="text-xs font-black text-orange-800 uppercase mb-2">Patient Script (Hidden Details)</p>
-                                            <p className="text-sm text-orange-900 leading-relaxed"><strong>Background:</strong> {currentCase.hiddenInfo.background}</p>
-                                            <p className="text-sm text-orange-900 leading-relaxed mt-2"><strong>History/Status:</strong> {currentCase.hiddenInfo.medicalHistory}</p>
+                                            {Array.isArray(currentCase.hiddenInfo.actors) ? (
+                                                currentCase.hiddenInfo.actors.map((actor, ai) => (
+                                                    <div key={ai} className={ai > 0 ? "border-t border-orange-200 pt-4" : ""}>
+                                                        <p className="text-sm font-black text-orange-800 mb-2">{actor.name}</p>
+                                                        {actor.sections.map((sec, si) => (
+                                                            <div key={si} className="mb-3 last:mb-0">
+                                                                <p className="text-[11px] font-bold text-orange-700 uppercase mb-1">{sec.heading}</p>
+                                                                <ul className="list-disc list-outside ml-5 space-y-1 text-sm text-orange-900">
+                                                                    {sec.points.map((pt, pi) => <li key={pi}>{pt}</li>)}
+                                                                </ul>
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                ))
+                                            ) : (
+                                                <>
+                                                    <div className="text-sm text-orange-900 leading-relaxed">
+                                                        <strong>Background:</strong>
+                                                        {Array.isArray(currentCase.hiddenInfo.background) ? (
+                                                            <ul className="list-disc list-outside ml-5 mt-1 space-y-1">
+                                                                {currentCase.hiddenInfo.background.map((line, i) => <li key={i}>{line}</li>)}
+                                                            </ul>
+                                                        ) : (
+                                                            <span> {currentCase.hiddenInfo.background}</span>
+                                                        )}
+                                                    </div>
+                                                    <div className="text-sm text-orange-900 leading-relaxed mt-2">
+                                                        <strong>History/Status:</strong>
+                                                        {Array.isArray(currentCase.hiddenInfo.medicalHistory) ? (
+                                                            <ul className="list-disc list-outside ml-5 mt-1 space-y-1">
+                                                                {currentCase.hiddenInfo.medicalHistory.map((line, i) => <li key={i}>{line}</li>)}
+                                                            </ul>
+                                                        ) : (
+                                                            <span> {currentCase.hiddenInfo.medicalHistory}</span>
+                                                        )}
+                                                    </div>
+                                                </>
+                                            )}
                                         </div>
                                     )}
 
@@ -1286,7 +1440,7 @@ const EthicalPrescriptionCard = ({ rx }) => (
                                         <ProductCards products={currentCase.products} />
                                     )}
 
-                                    {(role === 'patient' || role === 'evaluator') && [13, 14, 15].includes(caseIndex) && (
+                                    {(role === 'patient' || role === 'evaluator') && currentTab === 'clinical' && [13, 14, 15].includes(caseIndex) && (
                                         <div className="bg-[#1e293b] text-white p-6 rounded-3xl shadow-xl border-l-8 border-amber-500 space-y-4">
                                             <div className="flex flex-col sm:flex-row justify-between gap-4 border-b border-white/10 pb-4">
                                                 <h4 className="font-black text-xs uppercase text-amber-400 flex items-center gap-2"><Icon name="user-plus" size={14} /> Mood Switcher (Actor Reference)</h4>
@@ -1375,7 +1529,7 @@ const EthicalPrescriptionCard = ({ rx }) => (
                             <button disabled={caseIndex === 0} onClick={prevCase} className="flex-1 py-3 rounded-xl border-2 border-slate-200 text-[11px] font-black uppercase text-slate-400 hover:border-slate-800 hover:text-slate-800 disabled:opacity-20 flex items-center justify-center gap-2 transition">
                                 <Icon name="chevron-left" size={16} /> PREVIOUS
                             </button>
-                            <button disabled={caseIndex === (currentTab === 'clinical' ? clinicalCases.length - 1 : ethicalScenarios.length - 1)} onClick={nextCase} className="flex-1 py-3 rounded-xl border-2 border-slate-200 text-[11px] font-black uppercase text-slate-400 hover:border-slate-800 hover:text-slate-800 disabled:opacity-20 flex items-center justify-center gap-2 transition">
+                            <button disabled={caseIndex === (currentTab === 'clinical' ? clinicalCases.length - 1 : currentTab === 'case575' ? case575Cases.length - 1 : ethicalScenarios.length - 1)} onClick={nextCase} className="flex-1 py-3 rounded-xl border-2 border-slate-200 text-[11px] font-black uppercase text-slate-400 hover:border-slate-800 hover:text-slate-800 disabled:opacity-20 flex items-center justify-center gap-2 transition">
                                 NEXT <Icon name="chevron-right" size={16} />
                             </button>
                         </div>
