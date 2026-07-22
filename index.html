@@ -99,33 +99,39 @@ const GUIDE_IMAGES = {
 const EthicalPrescriptionCard = ({ rx }) => (
     <div className="mt-4 max-w-lg mx-auto border border-slate-300 rounded-lg shadow-lg bg-white font-mono text-[13px] text-slate-800">
         {/* Clinic Header */}
-        <div className="p-5 border-b border-slate-200">
-            <p className="font-black text-sm">{rx.clinic}</p>
-            <p>{rx.address}</p>
-            <p>{rx.phone}</p>
-        </div>
+        {rx.clinic && (
+            <div className="p-5 border-b border-slate-200">
+                <p className="font-black text-sm">{rx.clinic}</p>
+                {rx.address && <p>{rx.address}</p>}
+                {rx.phone && <p>{rx.phone}</p>}
+            </div>
+        )}
 
         {/* Prescriber + Item Count box */}
-        <div className="p-5 border-b border-slate-200 flex justify-between items-start">
-            <div>
-                <p className="font-black">{rx.prescriber}</p>
-                <p className="text-slate-500">{rx.prescriberClinic || rx.prescriberReg || ""}</p>
+        {rx.prescriber && (
+            <div className="p-5 border-b border-slate-200 flex justify-between items-start">
+                <div>
+                    <p className="font-black">{rx.prescriber}</p>
+                    <p className="text-slate-500">{rx.prescriberClinic || rx.prescriberReg || ""}</p>
+                </div>
+                <div className="border border-slate-400 text-[10px] p-2 text-right leading-tight">
+                    <p>Item Count:</p>
+                    <p>Subsidy Card:</p>
+                    <p>Page: 1 of 1</p>
+                </div>
             </div>
-            <div className="border border-slate-400 text-[10px] p-2 text-right leading-tight">
-                <p>Item Count:</p>
-                <p>Subsidy Card:</p>
-                <p>Page: 1 of 1</p>
-            </div>
-        </div>
+        )}
 
         {/* Patient Info */}
         <div className="p-5 border-b border-slate-200 space-y-0.5">
             <p className="font-bold">{rx.patient}</p>
-            <p>{rx.patientAddress}</p>
-            <div className="flex gap-6 mt-1">
-                <span>GMS: {rx.gms}</span>
-                <span>DOB: {rx.dob}</span>
-            </div>
+            {rx.patientAddress && <p>{rx.patientAddress}</p>}
+            {(rx.gms || rx.dob) && (
+                <div className="flex gap-6 mt-1">
+                    {rx.gms && <span>GMS: {rx.gms}</span>}
+                    {rx.dob && <span>DOB: {rx.dob}</span>}
+                </div>
+            )}
             {rx.nhi && <p className="font-bold">NHI: {rx.nhi}</p>}
             {rx.rxDate && <p className="mt-1">Rx {rx.rxDate}</p>}
         </div>
@@ -135,25 +141,38 @@ const EthicalPrescriptionCard = ({ rx }) => (
             Dispense stat list medicines once only unless Frequent Dispense specified
         </div>
 
-        {/* Drug */}
-        <div className="p-5 space-y-1">
-            <p className="font-black text-base">{rx.drug}</p>
-            <p>Sig: {rx.sig}</p>
-            <p>Mitte: {rx.mitte}</p>
-            {rx.noBrand && <p className="text-slate-500">(no brand substitution)</p>}
-        </div>
+        {/* Drug(s) */}
+        {Array.isArray(rx.items) ? (
+            rx.items.map((item, i) => (
+                <div key={i} className={`p-5 space-y-1 ${i > 0 ? "border-t border-dashed border-slate-200" : ""}`}>
+                    <p className="font-black text-base">{item.drug}</p>
+                    <p>Sig: {item.sig}</p>
+                    <p>Mitte: {item.mitte}</p>
+                    {item.noBrand && <p className="text-slate-500">(no brand substitution)</p>}
+                </div>
+            ))
+        ) : (
+            <div className="p-5 space-y-1">
+                <p className="font-black text-base">{rx.drug}</p>
+                <p>Sig: {rx.sig}</p>
+                <p>Mitte: {rx.mitte}</p>
+                {rx.noBrand && <p className="text-slate-500">(no brand substitution)</p>}
+            </div>
+        )}
 
         {/* Signature + Date */}
-        <div className="px-5 pb-5 flex justify-between text-[11px] text-slate-600 border-t border-slate-200 pt-4 mt-2">
-            <div>
-                <p className="font-black">{rx.prescriberInitials || ""}</p>
-                <p className="italic">Signature of prescriber</p>
+        {(rx.prescriberInitials || rx.signDate) && (
+            <div className="px-5 pb-5 flex justify-between text-[11px] text-slate-600 border-t border-slate-200 pt-4 mt-2">
+                <div>
+                    <p className="font-black">{rx.prescriberInitials || ""}</p>
+                    <p className="italic">Signature of prescriber</p>
+                </div>
+                <div className="text-right">
+                    <p>{rx.signDate || rx.rxDate || ""}</p>
+                    <p className="italic">Date (dd/mm/yy)</p>
+                </div>
             </div>
-            <div className="text-right">
-                <p>{rx.signDate || rx.rxDate || ""}</p>
-                <p className="italic">Date (dd/mm/yy)</p>
-            </div>
-        </div>
+        )}
     </div>
 );
         const PrescriptionCard = ({ rx }) => (
@@ -1140,7 +1159,7 @@ const EthicalPrescriptionCard = ({ rx }) => (
     "Benzoyl peroxide 5% wash most mornings.",
     "Sensitive skin.",
     "No known allergies."
-] }, checklists: [
+] }, rxScript: { patient: "Emma Wilson (22 years)", drug: "Retrieve® (Adapalene 0.1%) Cream", sig: "Apply a pea-sized amount to affected areas once daily at night", mitte: "1 tube (30g)" }, checklists: [
     { step: "Mihimihi – Greeting", behaviour: "Introduces self and role clearly and respectfully." },
     { step: "Whakawhanaungatanga – Connection", behaviour: "Builds rapport; acknowledges this is her first retinoid and any nervousness about it." },
     { step: "Kaupapa – Purpose & Agenda", behaviour: "States purpose of consultation; explains what will happen." },
@@ -1162,7 +1181,7 @@ const EthicalPrescriptionCard = ({ rx }) => (
     "Has never had significant acne before.",
     "Currently uses a strong exfoliating scrub every day ('thought I needed to clean my skin better').",
     "Reports her face often gets red when drinking red wine with friends."
-], medicalHistory: "No relevant medical history provided; explore current skincare products and possible triggers." }, checklists: [
+], medicalHistory: "No relevant medical history provided; explore current skincare products and possible triggers." }, rxScript: { patient: "Margaret Wilson (52 years)", drug: "Metronidazole 0.75% Cream", sig: "Apply a thin layer to affected areas twice daily", mitte: "1 tube (30g)" }, checklists: [
     { step: "Mihimihi – Greeting", behaviour: "Introduces self and role clearly and respectfully." },
     { step: "Whakawhanaungatanga – Connection", behaviour: "Builds rapport; acknowledges her frustration/confusion at the diagnosis." },
     { step: "Kaupapa – Purpose & Agenda", behaviour: "States purpose of consultation; explains what will happen." },
@@ -1185,7 +1204,7 @@ const EthicalPrescriptionCard = ({ rx }) => (
     "Doctor said it 'should help clear the plaques' but he doesn't know much more.",
     "Has a wedding coming up in a couple of weeks and asks how quickly it will work.",
     "Also asks whether he needs to rub in a huge amount, whether he can keep using it once the psoriasis clears, and whether he should be worried about steroid creams thinning his skin."
-], medicalHistory: "No other medical conditions or medicines mentioned; explore before dispensing." }, checklists: [
+], medicalHistory: "No other medical conditions or medicines mentioned; explore before dispensing." }, rxScript: { patient: "Chris Martin (28 years)", drug: "Enstilar® Foam (Calcipotriol 50mcg/g + Betamethasone 0.5mg/g)", sig: "Apply once daily to affected areas for up to 4 weeks", mitte: "1 can (60g)" }, checklists: [
     { step: "Mihimihi – Greeting", behaviour: "Introduces self and role clearly and respectfully." },
     { step: "Whakawhanaungatanga – Connection", behaviour: "Builds rapport; acknowledges this is his first prescription treatment." },
     { step: "Kaupapa – Purpose & Agenda", behaviour: "States purpose of consultation; explains what will happen." },
@@ -1224,6 +1243,10 @@ const EthicalPrescriptionCard = ({ rx }) => (
             "If asked to step outside for privacy: a little surprised but agreeable, and steps out without resistance."
         ]}
     ]}
+] }, rxScript: { patient: "Miss RK (16 years)", items: [
+    { drug: "Isotretinoin (Oratane)", sig: "As directed (dose per bodyweight) once daily with food", mitte: "1 month supply" },
+    { drug: "Doxycycline 100mg", sig: "One tablet once daily", mitte: "1 month supply" },
+    { drug: "Ginet 35", sig: "One tablet daily as directed", mitte: "1 month supply" }
 ] }, checklists: [
     { step: "Mihimihi – Greeting", behaviour: "Greets RK and her mother at the counter and begins the consultation to hand over the isotretinoin." },
     { step: "Whakawhanaungatanga – Connection", behaviour: "Builds rapport with both RK and her mother; friendly, unhurried, non-judgemental manner." },
@@ -1238,6 +1261,264 @@ const EthicalPrescriptionCard = ({ rx }) => (
     { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "Agrees a plan for resolving the doxycycline before continuing/dispensing the isotretinoin (e.g. contacting prescriber)." },
     { step: "Kaupapa – Checking Understanding", behaviour: "Checks RK's understanding (e.g., teach-back) in a way that preserves her privacy and dignity." },
     { step: "Whakamutunga – Closing", behaviour: "Professional, kind closing; brings mum back in appropriately; confirms next steps for both parties." }
+]},
+                { id: "p5", title: "Case 5: Cephalexin for Infected Skin/Cellulitis (Eli, 3yo)", initialInfo: "Eli Peters, 3 years old, has been prescribed cephalexin oral liquid 125mg/5mL for a skin infection (cellulitis). His mum has come to collect the prescription and has a number of questions before she feels comfortable starting it.", hiddenInfo: { actors: [
+    { name: "👩 Mum", sections: [
+        { heading: "Who she is / how she feels", points: [
+            "Single parent of eight children aged between 18 months and 15 years.",
+            "Exhausted and frustrated.",
+            "Worried about the younger children.",
+            "Doesn't understand why the problem keeps returning, or why antibiotics are needed this time."
+        ]},
+        { heading: "Questions she'll ask", points: [
+            { q: "What is cellulitis? I've never heard of it before.", a: "A bacterial infection of the skin and the tissue underneath it — it causes redness, swelling, warmth and pain." },
+            { q: "Is this medicine a tablet, capsule or liquid?", a: "It's a liquid (oral suspension) — easier for young children to take." },
+            { q: "How do I give it? Do they need to take it to school?", a: "Give it by mouth using the measuring device provided; only needs to go to school if a dose falls during school hours." },
+            { q: "How long should they stay off school?", a: "No set exclusion period for cellulitis alone — he can usually return once treatment has started and he's otherwise well, but check the school's own policy." },
+            { q: "What is a bleach bath? It sounds unsafe — I don't like the idea of my children bathing in bleach. Should I do this while there's an active infection? Will it sting?", a: "A diluted bleach bath can help reduce bacteria on the skin for recurrent infections, but shouldn't be used on actively broken or weeping skin without checking with the prescriber first." },
+            { q: "He is allergic to penicillin — is this safe?", a: "Cephalexin is a different class (a cephalosporin) with only a small cross-reactivity risk — safe for most penicillin allergies, but the type of reaction should be checked first." },
+            { q: "We've had these infections in the house before — should all children in the household be on antibiotics?", a: "No — antibiotics are only needed for those with an actual infection, not as prevention for everyone." },
+            { q: "Does it need to be taken with food?", a: "Can be taken with or without food; food may help if it upsets his stomach." },
+            { q: "Can I keep it in my handbag?", a: "Best stored at room temperature away from heat — a handbag is fine short-term, but avoid a hot car." },
+            { q: "What if he gets better before it's finished?", a: "Finish the full 5-day course anyway, even if he seems better, to fully clear the infection." },
+            { q: "Can I give it to the other kids if they need it?", a: "No — this is Eli's antibiotic; other children need their own assessment and prescription if unwell." },
+            { q: "How do I know it's worked?", a: "Redness, swelling and pain should steadily improve within 2–3 days, with skin back to normal over the following days." },
+            { q: "How will I know if it's getting worse, and what do I do?", a: "Spreading redness, increasing pain, fever, or lethargy — seek urgent medical review if any of these occur." },
+            { q: "It takes 2 weeks to see my doctor at the moment — if my other kids start getting the same sores, can I just put pawpaw or tea tree ointment on them?", a: "Not recommended alone for infected-looking sores — contact the pharmacy or an urgent care clinic sooner rather than waiting." }
+        ]}
+    ]}
+] }, rxScript: { clinic: "Riverside Skin and Allergy Clinic", address: "123 River Lane, Hamilton", phone: "07 111 222 333", prescriber: "Dr Sue Wright", prescriberClinic: "Riverside Skin and Allergy Clinic", patient: "Eli Peters", patientAddress: "123 Scott Street", gms: "A1", dob: "27 Jan 2023", nhi: "XXXX9123", rxDate: "20 Jul 2026", drug: "Cephalexin oral liquid 125mg/5 mL", sig: "25mg/kg BD for 5 days", mitte: "qs", prescriberInitials: "S.Wright", signDate: "20/7/26" }, checklists: [
+    { step: "Mihimihi – Greeting", behaviour: "Introduces self and role clearly and respectfully." },
+    { step: "Whakawhanaungatanga – Connection", behaviour: "Acknowledges she's exhausted and frustrated; validates without dismissing her concerns." },
+    { step: "Kaupapa – Purpose & Agenda", behaviour: "States purpose of consultation; explains what will happen." },
+    { step: "Kaupapa – Information Gathering", behaviour: "Confirms the diagnosis, his weight (for dose-checking), and the nature/severity of his penicillin allergy." },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "★ Explains what cellulitis is in plain language (a bacterial skin infection).", critical: true },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "★ Addresses the penicillin allergy question — explains cephalosporins carry a low but not zero cross-reactivity risk, and checks the nature of his allergy before reassuring her it's safe to proceed.", critical: true },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "Explains correct administration of the liquid (shake before use, measure with the correct device, can be given with or without food) and the importance of completing the full 5-day course even if he improves early." },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "★ Advises against giving this medicine to other children or keeping leftover doses for future use.", critical: true },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "★ Addresses the bleach bath question — explains the rationale for recurrent skin infections, but is appropriately cautious about use during an active, weeping infection, and encourages checking correct dilution/frequency with the prescriber or clinic.", critical: true },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "Gives reasonable guidance on school attendance (generally fine to return once treatment has started and he is otherwise well, subject to the specific school/ECE policy)." },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "★ Discusses how to monitor improvement and safety-nets red flags for worsening (spreading redness, fever, lethargy, increasing pain) and when to seek urgent review.", critical: true },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "★ Addresses her question about treating future sores with pawpaw/tea tree oil given the 2-week wait for her GP — discourages relying solely on home remedies for a possible new infection, and advises when to seek care sooner.", critical: true },
+    { step: "Kaupapa – Checking Understanding", behaviour: "Checks understanding (e.g., teach-back)." },
+    { step: "Whakamutunga – Closing", behaviour: "Confirms next steps; invites questions; respectful closing." }
+]},
+                { id: "p6", title: "Case 6: Ivermectin & Permethrin for Infected Scabies (Large Household)", initialInfo: "A mother and her 15-year-old daughter, Emma, attend the pharmacy with a prescription written only for Emma's youngest sibling (3 years old), who has been diagnosed with infected scabies. The household includes eight children aged between 18 months and 15 years.\n\nRx: Ivermectin tablets — 200 micrograms/kg as a single dose on Days 1, 2 and 8. Mitte: qs\nRx: Permethrin 5% lotion (A-Scabies®) — Apply over whole body once daily for 7 days, then twice weekly until cured. Mitte: 1/12", hiddenInfo: { actors: [
+    { name: "👩 Mum", sections: [
+        { heading: "Who she is / how she feels", points: [
+            "Single parent of eight children aged between 18 months and 15 years.",
+            "Has come with her 15-year-old daughter to collect a prescription written for her 3-year-old son, recently diagnosed with infected scabies.",
+            "Works long hours; older children often help look after the younger ones after school.",
+            "Several children in the household have had itchy rashes and skin infections over the past few months, resulting in missed school days and GP visits.",
+            "Exhausted and frustrated; worried about the younger children; doesn't understand why the problem keeps returning.",
+            "Assumes the prescription is only for her 3-year-old because he was the one seen by the doctor.",
+            "Hoping the pharmacist has advice that will stop this happening again."
+        ]},
+        { heading: "Questions she'll raise (any order)", points: [
+            { q: "The prescription is only for him. Is that enough?", a: "No — everyone in the household needs treatment at the same time, even if not everyone has symptoms." },
+            { q: "Do all my kids need treatment too?", a: "Yes — all household members should be treated together to fully clear it." },
+            { q: "What if some of them aren't itchy?", a: "Still treat them — scabies can take weeks to cause itching, so someone can be infested without symptoms yet." },
+            { q: "Do I need treatment as well?", a: "Yes — as an adult household member you need treatment too." },
+            { q: "Can I just use his lotion on the other children?", a: "You can use the same permethrin lotion for others, but you'll need enough for everyone — this prescription is only sized for one person." },
+            { q: "How many bottles are we going to need for everyone?", a: "Enough for all 9 household members needs to be arranged with the doctor — the pharmacist can help calculate and organise this." },
+            { q: "Why does this keep coming back?", a: "Usually because not everyone was treated at the same time, or bedding/clothing weren't washed — reinfection spreads easily between close contacts." },
+            { q: "What do I need to wash at home?", a: "All bedding, towels and recently worn clothing, in a hot wash (or sealed in a bag for a few days), on the day treatment starts." }
+        ]},
+        { heading: "Information only if asked", points: [
+            "There are 9 people living in the household.",
+            "Several children share bedrooms; bedding and blankets are often shared.",
+            "The oldest daughter frequently looks after younger siblings.",
+            "At least four children have been scratching at night.",
+            "Several children have had infected sores treated previously.",
+            "Not everyone is itchy."
+        ]}
+    ]},
+    { name: "🧑 Emma — the oldest daughter (15yo)", sections: [
+        { heading: "Who she is / how she feels", points: [
+            "Has come with her mother because she often helps care for her younger brothers and sisters.",
+            "Although the prescription is for her youngest sibling, she has also been itchy recently.",
+            "Worried that she might have scabies too.",
+            "Feels embarrassed that people at school might find out.",
+            "Concerned about missing more school."
+        ]},
+        { heading: "Things she'll raise (across the conversation)", points: [
+            { q: "If he has scabies, does that mean I probably have it too?", a: "Possibly — close contacts, especially those sharing beds or towels, are at higher risk and should be treated too." },
+            { q: "Can I still go to school?", a: "Yes, usually once treatment has started — scabies isn't typically a reason to stay home once treated." },
+            { q: "Do all my brothers and sisters need treatment?", a: "Yes — the whole household is treated together, regardless of symptoms." },
+            { q: "Will the itching stop straight away?", a: "No — itching can continue for a few weeks after successful treatment while the skin heals; it doesn't mean treatment has failed." },
+            { q: "How long does the treatment take to work?", a: "The mites are killed quickly, but full symptom resolution can take several weeks." },
+            { q: "Do we need to wash all our clothes and bedding?", a: "Yes — bedding, towels and recently worn clothes, in a hot wash, on the day treatment starts." }
+        ]},
+        { heading: "Information if asked", points: [
+            "Has been itching, mostly at night.",
+            "Two younger siblings are also scratching.",
+            "Sometimes sleeps in the same bed as younger siblings when mum is working late.",
+            "Some children share towels occasionally."
+        ]},
+        { heading: "How she plays it", points: [
+            "Quiet initially — lets mum do most of the talking.",
+            "Becomes more engaged once the pharmacist starts discussing treatment for the whole family.",
+            "Reassured by clear explanations about returning to school and preventing reinfection."
+        ]}
+    ]}
+] }, rxScript: { patient: "Family's youngest child (3 years)", items: [
+    { drug: "Ivermectin Tablets", sig: "200 micrograms/kg as a single dose on Days 1, 2 and 8", mitte: "qs" },
+    { drug: "Permethrin 5% Lotion (A-Scabies®)", sig: "Apply over whole body once daily for 7 days, then twice weekly until cured", mitte: "1/12" }
+] }, checklists: [
+    { step: "Mihimihi – Greeting", behaviour: "Introduces self and role clearly and respectfully." },
+    { step: "Whakawhanaungatanga – Connection", behaviour: "Builds rapport with both mum and Emma." },
+    { step: "Kaupapa – Purpose & Agenda", behaviour: "States purpose of consultation; explains what will happen." },
+    { step: "Kaupapa – Information Gathering", behaviour: "Reviews the prescription and notices it is written for only one household member." },
+    { step: "Kaupapa – Information Gathering", behaviour: "★ Recognises the prescription only covers one family member and identifies this as insufficient for the household.", critical: true },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "★ Explains what scabies is and how it spreads within households (close contact, shared bedding/clothing).", critical: true },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "★ Explains why all household contacts require treatment, even if asymptomatic.", critical: true },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "Discusses/calculates the quantity of A-Scabies® (permethrin) required for the whole household." },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "★ Discusses contacting the prescriber to arrange treatment for the remaining household members before supplying.", critical: true },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "Correctly counsels the ivermectin regimen (200 micrograms/kg as a single dose on Days 1, 2 and 8)." },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "Correctly counsels the permethrin regimen (apply over the whole body once daily for 7 days, then twice weekly until cured)." },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "Discusses washing bedding, towels and clothing to prevent reinfection." },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "Advises on managing itch after treatment (can persist for some weeks after successful treatment)." },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "Addresses Emma's concerns about school and being seen — reassures appropriately and non-judgementally." },
+    { step: "Whakawhanaungatanga – Connection", behaviour: "Shows empathy for the stressed, tired parent throughout." },
+    { step: "Kaupapa – Checking Understanding", behaviour: "Checks understanding (e.g., teach-back)." },
+    { step: "Whakamutunga – Closing", behaviour: "Confirms next steps; invites questions; respectful closing." }
+]},
+                { id: "p7", title: "Case 7: Doxycycline & Photosensitivity (Matt, 18)", initialInfo: "Matt, 18 years old, started doxycycline 2 months ago (prescribed by a dermatologist) for his acne, which has been working well — including on his back. He is here with his mum, and mentions he's recently been getting sunburnt very quickly.", hiddenInfo: { actors: [
+    { name: "🧑 Matt — the patient (18yo)", sections: [
+        { heading: "Background", points: [
+            "Started doxycycline about 2 months ago for acne, prescribed by a private dermatologist that cost a lot and took months to get into.",
+            "It's been working really well, especially on his back, which has knocked his confidence for years.",
+            "It's just gone into summer — his friends are spending heaps of time at the beach, and for the first time he feels comfortable taking his shirt off.",
+            "Lately he's noticed he's getting sunburnt really fast — much faster than normal."
+        ]},
+        { heading: "What he believes / how he feels", points: [
+            "Proud and relieved his skin — especially his back — is finally clearing up; this is a genuinely big deal for him.",
+            "Hadn't connected the sunburn to the medication until it's raised with him.",
+            "Once it's suggested the doxycycline is the cause, his instinct is: problem solved, just stop taking it — doesn't feel like a big deal since his skin 'looks pretty good now' anyway.",
+            "Finds the idea of carrying/applying sunscreen in front of his mates at the beach pretty embarrassing — doesn't want to be 'that guy' reapplying sunscreen or look high-maintenance.",
+            "He's 18 — feels like this is his call to make, and gets a little prickly if his mum keeps jumping in and answering for him."
+        ]},
+        { heading: "How the conversation goes for him", points: [
+            "Happy to chat about how good his back is looking, and mentions feeling comfortable at the beach for the first time.",
+            "When sunburn comes up: 'yeah it's so weird, I burn crazy fast now' — said casually, not alarmed.",
+            "When told it's probably the doxycycline: 'oh sweet, I'll just stop taking it then' — said like he's solved the problem, not asking permission.",
+            "If mum pushes back on stopping: mild pushback of his own — 'Mum, it's fine, I'll just stop, it's my skin.'",
+            "If sun protection is suggested instead of stopping: initially a bit resistant ('I'm not carrying a bottle of sunscreen around the beach'), but can be won over by practical, discreet options — e.g. a stick sunscreen applied before leaving home rather than at the beach in front of everyone.",
+            "Responds well to being treated like an adult and having his reasoning taken seriously, rather than just being told what to do."
+        ]}
+    ]},
+    { name: "👩 Matt's Mum", sections: [
+        { heading: "Background", points: [
+            "Knows Matt has been on doxycycline for about 2 months for his acne, prescribed after a private dermatologist appointment that cost a lot and took months to get into."
+        ]},
+        { heading: "What she believes / how she feels", points: [
+            "Relieved and proud to see his skin — especially his back — finally clearing up; knows how much his confidence has struggled with this.",
+            "Anxious about the cost and hassle of seeing the dermatologist again, and doesn't want him stopping the medication without proper medical advice.",
+            "May not have heard of photosensitivity as a side effect — when it's raised, genuinely wants to understand what's going on.",
+            "Her instinct is to insist he keep taking it until he can get a proper review with the dermatologist.",
+            "Has a habit of jumping in and answering for Matt, out of protectiveness — not disrespect for him."
+        ]},
+        { heading: "Things she'll raise", points: [
+            { q: "He's finally got clear skin, I don't want him just stopping and it all coming back.", a: "Staying on treatment with good sun protection lets him keep the skin benefit without stopping suddenly." },
+            { q: "The dermatologist appointment cost us a fortune and took months to get into — we can't just get back in whenever we want.", a: "That's exactly why avoiding unsupervised stopping matters — a sun-protection plan lets him safely continue in the meantime." },
+            { q: "Can't he just be more careful in the sun instead of stopping the tablets?", a: "Yes — practical sun protection (SPF50+, reapplication, shade) is the recommended approach rather than stopping the medication." },
+            { q: "(If explained clearly) wants detail — what SPF, does he need to reapply, does it go away once he stops?", a: "SPF50+ broad-spectrum, reapply every 2 hours outdoors; the photosensitivity typically resolves once the doxycycline is stopped." }
+        ]},
+        { heading: "How she plays it", points: [
+            "Caring, a little anxious, practical and cost-conscious, protective — not overbearing or dismissive of Matt himself.",
+            "Happy to ease back if the pharmacist gently brings Matt into the conversation directly.",
+            "Jumps back in if the conversation seems to be heading towards Matt just stopping the medication without a proper plan."
+        ]}
+    ]}
+] }, rxScript: { patient: "Matt (18 years)", drug: "Doxycycline 100mg", sig: "One tablet once daily", mitte: "2 months supply" }, checklists: [
+    { step: "Mihimihi – Greeting", behaviour: "Introduces self and role clearly and respectfully." },
+    { step: "Whakawhanaungatanga – Connection", behaviour: "Builds rapport with both Matt and his mum." },
+    { step: "Kaupapa – Purpose & Agenda", behaviour: "States purpose of consultation; explains what will happen." },
+    { step: "Kaupapa – Information Gathering", behaviour: "Asks about the recent doxycycline start and probes about sun exposure/skin symptoms." },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "★ Correctly identifies a photosensitivity/phototoxic reaction to doxycycline as the likely cause.", critical: true },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "★ Explains the mechanism/practical implications of drug-induced photosensitivity in plain language.", critical: true },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "★ Discourages abrupt, unsupervised cessation of the medication; explains why stopping suddenly isn't the best first response, and that any change should be discussed with the prescriber.", critical: true },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "Acknowledges that severe reactions do need medical advice." },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "★ Gives clear, realistic sun-protection advice suited to a beach-going teenager, not just generic 'wear sunscreen' (broad-spectrum SPF50+, regular reapplication, protective clothing/hats, avoiding peak UV, discreet practical options).", critical: true },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "★ Recognises and respects Matt's autonomy as an 18-year-old — engages him directly as the primary decision-maker rather than only addressing his mum.", critical: true },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "Explores and negotiates around Matt's embarrassment about sunscreen, rather than simply telling him 'you have to wear it'." },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "Validates mum's cost/access concerns without dismissing Matt's embarrassment, and vice versa." },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "Negotiates a workable, realistic plan that both Matt and his mum can agree to, rather than issuing a directive to either party." },
+    { step: "Kaupapa – Checking Understanding", behaviour: "Checks understanding (e.g., teach-back)." },
+    { step: "Whakamutunga – Closing", behaviour: "Confirms next steps; invites questions; respectful closing." }
+]},
+                { id: "p8", title: "Case 8: New Diagnosis of Paediatric Eczema (Mia, 2½yo)", initialInfo: "Mia, 2 years 6 months old, has just been diagnosed with moderate eczema for the first time by a dermatologist. Her parents have come to the pharmacy to collect her new prescriptions.\n\nAristocort cream (triamcinolone acetonide, moderate-potency topical corticosteroid) — apply twice daily for 1 week, then once daily for 2 weeks, then reduce gradually to 2–3 times per week, with a maintenance goal of weekend-only use.\nSorbolene cream — to be used as a soap substitute in the bath/shower, and as a moisturiser at least twice daily.\n\n(Mia is present but, at her age, is not part of the conversation — she can be represented by a doll/teddy or simply occupied with a toy.)", hiddenInfo: { actors: [
+    { name: "👩 Mum", sections: [
+        { heading: "Background", points: [
+            "At the pharmacy with her partner to collect new medicine for their 2½-year-old daughter, Mia.",
+            "Mia was diagnosed with moderate eczema for the first time last week by a dermatologist, who prescribed a steroid cream (Aristocort) and a moisturising cream (Sorbolene)."
+        ]},
+        { heading: "What she believes / how she feels", points: [
+            "Trusts the specialist and wants to do the right thing for Mia.",
+            "A little overwhelmed by the instructions — the steroid schedule sounds complicated (twice daily, then daily, then reducing over time).",
+            "Has heard steroid creams can be harsh on a baby's skin and wants reassurance about safety if used correctly.",
+            "Confused by the Sorbolene — it doesn't lather like normal baby wash, so isn't sure she's using it right in the bath.",
+            "Not sure whether the moisturiser needs to be washed off afterwards or left on the skin."
+        ]},
+        { heading: "Questions she'll raise", points: [
+            { q: "The specialist mentioned using the steroid more at first and then less over time — can you explain that again? I want to make sure we get it right.", a: "Twice daily for week 1, once daily for the next 2 weeks, then reducing to 2–3 times a week, aiming for weekend-only use long-term." },
+            { q: "How long can we keep using a steroid on her skin before it becomes a problem?", a: "This tapering course over a few weeks, used as directed, is considered safe — ongoing use is minimised by the step-down plan itself." },
+            { q: "The Sorbolene doesn't foam up at all in the bath — are we doing something wrong?", a: "No — Sorbolene isn't meant to lather like soap; used in the bath it cleanses gently without stripping the skin." },
+            { q: "Do we need to rinse the moisturiser off after we put it on, or does it just stay on her skin?", a: "As a moisturiser, leave it on the skin; it's only rinsed or wiped off when used as a soap substitute in the bath/shower." },
+            { q: "(Backing up Dad) 'I get where he's coming from, but the specialist did say she needed it...'", a: "Reassures Dad that the specialist recommended it and it's for a limited, tapering course, not indefinite use." }
+        ]},
+        { heading: "How she plays it", points: [
+            "Warm and cooperative — genuinely wants to understand the instructions so she doesn't get it wrong at home.",
+            "Asks a follow-up question if an explanation is unclear or too jargon-heavy.",
+            "Reassured by clear, confident, practical explanations.",
+            "Lets Dad lead most of the steroid pushback — isn't scared of it herself, just wants clarity.",
+            "Doesn't refuse the medicine herself, and doesn't undermine the pharmacist's advice in front of Dad."
+        ]}
+    ]},
+    { name: "👨 Dad", sections: [
+        { heading: "Background", points: [
+            "Mia's father. Has come with his partner to pick up Mia's new prescriptions.",
+            "Looked some of this up online before coming in and has real reservations about putting a steroid cream on his daughter's skin."
+        ]},
+        { heading: "What he believes / how he feels", points: [
+            "Generally distrusts giving pharmaceuticals to young children when there might be a 'natural' option.",
+            "Has read online that topical steroids 'thin the skin' and get 'absorbed into the body,' and is worried this applies to Mia.",
+            "Would rather try natural approaches first or alongside — e.g. coconut oil, oatmeal baths, avoiding 'chemicals.'",
+            "Isn't bothered by the Sorbolene — reads it as 'just a moisturiser.' His concern is specifically the steroid.",
+            "A protective, engaged father — not dismissive or rude, but pushes back and wants real answers, not just 'trust the doctor.'"
+        ]},
+        { heading: "Things he'll raise", points: [
+            { q: "Isn't there a natural alternative we could try first instead of the steroid?", a: "Moisturising alone often isn't enough for moderate eczema — the steroid helps settle the flare while regular moisturising continues alongside it." },
+            { q: "I've read that steroid creams get absorbed into the bloodstream and can affect kids' growth, or thin their skin permanently — is that true?", a: "Those risks relate to prolonged, inappropriate use of potent steroids — a short, correctly-used, moderate-strength tapering course carries very low risk." },
+            { q: "Why can't we just use more moisturiser and see if that's enough on its own?", a: "Moisturiser alone doesn't reduce the inflammation driving moderate eczema — the steroid is needed to settle it first." },
+            { q: "How do we know we're not overdoing it? Isn't more medicine always worse for a toddler?", a: "Following the step-down schedule exactly as prescribed, applied only to active areas, keeps the dose appropriately limited." },
+            { q: "(Once reassured) 'So this is only for a few weeks total, not ongoing forever?'", a: "Correct — a short tapering course down to occasional weekend-only maintenance, not indefinite daily use." }
+        ]},
+        { heading: "How he plays it", points: [
+            "Skeptical but respectful — testing whether the pharmacist actually knows what they're talking about, not being difficult for its own sake.",
+            "If given a rushed, dismissive, or jargon-heavy answer: stays unconvinced and rephrases his concern.",
+            "If the pharmacist listens, acknowledges his concern as reasonable, and gives a clear, specific explanation: gradually softens and agrees to follow the plan.",
+            "By the end, if handled well, is willing to go along with the steroid plan as prescribed — while still asking about the 'natural' things he can also do (moisturising routine, avoiding triggers, bath time).",
+            "If handled poorly: stays politely unconvinced — says he'll 'think about it' or wants to check with the specialist again."
+        ]}
+    ]}
+] }, rxScript: { patient: "Mia (2 years 6 months)", items: [
+    { drug: "Aristocort Cream (Triamcinolone Acetonide)", sig: "Apply twice daily for 1 week, then once daily for 2 weeks, then reduce gradually to 2–3 times per week (maintenance goal: weekend-only use)", mitte: "1 tube (30g)" },
+    { drug: "Sorbolene Cream", sig: "Use as a soap substitute in the bath/shower, and as a moisturiser at least twice daily", mitte: "1 x 500g" }
+] }, checklists: [
+    { step: "Mihimihi – Greeting", behaviour: "Greets the family; reviews the prescriptions/labels." },
+    { step: "Whakawhanaungatanga – Connection", behaviour: "Builds rapport with both parents." },
+    { step: "Kaupapa – Purpose & Agenda", behaviour: "States purpose of consultation; explains what will happen." },
+    { step: "Kaupapa – Information Gathering", behaviour: "Listens to Mum's initial practical questions (soap-substitute vs moisturiser confusion, dosing schedule clarification)." },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "★ Explains the topical corticosteroid step-down (weaning) regimen clearly in lay terms — the frequency, the duration, and the rationale for tapering rather than stopping abruptly.", critical: true },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "★ Explains correct application technique and site (affected areas only, thin layer, roughly a fingertip unit) and how the steroid and moisturiser fit together.", critical: true },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "★ Distinguishes the two different roles of Sorbolene: as a soap substitute (bath/shower, rinsed or wiped off) vs. as a leave-on moisturiser (applied regularly through the day, not rinsed off).", critical: true },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "★ Addresses Dad's steroid safety concerns with accurate, balanced information (skin thinning, systemic absorption) in relation to the actual risk of a moderate-potency steroid used correctly for a limited, tapering course — without dismissing his concerns.", critical: true },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "★ Engages constructively with Dad's concerns directly (acknowledges, gives real information) rather than only speaking to Mum or brushing Dad off.", critical: true },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "Validates the underlying wish to minimise medication use; corrects misinformation without being confrontational; negotiates an agreed plan rather than lecturing." },
+    { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "Discusses what to watch for and when to seek further advice (e.g. signs of infected eczema or treatment failure)." },
+    { step: "Kaupapa – Checking Understanding", behaviour: "Checks understanding (e.g., teach-back)." },
+    { step: "Whakamutunga – Closing", behaviour: "Confirms next steps; brings both parents onto the same page; respectful closing." }
 ]}
             ];
 
@@ -1332,11 +1613,14 @@ const EthicalPrescriptionCard = ({ rx }) => (
                                     <h2 className="text-xl font-black text-slate-800 uppercase border-l-4 border-slate-800 pl-3">#{caseIndex + 1}: {currentCase.title}</h2>
                                 </div>
                                     <div className="bg-slate-50 border-2 border-slate-200 p-6 rounded-2xl shadow-sm">
-                                        <p className="text-lg font-medium text-slate-700 italic leading-relaxed">"{currentCase.initialInfo}"</p>
+                                        <p className="text-lg font-medium text-slate-700 italic leading-relaxed whitespace-pre-line">"{currentCase.initialInfo}"</p>
                                     </div>
 
                                     {role === 'pharmacist' && currentCase.prescription && (
     <PrescriptionCard rx={currentCase.prescription} />
+)}
+                                    {role === 'pharmacist' && currentCase.rxScript && (
+    <EthicalPrescriptionCard rx={currentCase.rxScript} />
 )}
                                     {role === 'patient' && (
                                         <div className="bg-orange-50 border border-orange-200 p-6 rounded-2xl space-y-4">
@@ -1349,7 +1633,16 @@ const EthicalPrescriptionCard = ({ rx }) => (
                                                             <div key={si} className="mb-3 last:mb-0">
                                                                 <p className="text-[11px] font-bold text-orange-700 uppercase mb-1">{sec.heading}</p>
                                                                 <ul className="list-disc list-outside ml-5 space-y-1 text-sm text-orange-900">
-                                                                    {sec.points.map((pt, pi) => <li key={pi}>{pt}</li>)}
+                                                                    {sec.points.map((pt, pi) => (
+                                                                        <li key={pi}>
+                                                                            {(typeof pt === 'object' && pt !== null) ? (
+                                                                                <>
+                                                                                    <span>{pt.q}</span>
+                                                                                    <div className="text-orange-700/80 not-italic font-medium mt-0.5">↳ {pt.a}</div>
+                                                                                </>
+                                                                            ) : pt}
+                                                                        </li>
+                                                                    ))}
                                                                 </ul>
                                                             </div>
                                                         ))}
