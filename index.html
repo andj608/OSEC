@@ -242,7 +242,7 @@ const EthicalPrescriptionCard = ({ rx }) => (
                 try { return JSON.parse(localStorage.getItem('osce_checked') || '{}'); } catch { return {}; }
             });
             const [practicedCases, setPracticedCases] = useState(() => {
-                const defaults = { clinical: {}, ethical: {}, case575: {} };
+                const defaults = { clinical: {}, ethical: {}, case575: {}, workshop: {} };
                 try {
                     const saved = JSON.parse(localStorage.getItem('osce_practiced') || '{}');
                     return { ...defaults, ...saved };
@@ -1276,7 +1276,7 @@ const EthicalPrescriptionCard = ({ rx }) => (
             { q: "How do I give it? Do they need to take it to school?", a: "Give it by mouth using the measuring device provided; only needs to go to school if a dose falls during school hours." },
             { q: "How long should they stay off school?", a: "No set exclusion period for cellulitis alone — he can usually return once treatment has started and he's otherwise well, but check the school's own policy." },
             { q: "What is a bleach bath? It sounds unsafe — I don't like the idea of my children bathing in bleach. Should I do this while there's an active infection? Will it sting?", a: "A diluted bleach bath can help reduce bacteria on the skin for recurrent infections, but shouldn't be used on actively broken or weeping skin without checking with the prescriber first." },
-            { q: "He is allergic to penicillin — is this safe?", a: "Cephalexin might have a cross-reactivity risk with penicillin allergies. The type of reaction should be checked first." },
+            { q: "He is allergic to penicillin — is this safe?", a: "Cephalexin is a different class (a cephalosporin) with only a small cross-reactivity risk — safe for most penicillin allergies, but the type of reaction should be checked first." },
             { q: "We've had these infections in the house before — should all children in the household be on antibiotics?", a: "No — antibiotics are only needed for those with an actual infection, not as prevention for everyone." },
             { q: "Does it need to be taken with food?", a: "Can be taken with or without food; food may help if it upsets his stomach." },
             { q: "Can I keep it in my handbag?", a: "Best stored at room temperature away from heat — a handbag is fine short-term, but avoid a hot car." },
@@ -1522,6 +1522,188 @@ const EthicalPrescriptionCard = ({ rx }) => (
 ]}
             ];
 
+            const workshopCases = [
+                { id: "w1", title: "Case 1: Type 1 Diabetes (Sarah Chen, 24yo)", presentation: "Sarah Chen, 24-year-old female. Newly diagnosed with type 1 diabetes following a 3-week history of polyuria, polydipsia, fatigue, and weight loss (5kg in the last 4 weeks).",
+                    medicalHistory: [
+                        "No significant past medical history.",
+                        "No current medications.",
+                        "No known drug allergies.",
+                        "Non-smoker, occasional alcohol use.",
+                        "Initial random blood glucose: 18.2 mmol/L.",
+                        "HbA1c: 84 mmol/mol.",
+                        "Blood ketones: 0.8 mmol/L.",
+                        "C-peptide: <200 nmol/L.",
+                        "Positive anti-GAD, anti-IA2 and Zn-8 transporter antibodies."
+                    ],
+                    familyHistory: ["No family history of diabetes."],
+                    socialHistory: [
+                        "Works as a primary school teacher.",
+                        "Lives with a flatmate in Auckland.",
+                        "Enjoys running and yoga."
+                    ],
+                    currentMedications: ["None at diagnosis."],
+                    labs: [
+                        "Weight: 58 kg, Height: 165 cm, BMI: 21.3 kg/m².",
+                        "Blood pressure: 118/72 mmHg.",
+                        "Otherwise unremarkable physical examination."
+                    ],
+                    managementPlan: [
+                        "Started on a basal-bolus insulin regimen.",
+                        "Basal insulin: Insulin glargine 12 units once daily at bedtime.",
+                        "Bolus insulin: Insulin aspart 4 units before each main meal.",
+                        "Total daily dose: 0.41 units/kg/day (24 units total).",
+                        "Prescribed: Insulin glargine (Lantus) 100 units/mL 3mL Solostar pens.",
+                        "Prescribed: Insulin aspart (NovoRapid) 100 units/mL 3mL cartridges (needs Novopen 4).",
+                        "Prescribed: Caresens Dual Meter with lancets, plus Caresens Pro/Ketosens strips.",
+                        "Prescribed: BD 4mm needles.",
+                        "Prescribed: Glucagon Hypokit.",
+                        "Prescribed: Sharps container."
+                    ],
+                    questions: [
+                        { part: "Part A: Counselling and Education", items: [
+                            "Insulin Administration: What key points would you cover when teaching Sarah how to use her insulin pens? Include injection technique, site rotation, and storage requirements.",
+                            "Hypoglycemia Management: Explain the signs and symptoms of hypoglycemia Sarah should watch for and how to treat it. What should she carry with her at all times? How do you use a Glucagon Hypokit?",
+                            "Blood Glucose Monitoring: How often should Sarah check her blood glucose levels? When are the most important times to test? (Assuming she is not using CGM.)",
+                            "Sick Day Management: Sarah asks what to do if she gets the flu. What advice would you give regarding insulin dosing, blood glucose monitoring, and ketone testing during illness?"
+                        ]},
+                        { part: "Part B: Medication Management", items: [
+                            "Insulin Adjustment: After 2 weeks, Sarah's fasting blood glucose readings are consistently 10–12 mmol/L. Her pre-lunch, pre-dinner and bedtime readings are in target (4–7 mmol/L). Which insulin should be adjusted and how?",
+                            "Carbohydrate Counting and Correction Dosing: Explain the concept of insulin-to-carbohydrate ratios and correction doses. If Sarah's ratio is 1:10 (1 unit per 10g carbohydrate) and her correction dose is 1 unit per 2mmol/L greater than 6mmol/L, and she tests before dinner — her BG is 12.2mmol/L and she plans to eat a meal with 60g of carbohydrate — how much insulin aspart should she inject?",
+                            "Insulin Storage: Sarah is going on a weekend camping trip. What advice would you give about storing and transporting her insulin?"
+                        ]},
+                        { part: "Part C: Long-term Management", context: "Sarah comes in 4 weeks after her diagnosis and has been given a prescription for Continuous Glucose Monitoring sensors. She has been told she can choose which one she wants but is overwhelmed by all the new information and can't decide. She also wants to know what other monitoring will be required.", items: [
+                            "Monitoring: What are the differences between the Dexcom ONE+ and the Freestyle Libre 2 Plus sensors? What are the recommended glucose targets for whaanau with Type 1 diabetes? What laboratory tests should Sarah have checked regularly? How often should her HbA1c be checked? What are the limitations of an HbA1c test? Under what conditions might it not be a true reflection of diabetes control?",
+                            "Complications Screening: What diabetes-related complications should be screened for, and when should screening begin?",
+                            "Lifestyle Considerations: Sarah asks about alcohol consumption and exercise. What specific advice would you provide regarding insulin adjustments and hypoglycemia risk?"
+                        ]},
+                        { part: "Part D: New Zealand-Specific Considerations", items: [
+                            "Funding and Access: In New Zealand, what support is available through PHARMAC for Sarah's diabetes supplies? What items are fully funded vs. partially funded?",
+                            "Community Resources: What New Zealand organisations or resources could you refer Sarah to for ongoing support and education?"
+                        ]}
+                    ],
+                    learningObjectives: [
+                        "Understand the pathophysiology and presentation of type 1 diabetes.",
+                        "Develop skills in counselling patients on insulin therapy.",
+                        "Learn to troubleshoot common insulin management issues.",
+                        "Recognise the importance of patient education in diabetes self-management.",
+                        "Understand the role of pharmacists in the multidisciplinary diabetes care team.",
+                        "Apply knowledge of the New Zealand healthcare system and funding for diabetes care."
+                    ]
+                },
+                { id: "w2", title: "Case 2: Type 2 Diabetes (Sonny Mahara, 58yo)", presentation: "Sonny Mahara, 58-year-old man. Follow-up appointment for newly diagnosed type 2 diabetes.",
+                    medicalHistory: [
+                        "Type 2 diabetes mellitus (diagnosed 3 months ago).",
+                        "Hypertension, well-controlled on ramipril 5mg daily.",
+                        "Dyslipidemia, on atorvastatin 20mg daily.",
+                        "BMI 32 kg/m² (height 165cm, weight 87kg).",
+                        "No known drug allergies."
+                    ],
+                    familyHistory: ["Mother had type 2 diabetes; father had a myocardial infarction at age 62."],
+                    socialHistory: [
+                        "Works in a factory, minimal physical activity, non-smoker.",
+                        "Occasional alcohol (6 bottles of beer once a week, usually on a Friday after work).",
+                        "Had been feeling 'off' for several years prior to diagnosis, and noticed that when he cut himself at work it took a long time to heal."
+                    ],
+                    currentMedications: [
+                        "Metformin 500mg twice daily (started 3 months ago).",
+                        "Ramipril 5mg once daily.",
+                        "Atorvastatin 20mg once daily."
+                    ],
+                    labs: [
+                        "HbA1c: 84 mmol/mol (up from diagnosis where it was 69 mmol/mol).",
+                        "Fasting blood glucose: 9.8 mmol/L.",
+                        "eGFR: 78 mL/min/1.73m².",
+                        "uACR: 4 mg/mol.",
+                        "Vitamin B12: 285 pmol/L (normal range: 150–700 pmol/L).",
+                        "LDL cholesterol: 2.8 mmol/L.",
+                        "Blood pressure: 128/82 mmHg."
+                    ],
+                    patientConcerns: [
+                        "Reports moderate gastrointestinal upset (unpredictable loose stools at least once a day) when he started metformin.",
+                        "Has been trying to follow dietary advice but finds it challenging with his work schedule.",
+                        "Concerned about needing insulin — hates needles and believes that if he needs to inject insulin it means he is very sick.",
+                        "Would like to lose weight."
+                    ],
+                    questions: [
+                        { part: "Part A: Medication Review and Counselling", context: "You talk with Sonny and discover that he was unable to manage his unpredictable bowel motions at work, so he stopped taking his metformin soon after it was prescribed.", items: [
+                            "Metformin Assessment: Is the current metformin dose appropriate? What is the maximum dose? What would the maximum dose be if his eGFR deteriorated to 40mL/min? How would you address Sonny's gastrointestinal side effects? What monitoring parameters are required for metformin therapy? What counselling points should be provided regarding metformin?",
+                            "Drug Interactions: Are there any significant drug interactions between Sonny's current medications? What precautions should be taken if Sonny requires surgery and will be nil by mouth pre- and post-op?"
+                        ]},
+                        { part: "Part B: Treatment Optimization", context: "You talk with Sonny and he agrees that you can restart him on metformin.", items: [
+                            "Medication Re-initiation: How will you restart him? What advice do you give him about restarting his metformin and managing his GI effects?",
+                            "Glycaemic Control: Sonny's HbA1c remains above target despite 3 months of metformin. What treatment options should be considered? Given his cardiovascular risk factors (family history, dyslipidemia, hypertension), which medication classes would provide additional cardiovascular benefit?",
+                            "Weight Management: Which diabetes medications could assist with Sonny's weight loss goals? What lifestyle modifications would you recommend?"
+                        ]},
+                        { part: "Part C: Patient Education", items: [
+                            "Self-Monitoring: Does Sonny need to perform self-monitoring of blood glucose? If so, when and how often? What are the signs and symptoms of hypoglycaemia, and is Sonny at risk?",
+                            "Sick Day Management: What advice should Sonny receive about managing his diabetes medications during acute illness? When should he seek medical attention?"
+                        ]},
+                        { part: "Part D: Long-Term Management", items: [
+                            "Monitoring Schedule: What ongoing monitoring is required for Sonny (laboratory tests, clinical assessments)? How often should his HbA1c be checked?",
+                            "Preventive Care: What screening and preventive measures should be implemented for diabetes-related complications? What vaccinations should be recommended?"
+                        ]}
+                    ],
+                    clinicalConsiderations: [
+                        "Therapeutic inertia: Sonny's HbA1c is 84 mmol/mol after 3 months of metformin monotherapy. Consider whether treatment intensification is needed now or if metformin dose optimisation should be attempted first.",
+                        "Cardiovascular risk: With multiple cardiovascular risk factors and family history, discuss the role of SGLT2 inhibitors or GLP-1 receptor agonists for cardio and renal protection.",
+                        "Patient-centred care: Address Sonny's concerns about insulin and weight, and incorporate his preferences into the treatment plan.",
+                        "Medication access in New Zealand: Consider PHARMAC funding criteria and patient co-payment implications when recommending treatment options."
+                    ]
+                },
+                { id: "w3", title: "Case 3: Type 2 Diabetes (Jessie Tamihana, 28yo)", presentation: "Jessie Tamihana, 28-year-old woman. Follow-up appointment for Diabetes Annual Review (diagnosed 2021).",
+                    medicalHistory: [
+                        "Type 2 diabetes mellitus (diagnosed 5 years ago).",
+                        "Dyslipidemia.",
+                        "BMI 27 kg/m² (height 177cm, weight 86.5kg).",
+                        "No known drug allergies."
+                    ],
+                    familyHistory: ["Mother and grandfather had type 2 diabetes; several aunties, uncles and cousins also have it."],
+                    socialHistory: [
+                        "Lives with extended family in a multi-generational home, and her partner.",
+                        "Works at Woolworths as a baker — starts work at 4.30am and finishes early afternoon. Often takes extra shifts and works at least 6 days most weeks.",
+                        "Getting married later this year, and after that is keen to start a family.",
+                        "Often cooks the evening meal for her whaanau."
+                    ],
+                    currentMedications: [
+                        "Empagliflozin 12.5mg/metformin 1g (Jardiamet) twice daily.",
+                        "Vildagliptin 50mg twice daily.",
+                        "Atorvastatin 20mg once daily."
+                    ],
+                    labs: [
+                        "HbA1c: 78 mmol/mol.",
+                        "Fasting plasma glucose: always >10mmol/L even when she tries to eat healthy food.",
+                        "eGFR: >90 mL/min/1.73m².",
+                        "uACR: 2 mg/mol.",
+                        "LDL cholesterol: 2.0 mmol/L.",
+                        "Blood pressure: 136/86 mmHg."
+                    ],
+                    patientConcerns: [
+                        "Knows her diabetes is not as well controlled as it could be and is expecting to be 'told off', but doesn't know what else she can do to improve her blood glucose levels.",
+                        "She and her partner want to start a family quite soon after their wedding later in the year."
+                    ],
+                    questions: [
+                        { part: "Part A: Medication Review and Counselling", context: "You talk with Jessie, and she reports that she is adherent to her medications most of the time. She admits that sometimes it is hard to get time off work to go to the doctor so she might run out of medications, and it will take a few days before she can get a prescription. She states that she is finding it hard to stay motivated because when she tries hard with her eating and taking her medications her BGs remain high.", items: [
+                            "Improving her diabetes control: What would you discuss with Jessie today? Think about how you might approach this discussion given that she is expecting to be 'told off' at her DAR today. What, if any, changes to her medications would you recommend? What monitoring would you suggest?",
+                            "Pregnancy Planning: What would be your concern if she had an unplanned pregnancy? What advice would you give Jessie regarding starting a family today? What diabetes medications are known to be safe in pregnancy? Where could you suggest she go for support and advice regarding pregnancy planning and diabetes?"
+                        ]},
+                        { part: "Part B: Treatment Optimization", context: "You decide with Jessie that initiation with insulin is indicated. However, you have concerns as she is already overwhelmed by all the 'life admin' required to manage her diabetes.", items: [
+                            "Insulin Initiation: Why is insulin indicated at this time for Jessie? What insulin would you recommend, and what would be the starting dose? How would you titrate this insulin and what monitoring would you recommend? What information would you give Jessie about injecting insulin? (Hint: think about injection techniques but also other information such as storage, needle usage and disposal.)",
+                            "Mental Health: Jessie's GP calls you and mentions that he is concerned that Jessie is having some diabetes distress, but he does not think that Jessie is depressed. What support could you suggest for Jessie at this time?",
+                            "Cardiovascular Risk: What would you recommend regarding her atorvastatin dose? What would your advice be regarding taking the statin if she were to become pregnant? What, if any, concerns about her blood pressure do you have? How will you address your concerns with Jessie?"
+                        ]},
+                        { part: "Part C: Patient Education", items: [
+                            "Self-Monitoring: Does Jessie need to perform self-monitoring of blood glucose? If so, when and how often?",
+                            "Sick Day Management: What advice should Jessie receive about managing her diabetes medications during acute illness? When should she seek medical attention?"
+                        ]}
+                    ],
+                    clinicalConsiderations: [
+                        "Therapeutic inertia: Jessie's HbA1c is 78 mmol/mol, and needs treatment intensification.",
+                        "Cardiovascular risk: With multiple cardiovascular risk factors and family history, discuss the need to manage hyperlipidaemia and hypertension proactively.",
+                        "Pregnancy Planning: Needs to be on reliable contraception, and plan her pregnancy as only safe medications currently are insulin and metformin. HbA1c >80 mmol/mol is teratogenic, but any higher than ideal HbA1c carries risks."
+                    ]
+                }
+            ];
+
             useEffect(() => {
     if (currentTab === 'clinical' && [13, 14, 15].includes(caseIndex)) {
         setPrescriberMood(prescriberPersonalities[0]);
@@ -1534,7 +1716,7 @@ const EthicalPrescriptionCard = ({ rx }) => (
 }, [caseIndex, currentTab]);
 
             const nextCase = () => {
-                const max = currentTab === 'clinical' ? clinicalCases.length - 1 : currentTab === 'case575' ? case575Cases.length - 1 : ethicalScenarios.length - 1;
+                const max = currentTab === 'clinical' ? clinicalCases.length - 1 : currentTab === 'case575' ? case575Cases.length - 1 : currentTab === 'workshop' ? workshopCases.length - 1 : ethicalScenarios.length - 1;
                 if (caseIndex < max) { setCaseIndex(caseIndex + 1); }
             };
             const prevCase = () => {
@@ -1569,7 +1751,7 @@ const EthicalPrescriptionCard = ({ rx }) => (
                             <div className="flex flex-col items-end gap-1">
                                 <select value={caseIndex} onChange={(e) => {setCaseIndex(parseInt(e.target.value)); setCheckedState({});}}
                                     className="bg-slate-800 text-white text-[11px] font-bold p-2 rounded-lg border border-white/20 focus:ring-2 focus:ring-amber-500">
-                                    {(currentTab === 'clinical' ? clinicalCases : currentTab === 'case575' ? case575Cases : ethicalScenarios).map((c, i) => (
+                                    {(currentTab === 'clinical' ? clinicalCases : currentTab === 'case575' ? case575Cases : currentTab === 'workshop' ? workshopCases : ethicalScenarios).map((c, i) => (
                                         <option key={i} value={i}>{(practicedCases[currentTab] || {})[i] ? '✅' : '⬜'} #{i+1}: {c.title ? (c.title.split(':')[1] || c.title) : c.title}</option>
                                     ))}
                                 </select>
@@ -1594,13 +1776,16 @@ const EthicalPrescriptionCard = ({ rx }) => (
                             <button onClick={() => {setCurrentTab('case575'); setCaseIndex(0); setCheckedState({});}} className={`flex-1 py-4 text-[11px] font-black transition-all ${currentTab === 'case575' ? 'bg-white text-purple-700 border-b-4 border-purple-700' : 'text-slate-400'}`}>575 - CASE</button>
                             <button onClick={() => {setCurrentTab('clinical'); setCaseIndex(0); setCheckedState({});}} className={`flex-1 py-4 text-[11px] font-black transition-all ${currentTab === 'clinical' ? 'bg-white text-[#1a365d] border-b-4 border-[#1a365d]' : 'text-slate-400'}`}>CLINICAL CASES</button>
                             <button onClick={() => {setCurrentTab('ethical'); setCaseIndex(0); setCheckedState({});}} className={`flex-1 py-4 text-[11px] font-black transition-all ${currentTab === 'ethical' ? 'bg-white text-red-700 border-b-4 border-red-700' : 'text-slate-400'}`}>ETHICAL SCENARIOS</button>
+                            <button onClick={() => {setCurrentTab('workshop'); setCaseIndex(0); setCheckedState({});}} className={`flex-1 py-4 text-[11px] font-black transition-all ${currentTab === 'workshop' ? 'bg-white text-teal-700 border-b-4 border-teal-700' : 'text-slate-400'}`}>DIABETES WORKSHOP</button>
                         </div>
 
+                        {currentTab !== 'workshop' && (
                         <div className="p-4 bg-slate-50 border-b flex justify-center gap-3 overflow-x-auto no-scrollbar">
                             <button onClick={() => setRole('pharmacist')} className={`flex items-center gap-1 px-5 py-2 rounded-xl text-[10px] font-black transition ${role === 'pharmacist' ? 'bg-sky-700 text-white shadow-lg' : 'bg-white border text-slate-400'}`}><Icon name="user" size={14} /> PHARMACIST</button>
                             <button onClick={() => setRole('patient')} className={`flex items-center gap-1 px-5 py-2 rounded-xl text-[10px] font-black transition ${role === 'patient' ? 'bg-orange-600 text-white shadow-lg' : 'bg-white border text-slate-400'}`}><Icon name="message-square" size={14} /> SIMULATED ACTOR</button>
                             <button onClick={() => setRole('evaluator')} className={`flex items-center gap-1 px-5 py-2 rounded-xl text-[10px] font-black transition ${role === 'evaluator' ? 'bg-emerald-700 text-white shadow-lg' : 'bg-white border text-slate-400'}`}><Icon name="clipboard-check" size={14} /> ASSESSOR</button>
                         </div>
+                        )}
 
                         <div className="flex-1 p-4 sm:p-8">
                             {(currentTab === 'clinical' || currentTab === 'case575') ? (
@@ -1748,7 +1933,7 @@ const EthicalPrescriptionCard = ({ rx }) => (
                                         </div>
                                     )}
                                 </div>
-                            ) : (
+                            ) : currentTab === 'ethical' ? (
                                 <div className="space-y-8">
                                     <div className="flex items-center gap-3">
                                         <button onClick={togglePracticed}
@@ -1815,6 +2000,78 @@ const EthicalPrescriptionCard = ({ rx }) => (
                                         </div>
                                     )}
                                 </div>
+                            ) : (
+                                <div className="space-y-6">
+                                    <div className="flex items-center gap-3">
+                                        <button onClick={togglePracticed}
+                                            className={`w-7 h-7 rounded-lg border-2 flex items-center justify-center shrink-0 transition ${(practicedCases.workshop || {})[caseIndex] ? 'bg-emerald-500 border-emerald-500 text-white' : 'border-slate-300 hover:border-emerald-400'}`}>
+                                            {(practicedCases.workshop || {})[caseIndex] && <Icon name="check" size={16} className="text-white" />}
+                                        </button>
+                                        <h2 className="text-xl font-black text-slate-800 uppercase border-l-4 border-teal-700 pl-3">#{caseIndex + 1}: {workshopCases[caseIndex].title}</h2>
+                                    </div>
+
+                                    <div className="bg-slate-50 border-2 border-slate-200 p-6 rounded-2xl shadow-sm">
+                                        <p className="text-lg font-medium text-slate-700 italic leading-relaxed whitespace-pre-line">"{workshopCases[caseIndex].presentation}"</p>
+                                    </div>
+
+                                    <div className="grid sm:grid-cols-2 gap-4">
+                                        {[
+                                            ["Medical History", workshopCases[caseIndex].medicalHistory],
+                                            ["Family History", workshopCases[caseIndex].familyHistory],
+                                            ["Social History", workshopCases[caseIndex].socialHistory],
+                                            ["Current Medications", workshopCases[caseIndex].currentMedications],
+                                            ["Recent Laboratory Results", workshopCases[caseIndex].labs],
+                                            ["Initial Management Plan", workshopCases[caseIndex].managementPlan]
+                                        ].filter(([, list]) => Array.isArray(list) && list.length > 0).map(([label, list], i) => (
+                                            <div key={i} className="bg-teal-50 border border-teal-200 rounded-2xl p-5">
+                                                <p className="text-xs font-black text-teal-800 uppercase mb-2">{label}</p>
+                                                <ul className="list-disc list-outside ml-5 space-y-1 text-sm text-teal-900">
+                                                    {list.map((line, li) => <li key={li}>{line}</li>)}
+                                                </ul>
+                                            </div>
+                                        ))}
+                                    </div>
+
+                                    {workshopCases[caseIndex].patientConcerns && (
+                                        <div className="bg-orange-50 border border-orange-200 p-6 rounded-2xl">
+                                            <p className="text-xs font-black text-orange-800 uppercase mb-2">Patient Concerns</p>
+                                            <ul className="list-disc list-outside ml-5 space-y-1 text-sm text-orange-900">
+                                                {workshopCases[caseIndex].patientConcerns.map((line, li) => <li key={li}>{line}</li>)}
+                                            </ul>
+                                        </div>
+                                    )}
+
+                                    <div className="space-y-5">
+                                        <p className="text-xs font-black text-slate-500 uppercase tracking-wide">Discussion Questions</p>
+                                        {workshopCases[caseIndex].questions.map((part, pi) => (
+                                            <div key={pi} className="bg-white border-2 border-slate-200 rounded-2xl p-5">
+                                                <p className="text-sm font-black text-slate-800 mb-2">{part.part}</p>
+                                                {part.context && <p className="text-sm text-slate-500 italic mb-2">{part.context}</p>}
+                                                <ol className="list-decimal list-outside ml-5 space-y-2 text-sm text-slate-700">
+                                                    {part.items.map((q, qi) => <li key={qi}>{q}</li>)}
+                                                </ol>
+                                            </div>
+                                        ))}
+                                    </div>
+
+                                    {workshopCases[caseIndex].clinicalConsiderations && (
+                                        <div className="bg-teal-50 border border-teal-200 p-6 rounded-2xl">
+                                            <p className="text-xs font-black text-teal-800 uppercase mb-2">Clinical Considerations for Discussion</p>
+                                            <ul className="list-disc list-outside ml-5 space-y-1 text-sm text-teal-900">
+                                                {workshopCases[caseIndex].clinicalConsiderations.map((line, li) => <li key={li}>{line}</li>)}
+                                            </ul>
+                                        </div>
+                                    )}
+
+                                    {workshopCases[caseIndex].learningObjectives && (
+                                        <div className="bg-slate-50 border-2 border-slate-200 p-6 rounded-2xl">
+                                            <p className="text-xs font-black text-slate-600 uppercase mb-2">Learning Objectives</p>
+                                            <ul className="list-disc list-outside ml-5 space-y-1 text-sm text-slate-700">
+                                                {workshopCases[caseIndex].learningObjectives.map((line, li) => <li key={li}>{line}</li>)}
+                                            </ul>
+                                        </div>
+                                    )}
+                                </div>
                             )}
                         </div>
 
@@ -1822,13 +2079,13 @@ const EthicalPrescriptionCard = ({ rx }) => (
                             <button disabled={caseIndex === 0} onClick={prevCase} className="flex-1 py-3 rounded-xl border-2 border-slate-200 text-[11px] font-black uppercase text-slate-400 hover:border-slate-800 hover:text-slate-800 disabled:opacity-20 flex items-center justify-center gap-2 transition">
                                 <Icon name="chevron-left" size={16} /> PREVIOUS
                             </button>
-                            <button disabled={caseIndex === (currentTab === 'clinical' ? clinicalCases.length - 1 : currentTab === 'case575' ? case575Cases.length - 1 : ethicalScenarios.length - 1)} onClick={nextCase} className="flex-1 py-3 rounded-xl border-2 border-slate-200 text-[11px] font-black uppercase text-slate-400 hover:border-slate-800 hover:text-slate-800 disabled:opacity-20 flex items-center justify-center gap-2 transition">
+                            <button disabled={caseIndex === (currentTab === 'clinical' ? clinicalCases.length - 1 : currentTab === 'case575' ? case575Cases.length - 1 : currentTab === 'workshop' ? workshopCases.length - 1 : ethicalScenarios.length - 1)} onClick={nextCase} className="flex-1 py-3 rounded-xl border-2 border-slate-200 text-[11px] font-black uppercase text-slate-400 hover:border-slate-800 hover:text-slate-800 disabled:opacity-20 flex items-center justify-center gap-2 transition">
                                 NEXT <Icon name="chevron-right" size={16} />
                             </button>
                         </div>
 
                         <footer className="p-3 bg-slate-50 border-t flex flex-col sm:flex-row items-center justify-between gap-1 text-[8px] text-slate-400 font-bold uppercase tracking-[0.15em] px-6">
-                
+                            <div>Latest Update: 2026-08-01</div>
                             <div className="flex flex-col sm:flex-row items-center gap-2">
                                 <span>Maintained by Huichen Yu (Jen)</span>
                                 <span className="hidden sm:inline">·</span>
