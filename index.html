@@ -242,7 +242,7 @@ const EthicalPrescriptionCard = ({ rx }) => (
                 try { return JSON.parse(localStorage.getItem('osce_checked') || '{}'); } catch { return {}; }
             });
             const [practicedCases, setPracticedCases] = useState(() => {
-                const defaults = { clinical: {}, ethical: {}, case575: {}, workshop: {} };
+                const defaults = { clinical: {}, ethical: {}, case575: {} };
                 try {
                     const saved = JSON.parse(localStorage.getItem('osce_practiced') || '{}');
                     return { ...defaults, ...saved };
@@ -1159,7 +1159,7 @@ const EthicalPrescriptionCard = ({ rx }) => (
     "Benzoyl peroxide 5% wash most mornings.",
     "Sensitive skin.",
     "No known allergies."
-] }, rxScript: { patient: "Emma Wilson (22 years)", drug: "Retrieve® Cream", sig: "Apply a pea-sized amount to affected areas once daily at night", mitte: "1 tube (30g)" }, checklists: [
+] }, rxScript: { patient: "Emma Wilson (22 years)", drug: "Retrieve® (Tretinoin 0.025%) Cream", sig: "Apply a pea-sized amount to affected areas once daily at night", mitte: "1 tube (30g)" }, checklists: [
     { step: "Mihimihi – Greeting", behaviour: "Introduces self and role clearly and respectfully." },
     { step: "Whakawhanaungatanga – Connection", behaviour: "Builds rapport; acknowledges this is her first retinoid and any nervousness about it." },
     { step: "Kaupapa – Purpose & Agenda", behaviour: "States purpose of consultation; explains what will happen." },
@@ -1519,11 +1519,8 @@ const EthicalPrescriptionCard = ({ rx }) => (
     { step: "Kaupapa – Advice & Shared Decision-Making", behaviour: "Discusses what to watch for and when to seek further advice (e.g. signs of infected eczema or treatment failure)." },
     { step: "Kaupapa – Checking Understanding", behaviour: "Checks understanding (e.g., teach-back)." },
     { step: "Whakamutunga – Closing", behaviour: "Confirms next steps; brings both parents onto the same page; respectful closing." }
-]}
-            ];
-
-            const workshopCases = [
-                { id: "w1", title: "Case 1: Type 1 Diabetes (Sarah Chen, 24yo)", presentation: "Sarah Chen, 24-year-old female. Newly diagnosed with type 1 diabetes following a 3-week history of polyuria, polydipsia, fatigue, and weight loss (5kg in the last 4 weeks).",
+]},
+                { id: "p9", title: "Case 9: Type 1 Diabetes Workshop (Sarah Chen, 24yo)", type: "workshop", initialInfo: "Sarah Chen, 24-year-old female. Newly diagnosed with type 1 diabetes following a 3-week history of polyuria, polydipsia, fatigue, and weight loss (5kg in the last 4 weeks).",
                     medicalHistory: [
                         "No significant past medical history.",
                         "No current medications.",
@@ -1561,24 +1558,36 @@ const EthicalPrescriptionCard = ({ rx }) => (
                     ],
                     questions: [
                         { part: "Part A: Counselling and Education", items: [
-                            "Insulin Administration: What key points would you cover when teaching Sarah how to use her insulin pens? Include injection technique, site rotation, and storage requirements.",
-                            "Hypoglycemia Management: Explain the signs and symptoms of hypoglycemia Sarah should watch for and how to treat it. What should she carry with her at all times? How do you use a Glucagon Hypokit?",
-                            "Blood Glucose Monitoring: How often should Sarah check her blood glucose levels? When are the most important times to test? (Assuming she is not using CGM.)",
-                            "Sick Day Management: Sarah asks what to do if she gets the flu. What advice would you give regarding insulin dosing, blood glucose monitoring, and ketone testing during illness?"
+                            { q: "Insulin Administration: What injection technique would you teach Sarah for using her insulin pens?", a: "Inject subcutaneously at a 90° angle, prime the pen before each use, and hold for 10 seconds before withdrawing the needle." },
+                            { q: "Insulin Administration: Why is site rotation important, and where can she inject?", a: "Rotate between abdomen, thighs and buttocks to prevent lipohypertrophy, which can affect insulin absorption." },
+                            { q: "Insulin Administration: What are the storage requirements for her insulin, including needle disposal?", a: "In-use pens can be kept at room temperature for about 28 days; spare pens go in the fridge. Needles should never be reused and must go in a sharps container." },
+                            { q: "Hypoglycemia Management: What are the signs and symptoms of hypoglycaemia, and how should it be treated?", a: "Signs include shakiness, sweating, hunger, confusion and palpitations. Treat with 15g of fast-acting carbohydrate and recheck blood glucose after 15 minutes." },
+                            { q: "Hypoglycemia Management: What should Sarah carry with her at all times?", a: "Fast-acting glucose (e.g. glucose tablets or juice) and some form of diabetes ID." },
+                            { q: "Hypoglycemia Management: How do you use a Glucagon Hypokit?", a: "It's given IM or SC by a support person if Sarah is unconscious or unable to swallow — someone close to her should be shown how to prepare and administer it." },
+                            { q: "Blood Glucose Monitoring: How often should Sarah check her blood glucose levels (assuming she is not using CGM)?", a: "At least four times a day — before each meal and at bedtime." },
+                            { q: "Blood Glucose Monitoring: When are the most important additional times to test?", a: "Before driving, before and after exercise, and whenever she feels unwell or has hypo symptoms." },
+                            { q: "Sick Day Management: What advice would you give regarding insulin dosing during illness?", a: "Never stop insulin during illness — she may actually need more, not less, as illness raises blood glucose." },
+                            { q: "Sick Day Management: What advice on blood glucose and ketone monitoring during illness?", a: "Check blood glucose and ketones more frequently than usual, and seek urgent medical attention if ketones are rising despite correction doses or she can't keep fluids down." }
                         ]},
                         { part: "Part B: Medication Management", items: [
-                            "Insulin Adjustment: After 2 weeks, Sarah's fasting blood glucose readings are consistently 10–12 mmol/L. Her pre-lunch, pre-dinner and bedtime readings are in target (4–7 mmol/L). Which insulin should be adjusted and how?",
-                            "Carbohydrate Counting and Correction Dosing: Explain the concept of insulin-to-carbohydrate ratios and correction doses. If Sarah's ratio is 1:10 (1 unit per 10g carbohydrate) and her correction dose is 1 unit per 2mmol/L greater than 6mmol/L, and she tests before dinner — her BG is 12.2mmol/L and she plans to eat a meal with 60g of carbohydrate — how much insulin aspart should she inject?",
-                            "Insulin Storage: Sarah is going on a weekend camping trip. What advice would you give about storing and transporting her insulin?"
+                            { q: "Insulin Adjustment: After 2 weeks, Sarah's fasting blood glucose readings are consistently 10–12 mmol/L. Her pre-lunch, pre-dinner and bedtime readings are in target (4–7 mmol/L). Which insulin should be adjusted and how?", a: "The basal insulin (glargine) — since only the fasting/overnight level is high, increase the bedtime glargine dose by a small increment (e.g. +2 units), reassessing every few days." },
+                            { q: "Carbohydrate Counting and Correction Dosing: Explain the concept of insulin-to-carbohydrate ratios and correction doses. If Sarah's ratio is 1:10 (1 unit per 10g carbohydrate) and her correction dose is 1 unit per 2mmol/L greater than 6mmol/L, and she tests before dinner — her BG is 12.2mmol/L and she plans to eat a meal with 60g of carbohydrate — how much insulin aspart should she inject?", a: "Correction: (12.2−6)/2 ≈ 3 units. Carb dose: 60g ÷ 10 = 6 units. Total ≈ 9 units of insulin aspart." },
+                            { q: "Insulin Storage: Sarah is going on a weekend camping trip. What advice would you give about storing and transporting her insulin?", a: "Unopened insulin should be kept in the fridge (2–8°C); in-use pens are fine at room temperature for about 28 days. Use an insulated cool bag while camping, avoid direct contact with ice, and never freeze or leave in direct sun/a hot car." }
                         ]},
                         { part: "Part C: Long-term Management", context: "Sarah comes in 4 weeks after her diagnosis and has been given a prescription for Continuous Glucose Monitoring sensors. She has been told she can choose which one she wants but is overwhelmed by all the new information and can't decide. She also wants to know what other monitoring will be required.", items: [
-                            "Monitoring: What are the differences between the Dexcom ONE+ and the Freestyle Libre 2 Plus sensors? What are the recommended glucose targets for whaanau with Type 1 diabetes? What laboratory tests should Sarah have checked regularly? How often should her HbA1c be checked? What are the limitations of an HbA1c test? Under what conditions might it not be a true reflection of diabetes control?",
-                            "Complications Screening: What diabetes-related complications should be screened for, and when should screening begin?",
-                            "Lifestyle Considerations: Sarah asks about alcohol consumption and exercise. What specific advice would you provide regarding insulin adjustments and hypoglycemia risk?"
+                            { q: "Monitoring: What are the differences between the Dexcom ONE+ and the Freestyle Libre 2 Plus sensors?", a: "Dexcom ONE+ is a standalone real-time CGM streaming continuously to a phone/receiver; Freestyle Libre 2 Plus is a flash/real-time sensor that can be scanned or streamed via app — both avoid routine fingerpricks." },
+                            { q: "Monitoring: What are the recommended glucose targets for people with Type 1 diabetes?", a: "Generally aim for time-in-range >70% (glucose 4–10mmol/L), with individualised targets set by the diabetes team." },
+                            { q: "Monitoring: What laboratory tests should Sarah have checked regularly, and how often should her HbA1c be checked?", a: "HbA1c approximately every 3 months, alongside routine renal function, lipids and periodic vitamin/thyroid checks as clinically indicated." },
+                            { q: "Monitoring: What are the limitations of an HbA1c test, and when might it not truly reflect her control?", a: "It can be unreliable in conditions affecting red cell turnover — such as anaemia, haemoglobinopathies, pregnancy, or a recent blood transfusion." },
+                            { q: "Complications Screening: What diabetes-related complications should be screened for?", a: "Retinopathy, nephropathy, and diabetic foot complications, alongside cardiovascular risk." },
+                            { q: "Complications Screening: When should screening begin?", a: "Typically annual screening starting from diagnosis or early in the disease course for type 1 diabetes." },
+                            { q: "Lifestyle Considerations: What advice would you give Sarah about alcohol and hypoglycaemia risk?", a: "Alcohol can cause delayed hypoglycaemia — advise against drinking on an empty stomach, always eat something, and monitor blood glucose for several hours afterward." },
+                            { q: "Lifestyle Considerations: What advice would you give about exercise and insulin adjustments?", a: "Exercise increases insulin sensitivity — she may need a reduced bolus dose or extra carbohydrate before/during activity, with close monitoring for delayed hypos afterward." }
                         ]},
                         { part: "Part D: New Zealand-Specific Considerations", items: [
-                            "Funding and Access: In New Zealand, what support is available through PHARMAC for Sarah's diabetes supplies? What items are fully funded vs. partially funded?",
-                            "Community Resources: What New Zealand organisations or resources could you refer Sarah to for ongoing support and education?"
+                            { q: "Funding and Access: What support is available through PHARMAC for Sarah's diabetes supplies?", a: "Insulin, needles and blood glucose test strips are fully funded through PHARMAC for people with diabetes." },
+                            { q: "Funding and Access: Which items are fully funded vs. partially funded?", a: "Insulin and standard supplies are fully funded; CGM funding depends on meeting specific clinical criteria, and some sensors/pumps may still carry a co-payment." },
+                            { q: "Community Resources: What New Zealand organisations or resources could you refer Sarah to for ongoing support and education?", a: "Diabetes New Zealand, her local Te Whatu Ora diabetes service/diabetes nurse specialist, and dietitian referral." }
                         ]}
                     ],
                     learningObjectives: [
@@ -1590,7 +1599,7 @@ const EthicalPrescriptionCard = ({ rx }) => (
                         "Apply knowledge of the New Zealand healthcare system and funding for diabetes care."
                     ]
                 },
-                { id: "w2", title: "Case 2: Type 2 Diabetes (Sonny Mahara, 58yo)", presentation: "Sonny Mahara, 58-year-old man. Follow-up appointment for newly diagnosed type 2 diabetes.",
+                { id: "p10", title: "Case 10: Type 2 Diabetes Workshop (Sonny Mahara, 58yo)", type: "workshop", initialInfo: "Sonny Mahara, 58-year-old man. Follow-up appointment for newly diagnosed type 2 diabetes.",
                     medicalHistory: [
                         "Type 2 diabetes mellitus (diagnosed 3 months ago).",
                         "Hypertension, well-controlled on ramipril 5mg daily.",
@@ -1626,21 +1635,33 @@ const EthicalPrescriptionCard = ({ rx }) => (
                     ],
                     questions: [
                         { part: "Part A: Medication Review and Counselling", context: "You talk with Sonny and discover that he was unable to manage his unpredictable bowel motions at work, so he stopped taking his metformin soon after it was prescribed.", items: [
-                            "Metformin Assessment: Is the current metformin dose appropriate? What is the maximum dose? What would the maximum dose be if his eGFR deteriorated to 40mL/min? How would you address Sonny's gastrointestinal side effects? What monitoring parameters are required for metformin therapy? What counselling points should be provided regarding metformin?",
-                            "Drug Interactions: Are there any significant drug interactions between Sonny's current medications? What precautions should be taken if Sonny requires surgery and will be nil by mouth pre- and post-op?"
+                            { q: "Metformin Assessment: Is the current metformin dose appropriate, and what is the maximum dose?", a: "500mg twice daily is a reasonable starting dose; it can be up-titrated gradually to a maximum of 2g/day in divided doses." },
+                            { q: "Metformin Assessment: What would the maximum dose be if his eGFR deteriorated to 40mL/min?", a: "The dose should be reduced and used with caution — a lower maximum applies once eGFR falls to this level, per renal function-based dosing guidance." },
+                            { q: "Metformin Assessment: How would you address Sonny's gastrointestinal side effects?", a: "Take with food, up-titrate slowly, or switch to a modified-release formulation to reduce GI upset." },
+                            { q: "Metformin Assessment: What monitoring parameters are required for metformin therapy?", a: "Periodic renal function and vitamin B12 levels." },
+                            { q: "Metformin Assessment: What counselling points should be provided regarding metformin?", a: "Take with meals, GI upset is common initially and often settles over time, and report severe or persistent symptoms." },
+                            { q: "Drug Interactions: Are there any significant drug interactions between Sonny's current medications?", a: "No major interactions between metformin, ramipril and atorvastatin." },
+                            { q: "Drug Interactions: What precautions should be taken if Sonny requires surgery and will be nil by mouth pre- and post-op?", a: "Metformin should be withheld before contrast studies or surgery involving fasting, due to the risk of lactic acidosis with renal impairment or dehydration, and only restarted once renal function is confirmed normal." }
                         ]},
                         { part: "Part B: Treatment Optimization", context: "You talk with Sonny and he agrees that you can restart him on metformin.", items: [
-                            "Medication Re-initiation: How will you restart him? What advice do you give him about restarting his metformin and managing his GI effects?",
-                            "Glycaemic Control: Sonny's HbA1c remains above target despite 3 months of metformin. What treatment options should be considered? Given his cardiovascular risk factors (family history, dyslipidemia, hypertension), which medication classes would provide additional cardiovascular benefit?",
-                            "Weight Management: Which diabetes medications could assist with Sonny's weight loss goals? What lifestyle modifications would you recommend?"
+                            { q: "Medication Re-initiation: How will you restart him on metformin?", a: "Restart at a low dose (e.g. 500mg once daily) and up-titrate slowly over several weeks." },
+                            { q: "Medication Re-initiation: What advice do you give about managing his GI effects this time?", a: "Take with food, split dosing through the day, and consider a modified-release formulation if GI upset persists." },
+                            { q: "Glycaemic Control: What treatment options should be considered given his HbA1c remains above target?", a: "Add a second glucose-lowering agent, since metformin monotherapy is no longer sufficient." },
+                            { q: "Glycaemic Control: Given his cardiovascular risk factors, which medication classes would provide additional cardiovascular benefit?", a: "An SGLT2 inhibitor or GLP-1 receptor agonist — both have proven cardiovascular and renal protective effects." },
+                            { q: "Weight Management: Which diabetes medications could assist with Sonny's weight loss goals?", a: "SGLT2 inhibitors and GLP-1 receptor agonists both support weight loss." },
+                            { q: "Weight Management: What lifestyle modifications would you recommend?", a: "Dietary changes, increasing physical activity where feasible around his work schedule, and reducing alcohol intake." }
                         ]},
                         { part: "Part C: Patient Education", items: [
-                            "Self-Monitoring: Does Sonny need to perform self-monitoring of blood glucose? If so, when and how often? What are the signs and symptoms of hypoglycaemia, and is Sonny at risk?",
-                            "Sick Day Management: What advice should Sonny receive about managing his diabetes medications during acute illness? When should he seek medical attention?"
+                            { q: "Self-Monitoring: Does Sonny need to perform self-monitoring of blood glucose, and if so how often?", a: "Routine SMBG isn't essential on metformin alone since it doesn't cause hypoglycaemia, though intermittent checks can help track control." },
+                            { q: "Self-Monitoring: What are the signs and symptoms of hypoglycaemia, and is Sonny at risk?", a: "Signs include shakiness, sweating and confusion. His hypo risk is currently low on metformin alone, but would increase if a sulfonylurea or insulin is added later." },
+                            { q: "Sick Day Management: What advice should Sonny receive about managing his diabetes medications during acute illness?", a: "Continue metformin unless vomiting or at risk of dehydration/AKI, in which case temporarily withhold it." },
+                            { q: "Sick Day Management: When should he seek medical attention?", a: "If he's unable to keep fluids down or his symptoms worsen." }
                         ]},
                         { part: "Part D: Long-Term Management", items: [
-                            "Monitoring Schedule: What ongoing monitoring is required for Sonny (laboratory tests, clinical assessments)? How often should his HbA1c be checked?",
-                            "Preventive Care: What screening and preventive measures should be implemented for diabetes-related complications? What vaccinations should be recommended?"
+                            { q: "Monitoring Schedule: What ongoing monitoring is required for Sonny?", a: "Annual renal function/uACR, annual lipids, annual foot and eye checks, and blood pressure at each visit." },
+                            { q: "Monitoring Schedule: How often should his HbA1c be checked?", a: "Every 3–6 months." },
+                            { q: "Preventive Care: What screening and preventive measures should be implemented for diabetes-related complications?", a: "Annual retinal screening, annual foot check, and renal screening (eGFR/uACR), alongside cardiovascular risk assessment." },
+                            { q: "Preventive Care: What vaccinations should be recommended?", a: "Influenza and pneumococcal vaccination." }
                         ]}
                     ],
                     clinicalConsiderations: [
@@ -1650,7 +1671,7 @@ const EthicalPrescriptionCard = ({ rx }) => (
                         "Medication access in New Zealand: Consider PHARMAC funding criteria and patient co-payment implications when recommending treatment options."
                     ]
                 },
-                { id: "w3", title: "Case 3: Type 2 Diabetes (Jessie Tamihana, 28yo)", presentation: "Jessie Tamihana, 28-year-old woman. Follow-up appointment for Diabetes Annual Review (diagnosed 2021).",
+                { id: "p11", title: "Case 11: Type 2 Diabetes Workshop (Jessie Tamihana, 28yo)", type: "workshop", initialInfo: "Jessie Tamihana, 28-year-old woman. Follow-up appointment for Diabetes Annual Review (diagnosed 2021).",
                     medicalHistory: [
                         "Type 2 diabetes mellitus (diagnosed 5 years ago).",
                         "Dyslipidemia.",
@@ -1683,17 +1704,29 @@ const EthicalPrescriptionCard = ({ rx }) => (
                     ],
                     questions: [
                         { part: "Part A: Medication Review and Counselling", context: "You talk with Jessie, and she reports that she is adherent to her medications most of the time. She admits that sometimes it is hard to get time off work to go to the doctor so she might run out of medications, and it will take a few days before she can get a prescription. She states that she is finding it hard to stay motivated because when she tries hard with her eating and taking her medications her BGs remain high.", items: [
-                            "Improving her diabetes control: What would you discuss with Jessie today? Think about how you might approach this discussion given that she is expecting to be 'told off' at her DAR today. What, if any, changes to her medications would you recommend? What monitoring would you suggest?",
-                            "Pregnancy Planning: What would be your concern if she had an unplanned pregnancy? What advice would you give Jessie regarding starting a family today? What diabetes medications are known to be safe in pregnancy? Where could you suggest she go for support and advice regarding pregnancy planning and diabetes?"
+                            { q: "Improving her diabetes control: How would you approach today's discussion, given she is expecting to be 'told off'?", a: "Approach non-judgementally and acknowledge her efforts rather than 'telling her off'; explore practical barriers such as shift work and prescription access (e.g. synchronised repeats)." },
+                            { q: "Improving her diabetes control: What, if any, changes to her medications would you recommend?", a: "Given her HbA1c of 78 on three oral agents, the next step is likely insulin initiation or adding a GLP-1 receptor agonist." },
+                            { q: "Improving her diabetes control: What monitoring would you suggest?", a: "More frequent blood glucose monitoring to identify patterns and guide any treatment changes." },
+                            { q: "Pregnancy Planning: What would be your concern if she had an unplanned pregnancy?", a: "Her current agents (SGLT2 inhibitor, DPP-4 inhibitor) aren't recommended in pregnancy, and poor glycaemic control around conception is teratogenic." },
+                            { q: "Pregnancy Planning: What advice would you give Jessie regarding starting a family today?", a: "Advise reliable contraception until she has a planned, medically-optimised pregnancy." },
+                            { q: "Pregnancy Planning: What diabetes medications are known to be safe in pregnancy?", a: "Insulin and metformin." },
+                            { q: "Pregnancy Planning: Where could you suggest she go for support and advice?", a: "A diabetes-in-pregnancy or preconception planning clinic." }
                         ]},
                         { part: "Part B: Treatment Optimization", context: "You decide with Jessie that initiation with insulin is indicated. However, you have concerns as she is already overwhelmed by all the 'life admin' required to manage her diabetes.", items: [
-                            "Insulin Initiation: Why is insulin indicated at this time for Jessie? What insulin would you recommend, and what would be the starting dose? How would you titrate this insulin and what monitoring would you recommend? What information would you give Jessie about injecting insulin? (Hint: think about injection techniques but also other information such as storage, needle usage and disposal.)",
-                            "Mental Health: Jessie's GP calls you and mentions that he is concerned that Jessie is having some diabetes distress, but he does not think that Jessie is depressed. What support could you suggest for Jessie at this time?",
-                            "Cardiovascular Risk: What would you recommend regarding her atorvastatin dose? What would your advice be regarding taking the statin if she were to become pregnant? What, if any, concerns about her blood pressure do you have? How will you address your concerns with Jessie?"
+                            { q: "Insulin Initiation: Why is insulin indicated at this time for Jessie?", a: "Because she remains above target despite maximal oral therapy (three oral agents)." },
+                            { q: "Insulin Initiation: What insulin would you recommend, and what would be the starting dose?", a: "A basal insulin such as glargine, once daily, starting at a low, weight-based dose." },
+                            { q: "Insulin Initiation: How would you titrate this insulin and what monitoring would you recommend?", a: "Titrate every few days based on fasting glucose readings, with regular self-monitoring of blood glucose." },
+                            { q: "Insulin Initiation: What information would you give Jessie about injecting insulin?", a: "Injection technique and site rotation, plus storage requirements, correct needle usage, and safe disposal in a sharps container." },
+                            { q: "Mental Health: Jessie's GP calls you and mentions that he is concerned that Jessie is having some diabetes distress, but he does not think that Jessie is depressed. What support could you suggest for Jessie at this time?", a: "Diabetes distress is common and distinct from depression — suggest diabetes educator/counsellor support, peer support groups (Diabetes NZ), and revisiting her management plan to reduce day-to-day burden." },
+                            { q: "Cardiovascular Risk: What would you recommend regarding her atorvastatin dose?", a: "May need review depending on lipid targets, but the more important consideration is timing around pregnancy." },
+                            { q: "Cardiovascular Risk: What would your advice be regarding the statin if she were to become pregnant?", a: "Statins are contraindicated in pregnancy — advise stopping before conception." },
+                            { q: "Cardiovascular Risk: What, if any, concerns about her blood pressure do you have, and how would you address them?", a: "136/86 is borderline — monitor closely and discuss lifestyle and, if needed, pharmacological management, which is especially important given her pregnancy plans." }
                         ]},
                         { part: "Part C: Patient Education", items: [
-                            "Self-Monitoring: Does Jessie need to perform self-monitoring of blood glucose? If so, when and how often?",
-                            "Sick Day Management: What advice should Jessie receive about managing her diabetes medications during acute illness? When should she seek medical attention?"
+                            { q: "Self-Monitoring: Does Jessie need to perform self-monitoring of blood glucose?", a: "Yes, especially given her suboptimal control and upcoming insulin initiation." },
+                            { q: "Self-Monitoring: If so, when and how often?", a: "Fasting and pre-meal readings, to help guide insulin titration." },
+                            { q: "Sick Day Management: What advice should Jessie receive about managing her diabetes medications during acute illness?", a: "Continue her medications unless advised otherwise, monitor blood glucose more frequently, and stay hydrated." },
+                            { q: "Sick Day Management: When should she seek medical attention?", a: "If unable to keep fluids down or her blood glucose is persistently very high." }
                         ]}
                     ],
                     clinicalConsiderations: [
@@ -1701,8 +1734,405 @@ const EthicalPrescriptionCard = ({ rx }) => (
                         "Cardiovascular risk: With multiple cardiovascular risk factors and family history, discuss the need to manage hyperlipidaemia and hypertension proactively.",
                         "Pregnancy Planning: Needs to be on reliable contraception, and plan her pregnancy as only safe medications currently are insulin and metformin. HbA1c >80 mmol/mol is teratogenic, but any higher than ideal HbA1c carries risks."
                     ]
+                },
+                { id: "p12", title: "Case 12: Cardiovascular-Kidney-Metabolic Disease (Peter Taylor, 58yo)", type: "workshop", initialInfo: "Peter Taylor, 58-year-old man, referred to the pharmacist-led Cardiovascular-Kidney-Metabolic (CKM) clinic.",
+                    medicalHistory: [
+                        "Type 2 diabetes (12 years).",
+                        "Hypertension.",
+                        "Obesity (BMI 34 kg/m²).",
+                        "No known cardiovascular disease.",
+                        "No history of heart failure, MI, or stroke. No proliferative retinopathy."
+                    ],
+                    currentMedications: [
+                        "Metformin 1000mg twice daily.",
+                        "Lisinopril 20mg daily.",
+                        "Atorvastatin 40mg daily."
+                    ],
+                    labs: [
+                        "BP 148/88 mmHg, HR 78 (regular).",
+                        "HbA1c: 62 mmol/mol.",
+                        "eGFR: 52 mL/min/1.73m² (was 61 one year ago).",
+                        "Urine albumin-to-creatinine ratio (UACR): 23.7 mg/mmol.",
+                        "Serum potassium: 4.3 mmol/L.",
+                        "LDL: 2.3 mmol/L."
+                    ],
+                    questions: [
+                        { part: "Case Discussion", items: [
+                            { q: "Using the CKM staging guide, what stage is Mr Taylor and why?", a: "Stage 3 — he has CKM risk factors (diabetes, hypertension, obesity) plus subclinical kidney disease with a high predicted cardiovascular risk (declining eGFR and elevated UACR), but no confirmed clinical cardiovascular disease yet." },
+                            { q: "Mr Taylor has moderately-to-severely increased albuminuria with declining eGFR despite an ACE inhibitor. What pharmacotherapy should be prioritised, and in what sequence?", a: "Add an SGLT2 inhibitor (e.g. empagliflozin) first — it protects the kidneys, is cardioprotective, and helps lower blood pressure, and is recommended for CKD with albuminuria regardless of glycaemic control. If blood pressure remains above target, add a calcium channel blocker such as amlodipine next." },
+                            { q: "Mr Taylor's spouse asks whether starting a GLP-1 receptor agonist instead of the SGLT2 inhibitor would be just as good for his kidneys. How should the pharmacist counsel on this?", a: "GLP-1 receptor agonists offer cardiovascular benefit and support weight loss, but the evidence for direct kidney protection is less strong than for SGLT2 inhibitors — so a GLP-1 agonist isn't an equivalent substitute for renal protection here, though it could be considered later for additional glycaemic or weight benefit." },
+                            { q: "Two weeks after starting empagliflozin, Mr Taylor calls with several days of reduced food intake due to a stomach virus. What counselling point regarding SGLT2 inhibitors is critical here, and why?", a: "SGLT2 inhibitors carry a risk of euglycaemic diabetic ketoacidosis, especially during illness with reduced oral intake — he should temporarily stop the empagliflozin while unwell (sick day rules) and restart once he's eating and drinking normally again." },
+                            { q: "Identify one class of medication that should be avoided or used cautiously given Mr Taylor's renal trajectory and current regimen, and explain the interaction risk with the new therapies being added.", a: "NSAIDs should be avoided — they can worsen renal function and blunt the effect of ACE inhibitors, which combined with his declining eGFR could accelerate deterioration. The combination of empagliflozin and lisinopril also warrants monitoring of renal function and potassium, and metformin dosing should be reviewed as his eGFR approaches the range where dose adjustment is needed." }
+                        ]}
+                    ],
+                    learningObjectives: [
+                        "Identify the various stages of CKM.",
+                        "Outline the pharmacological management of CKM using various resources.",
+                        "Counsel whānau on lifestyle and medications used in CKM."
+                    ]
+                },
+                { id: "p13", title: "Case 13: Glucocorticoid Replacement in Adrenal Insufficiency (Aroha Patel, 42yo)", type: "workshop", initialInfo: "Aroha Patel, 42-year-old woman with primary adrenal insufficiency (Addison's disease), diagnosed 3 years ago. She presents to the community pharmacy on a Friday afternoon with questions about managing her medications during illness.",
+                    medicalHistory: ["Primary adrenal insufficiency (Addison's disease), diagnosed 3 years ago."],
+                    currentMedications: [
+                        "Hydrocortisone 10mg on waking, 5mg at midday, 5mg at 4pm (total 20mg daily).",
+                        "Fludrocortisone 100 micrograms daily."
+                    ],
+                    questions: [
+                        { part: "Scenario 1: Minor Illness", context: "Aroha mentions she has developed a cold with a mild fever (38.2°C) and feels unwell enough to stay home from work for a few days.", items: [
+                            { q: "Does Aroha need to adjust her hydrocortisone dose?", a: "Yes — during illness her body needs more cortisol than her usual replacement dose provides." },
+                            { q: "What specific dosing regimen would you recommend?", a: "Double each dose to a total of 40mg daily in divided doses — for example 20mg on waking, 10mg at midday, and 10mg in the mid-afternoon." },
+                            { q: "How long should she continue the adjusted dose?", a: "Until she feels well again, then return to her usual maintenance dose." },
+                            { q: "What counselling points should you provide?", a: "If she develops diarrhoea or vomiting and can't keep her tablets down, she needs to seek emergency care immediately, since oral dosing can no longer be relied on — her fludrocortisone dose doesn't need adjusting for minor illness, and she should carry her steroid emergency card at all times." }
+                        ]},
+                        { part: "Scenario 2: Gastroenteritis", context: "Two weeks later, Aroha calls the pharmacy. She has developed gastroenteritis with vomiting, and has vomited twice in the past hour, including 20 minutes after taking her morning hydrocortisone dose.", items: [
+                            { q: "What is the immediate concern in this situation?", a: "Risk of adrenal crisis, since she can no longer reliably absorb her oral hydrocortisone." },
+                            { q: "What action should Aroha take right now?", a: "She needs emergency medical assessment straight away — this cannot be managed with oral medication at home." },
+                            { q: "What dose and route of hydrocortisone is appropriate?", a: "100mg IV immediately, followed by 50mg IV every 6 hours (or a 200mg continuous IV infusion)." },
+                            { q: "When should she seek emergency care?", a: "Immediately — inability to take or absorb oral medication in adrenal insufficiency is a medical emergency requiring urgent parenteral glucocorticoids and emergency department assessment." }
+                        ]},
+                        { part: "Scenario 3: Planned Minor Surgery", context: "Aroha is scheduled for a dental extraction under local anaesthesia next month and asks about medication management.", items: [
+                            { q: "Should Aroha adjust her hydrocortisone for this procedure?", a: "Yes — double her usual dose on the day of the procedure." },
+                            { q: "What dosing schedule would you recommend?", a: "Double the dose on the day of the procedure, then return to her normal maintenance dose afterward." },
+                            { q: "What if the procedure were under general anaesthesia instead?", a: "She would need 100–500mg IV/IM hydrocortisone perioperatively, reflecting the greater physiological stress of general anaesthesia and major procedures." }
+                        ]},
+                        { part: "Scenario 4: Patient Education", context: "Aroha asks what other situations might require dose adjustment.", items: [
+                            { q: "What other scenarios require stress dosing?", a: "Pregnancy, significant physical or emotional stress, persistent vomiting or diarrhoea, and other acute illness or trauma." },
+                            { q: "What signs suggest impending adrenal crisis?", a: "Worsening fatigue, nausea and vomiting, abdominal pain, dizziness or low blood pressure, and fever." },
+                            { q: "What should Aroha always carry with her?", a: "A steroid emergency/medical alert card and an emergency hydrocortisone supply, and she should pick up her medication supply early so she never runs low." }
+                        ]}
+                    ],
+                    clinicalConsiderations: [
+                        "Patients with adrenal insufficiency cannot mount a normal cortisol response to stress and require exogenous glucocorticoid supplementation.",
+                        "Minor stress (fever, illness requiring bed rest, antibiotics, minor procedures) requires increasing to hydrocortisone 40mg daily in divided doses.",
+                        "Major stress (persistent vomiting/diarrhoea, severe illness, surgery under general anaesthesia) requires parenteral hydrocortisone 100mg immediately, followed by 50mg IV every 6 hours or a 200mg continuous infusion.",
+                        "Inability to take or absorb oral medications is a medical emergency requiring immediate parenteral glucocorticoids and emergency department assessment.",
+                        "Patient education on sick day rules is critical to preventing adrenal crisis, which occurs in 6–8% of patients annually and carries significant morbidity and mortality risk.",
+                        "Pharmacists play a vital role in ensuring patients understand when and how to adjust doses, recognise warning signs, and access emergency care."
+                    ],
+                    learningObjectives: [
+                        "Identify situations requiring glucocorticoid dose adjustment in adrenal insufficiency.",
+                        "Calculate appropriate stress doses for different clinical scenarios.",
+                        "Counsel patients on sick day rules and when to seek emergency care.",
+                        "Recognise signs of impending adrenal crisis."
+                    ]
+                },
+                { id: "p14", title: "Case 14: Managing Obesity (John Tamihana, 48yo)", type: "workshop", initialInfo: "John Tamihana, 48-year-old man of Cook Island Māori descent, presents to the community pharmacy requesting advice about weight management.",
+                    medicalHistory: [
+                        "Type 2 diabetes, diagnosed 3 years ago (HbA1c 66 mmol/mol at diagnosis).",
+                        "Hypertension, controlled on amlodipine 5mg daily.",
+                        "Obstructive sleep apnoea, uses CPAP nightly.",
+                        "Osteoarthritis in both knees."
+                    ],
+                    socialHistory: [
+                        "Works as an office administrator (sedentary job).",
+                        "Lives with wife and two teenage children.",
+                        "Limited time for exercise due to work and family commitments.",
+                        "Cultural importance of shared family meals."
+                    ],
+                    currentMedications: [
+                        "Metformin 1000mg twice daily.",
+                        "Gliclazide 80mg twice daily.",
+                        "Perindopril 4mg daily.",
+                        "Paracetamol 1g as needed for knee pain."
+                    ],
+                    labs: [
+                        "Height 162cm, Weight 98kg, BMI 37.3 kg/m², Waist circumference 106cm.",
+                        "Blood pressure 138/84 mmHg (above target), Heart rate 78 bpm.",
+                        "HbA1c: 66 mmol/mol.",
+                        "Fasting glucose: 9.8 mmol/L.",
+                        "Total cholesterol: 5.4 mmol/L, LDL: 3.2 mmol/L, HDL: 1.1 mmol/L, Triglycerides: 2.4 mmol/L.",
+                        "eGFR: 82 mL/min/1.73m².",
+                        "ALT: 42 U/L (mildly elevated)."
+                    ],
+                    patientConcerns: [
+                        "\"I've tried dieting so many times, but the weight always comes back. My knees are getting worse, and my doctor says my diabetes isn't well controlled. I've heard about those new weight loss injections — would they help me? I'm worried about the cost though.\""
+                    ],
+                    questions: [
+                        { part: "Part 1: Assessment and Treatment Planning", items: [
+                            { q: "Calculate John's cardiovascular risk and identify his weight-related comorbidities.", a: "His weight-related comorbidities include type 2 diabetes, hypertension, obstructive sleep apnoea, and knee osteoarthritis — together with his lipid profile and elevated ALT (suggestive of fatty liver), these put him at significantly increased cardiovascular risk." },
+                            { q: "How does his ethnicity affect BMI interpretation and cardiovascular risk assessment in the New Zealand context?", a: "Pacific and Māori populations tend to have a higher proportion of lean mass at a given BMI, so standard BMI cut-offs can underestimate cardiovascular and metabolic risk — New Zealand guidance generally recommends applying lower BMI thresholds for defining overweight/obesity in Māori and Pacific peoples." },
+                            { q: "Is he a candidate for pharmacological obesity management? Justify your answer using current guidelines.", a: "Yes — his BMI of 37.3 kg/m² (obesity) with weight-related comorbidities (type 2 diabetes, hypertension, OSA, osteoarthritis) meets typical criteria for anti-obesity pharmacotherapy alongside lifestyle intervention." },
+                            { q: "Review John's current medications. Are any of his medications contributing to weight gain? What alternatives could you recommend to his GP?", a: "Gliclazide (a sulfonylurea) is associated with weight gain and hypoglycaemia risk — a GLP-1 receptor agonist could be considered as an alternative, since it lowers glucose, supports weight loss, and carries a low hypoglycaemia risk on its own." },
+                            { q: "What are the treatment goals for John? Consider both weight loss targets and improvements in comorbidities.", a: "A realistic target of 5–10%+ weight loss, alongside improved glycaemic control (lower HbA1c), better blood pressure control, reduced knee pain/improved mobility, and potential improvement in OSA severity." }
+                        ]},
+                        { part: "Part 2: Pharmacotherapy Selection", items: [
+                            { q: "Compare the available anti-obesity medications that would be appropriate for John, considering mechanism of action, expected weight loss, effects on his comorbidities, route/dosing, adverse effects, contraindications, and approximate cost in New Zealand.", a: "GLP-1 receptor agonists (e.g. semaglutide, liraglutide) — injectable, weekly or daily, expected weight loss ~10–15%, also improve glycaemic control and offer cardiovascular benefit; common side effects are nausea and GI upset; costly if not funded. Orlistat — oral, modest weight loss (~5%), GI side effects, cheaper but less effective and less suited given his comorbidities." },
+                            { q: "Which medication would you recommend as first-line for John and why? Provide evidence-based rationale.", a: "A GLP-1 receptor agonist — it addresses his obesity and his type 2 diabetes simultaneously, has strong evidence for weight loss and cardiometabolic benefit, and its appetite-suppressing effect fits his 'weight always comes back' history." },
+                            { q: "John's GP prescribes semaglutide 2.4mg weekly (Wegovy). Develop a titration schedule and explain the rationale for gradual dose escalation.", a: "Typically start at 0.25mg weekly for 4 weeks, then 0.5mg, 1mg, 1.7mg, and finally 2.4mg weekly, each step held for about 4 weeks — gradual escalation minimises gastrointestinal side effects (nausea, vomiting) which are dose-related and tend to improve with slow titration." }
+                        ]},
+                        { part: "Part 3: Patient Counselling and Monitoring", items: [
+                            { q: "How should John administer his subcutaneous injections?", a: "Inject into the abdomen, thigh, or upper arm, rotating sites each week to avoid irritation." },
+                            { q: "What are the storage requirements for semaglutide?", a: "Store in the fridge before first use; once in use, the pen can typically be kept at room temperature for a limited period (check product-specific advice) and should be protected from light and heat." },
+                            { q: "What should John do if a dose is missed?", a: "Take it as soon as possible within 5 days of the missed dose; if more than 5 days have passed, skip it and take the next dose on the usual scheduled day." },
+                            { q: "What is the expected timeline for weight loss?", a: "Weight loss is gradual, typically becoming noticeable over the first 3 months and continuing over 12+ months as the dose is titrated up." },
+                            { q: "What are the common adverse effects and how should they be managed?", a: "Nausea, vomiting, diarrhoea and constipation are common, especially during dose increases — eating smaller, lower-fat meals and staying hydrated can help, and symptoms typically settle over time." },
+                            { q: "What warning signs require medical attention?", a: "Severe abdominal pain (possible pancreatitis), signs of gallbladder problems, or persistent vomiting preventing fluid intake." },
+                            { q: "What are the key monitoring parameters, and when and why should they be checked?", a: "HbA1c and weight at each follow-up to assess response; renal function periodically (especially if GI side effects cause dehydration); and symptom review for tolerability and adherence." },
+                            { q: "John is also taking gliclazide, a sulfonylurea. What medication adjustment should be made when starting semaglutide, and why?", a: "The gliclazide dose usually needs to be reduced (or sometimes stopped) when starting semaglutide, because the combination increases the risk of hypoglycaemia as glycaemic control improves." }
+                        ]},
+                        { part: "Part 4: Lifestyle Integration and Cultural Considerations", items: [
+                            { q: "What dietary modifications would respect cultural food practices while supporting John's weight goals?", a: "Focus on adjusting portion sizes and cooking methods for familiar family meals rather than replacing them outright, keeping shared family meals central, and gradually introducing more vegetables and lean proteins." },
+                            { q: "What realistic physical activity goals would you set given his work schedule and knee osteoarthritis?", a: "Low-impact activity such as walking, swimming, or cycling, built up gradually, fitted around his work day (e.g. short walks at lunch) to protect his knees while still increasing activity." },
+                            { q: "What strategies could support family involvement?", a: "Involving his wife and children in meal planning and shared physical activity, so changes are a whole-family effort rather than something John does alone." },
+                            { q: "What barriers specific to John should be addressed?", a: "Limited time due to work and family commitments, knee pain limiting exercise options, and concern about the cost of ongoing medication." },
+                            { q: "What nutritional priorities should be emphasized when John starts GLP-1 therapy, given the appetite suppression effects?", a: "Ensuring adequate protein intake to preserve muscle mass, eating small nutrient-dense meals since appetite will be reduced, staying well hydrated, and taking care not to under-eat to the point of nutritional deficiency." }
+                        ]},
+                        { part: "Part 5: Access and Equity Issues", items: [
+                            { q: "What is the current funding status of anti-obesity medications in New Zealand, and what barriers to access exist?", a: "Anti-obesity medications such as semaglutide (Wegovy) are largely not government-funded in New Zealand and must be paid for privately, which is a major access barrier — patients should check the current PHARMAC schedule, as funding criteria do change over time." },
+                            { q: "How might these funding barriers affect John's treatment?", a: "The ongoing cost of an unfunded GLP-1 medication may be unaffordable long-term, risking early discontinuation and loss of the weight-loss benefit — cost was already a concern he raised himself." },
+                            { q: "If semaglutide is not funded or affordable for John, what alternative approaches would you recommend?", a: "Consider funded options such as metformin optimisation or other funded glucose-lowering agents with weight-neutral/weight-loss potential, alongside an intensive structured lifestyle programme, and revisit pharmacotherapy if his circumstances or funding criteria change." }
+                        ]},
+                        { part: "Part 6: Long-term Management", items: [
+                            { q: "After 3 months on semaglutide 2.4mg weekly, John has lost 6kg (6.1% weight loss), his HbA1c is now 55mmol/mol, and he reports improved knee pain but occasional nausea. How would you assess his response to treatment?", a: "This is a good response — meaningful weight loss, improved glycaemic control, and improved knee symptoms — with only mild, expected GI side effects." },
+                            { q: "What recommendations would you make at this point?", a: "Continue semaglutide at the current dose, reassure him that nausea is common and often improves, and continue monitoring weight, HbA1c and tolerability at follow-up." },
+                            { q: "John asks how long he needs to continue the medication. What does the evidence say about duration of obesity pharmacotherapy and weight maintenance?", a: "Evidence shows that stopping GLP-1 therapy is generally followed by significant weight regain, so obesity is best treated as a chronic condition requiring long-term, ongoing therapy rather than a fixed course." },
+                            { q: "What would constitute treatment failure or a need to intensify therapy?", a: "Less than about 5% weight loss after 3 months at the maximum tolerated dose would suggest an inadequate response, prompting reassessment of adherence, dose, or consideration of alternative therapy." },
+                            { q: "When would you consider adding additional interventions or referring for bariatric surgery?", a: "If weight loss remains inadequate despite optimised pharmacotherapy and lifestyle measures, particularly with severe obesity (BMI ≥40, or ≥35 with significant comorbidities), referral for bariatric surgery assessment should be considered." }
+                        ]}
+                    ],
+                    learningObjectives: [
+                        "Apply evidence-based guidelines for obesity management in a New Zealand context.",
+                        "Evaluate patient suitability for anti-obesity pharmacotherapy.",
+                        "Compare mechanisms, efficacy, and safety profiles of available anti-obesity medications.",
+                        "Develop appropriate monitoring and follow-up plans.",
+                        "Provide comprehensive patient counselling on GLP-1 receptor agonist therapy.",
+                        "Integrate pharmacotherapy with lifestyle interventions in a culturally sensitive manner.",
+                        "Identify and address medication-related problems in patients with obesity and multiple comorbidities.",
+                        "Understand access and equity issues affecting obesity treatment in New Zealand.",
+                        "Apply clinical reasoning to optimize long-term weight management outcomes."
+                    ]
+                },
+                { id: "p15", title: "Titration Case 1: Newly Diagnosed T2DM (65yo Māori Woman)", type: "titration", initialInfo: "65-year-old Māori woman with newly diagnosed Type 2 diabetes. You are seeing her for the first time.",
+                    scenario: [
+                        "65 year old Māori female.",
+                        "Type 2 diabetes — newly diagnosed.",
+                        "No other co-morbidities.",
+                        "HbA1c 63mmol/mol.",
+                        "BP 130/80mmHg.",
+                        "eGFR >90ml/min.",
+                        "ACR not raised.",
+                        "You are seeing her for the first time."
+                    ],
+                    answer: {
+                        start: [
+                            "Listen.",
+                            "Lifestyle — what does she know? What has she been told? What does she eat? How much does she exercise?",
+                            "Education — basic pathophysiology, progressive nature, management (diet, exercise and medications).",
+                            "Offer referral to dietician.",
+                            "Metformin — start low, 250–500mg ONCE daily.",
+                            "Optional self-monitoring of fasting BG ONCE a week — educate about setting up the finger pricker and using the meter."
+                        ],
+                        titrate: ["Start at 250mg ONCE daily and increase each week as GI symptoms allow, up to a maximum dose of 1g TWICE daily over a 4 week period."],
+                        pause: ["Review after 4 weeks.", "Fasting BGs ~5–6mmol/l. Improved diet. More activity as feeling better."],
+                        whatNext: [
+                            "Review in 8 weeks — repeat HbA1c, recall set.",
+                            "Add empagliflozin (or dulaglutide) if HbA1c not at target.",
+                            "If HbA1c in 1 year is 74mmol/mol and she's already on full-dose metformin/empagliflozin (or dulaglutide), what would you advocate for?"
+                        ]
+                    }
+                },
+                { id: "p16", title: "Titration Case 2: Refusing Medications After DAR (57yo NZ European Woman)", type: "titration", initialInfo: "57-year-old NZ European woman, referred to the prescribing pharmacist after refusing medications following her Diabetes Annual Review.",
+                    scenario: [
+                        "57 year old NZ European woman.",
+                        "Family history of type 2 diabetes — mother and sister both on insulin.",
+                        "Diagnosed 2006, aged 40 years.",
+                        "HbA1c (mmol/mol): 111 — April 2022, 104 — May 2023.",
+                        "BP 150/100mmHg — May 2023.",
+                        "Medical warning: metformin causes GI upset.",
+                        "At DAR in April 2023: HbA1c noted, nurse spoke to GP while she waited in the nurse's office. GP provided a script for dulaglutide (Trulicity); she was told (not demonstrated) how to inject it by the nurse, given the script, and sent away.",
+                        "May 2023 — referred to prescribing pharmacist because she is refusing medications."
+                    ],
+                    answer: {
+                        start: [
+                            "Listen — frustrated that she wasn't involved in the medication conversation at her DAR. Not keen on injections.",
+                            "Lifestyle — had lapsed, eating lots of 'junk' food. Feeling tired so not as active as before. Requested time to get back on track.",
+                            "Agreed to start monitoring fasting BGs ONCE or TWICE a week to determine the effect of dietary changes.",
+                            "Metformin — discussed her previous experience."
+                        ],
+                        titrate: ["Start at 250mg ONCE daily and increase each week as GI symptoms allow, up to a maximum of 1g TWICE daily over a 4–6 week period."],
+                        pause: [
+                            "Review after 4 weeks.",
+                            "Fasting BGs ~10mmol/l. Improved diet. More activity as feeling better. Lost weight.",
+                            "Metformin only 1g daily so far, so continuing to titrate.",
+                            "Discussed dulaglutide/empagliflozin. Gave written information. Encouraged questions."
+                        ],
+                        whatNext: [
+                            "Review in 4–6 weeks.",
+                            "Update (July 2023): HbA1c 62mmol/mol. Now on maximum dose of metformin. Diet improved further, increased activity. Not keen on more medications — her mum had thyroid cancer, and she got thrush/a UTI on empagliflozin previously. Discussed the progressive nature of diabetes. Will re-test HbA1c in 3 months and discuss options."
+                        ]
+                    }
+                },
+                { id: "p17", title: "Titration Case 3: HbA1c Above Target Despite Good Adherence (72yo NZ European Man)", type: "titration", initialInfo: "72-year-old NZ European man, taking all medications as prescribed, HbA1c remains above target.",
+                    scenario: [
+                        "72 year old NZ European man.",
+                        "Weight 80.5kg, BP 124/68mmHg.",
+                        "HbA1c 85mmol/mol.",
+                        "eGFR 74ml/min (ACR normal).",
+                        "Current medications: Metformin/Vildagliptin (Galvumet) 1000mg/50mg TWICE daily; Lantus 45 units once daily (above the weight-based maximum of 40 units ONCE daily); BD 4mm needles to inject insulin; Candesartan 4mg ONCE daily; Daviobet 50/500 Ointment applied to the affected area TWICE daily; Paracetamol 1g up to FOUR times daily when needed; Simvastatin 20mg ONCE daily in the evening.",
+                        "Taking all his medications as prescribed. His food diary showed appropriate food choices. Fit and active for his age."
+                    ],
+                    answer: {
+                        start: [
+                            "Listen — frustrated because he believed his dietary choices and exercise levels were appropriate, but his HbA1c remained above target.",
+                            "Agreed to start monitoring BGs FOUR times a day (before each meal and at bedtime) for a few days each week to see how his blood glucose tracked across the day.",
+                            "Did not want any more injections.",
+                            "Discussed options — prandial insulin OR self-funding empagliflozin (~$80/month = $20/week), including benefits and ADRs. Provided written information about empagliflozin."
+                        ],
+                        titrate: ["At the next visit (2 weeks later), started empagliflozin 10mg ONCE daily. Re-iterated sick day management and symptoms of DKA."],
+                        pause: [
+                            "Checked in by phone after 2 weeks — regarding ADRs, especially managing thirst.",
+                            "Review after 4 weeks.",
+                            "BGs almost all under 10mmol/l across the day."
+                        ],
+                        whatNext: [
+                            "Increase empagliflozin to 25mg ONCE daily.",
+                            "Back-titrate Lantus as he is losing weight and BGs are within target range across the day — continue reducing Lantus by 2 units per week as BGs indicate.",
+                            "Review HbA1c in 12 weeks — recall set."
+                        ]
+                    }
+                },
+                { id: "p18", title: "Titration Case 4: Multiple Medication Allergies, Solitary Kidney (60yo NZ European Woman)", type: "titration", initialInfo: "60-year-old NZ European woman with a solitary kidney and multiple medication intolerances, frustrated that her concerns haven't been heard.",
+                    scenario: [
+                        "60 year old NZ European woman.",
+                        "Type 2 diabetes (2017), sleep apnoea (2018), hypertension (2023), antithrombin III deficiency, atrophic left kidney (has one kidney).",
+                        "HbA1c 68mmol/mol (Dec 2022), 86mmol/mol (May 2023).",
+                        "eGFR 62ml/min, ACR raised.",
+                        "Multiple food allergies/medication warnings — metformin caused a swollen tongue, gliclazide caused headache, enalapril caused lethargy, empagliflozin caused headache and fatigue.",
+                        "Current medications: Bisoprolol 2.5mg ONCE daily; Caresens N test strips; Dermol Ointment applied TWICE daily to affected area; Omeprazole 20mg TWICE daily; Warfarin according to INR."
+                    ],
+                    answer: {
+                        start: [
+                            "Listen — frustrated because no-one has been listening. Worried about her kidneys because she only has one.",
+                            "Discussed the importance for her kidney of getting her BP and BGs controlled.",
+                            "Agreed to start monitoring fasting BG ONCE a day, home-test her BP, and complete a food diary for a few days prior to the next appointment.",
+                            "Explored her medication allergies with her, particularly regarding metformin. Discussed options.",
+                            "Started liraglutide (Victoza) 0.6mg ONCE daily (needs 4mm needles on script) — chosen because if she had a reaction, it would clear her system faster than the longer-acting dulaglutide."
+                        ],
+                        titrate: ["Liraglutide up to 1.8mg ONCE daily before the next visit in 4 weeks, guided by her GI tolerance and any unexpected reactions."],
+                        pause: [
+                            "Review after 4 weeks.",
+                            "Started 1.8mg ONCE daily today.",
+                            "Fasting BGs reduced from 21mmol/mol (day prior to liraglutide) to 8.9mmol/l. Feeling better and vision improving.",
+                            "Discussed the possible need for basal insulin — explained she may react to excipients in the injection, so if it's required it might take some trial and error to find the one that suits her."
+                        ],
+                        whatNext: [
+                            "Continue medications and monitoring as before, as she only started liraglutide 1.8mg ONCE daily today.",
+                            "Review in 4 weeks.",
+                            "Review HbA1c in 12 weeks — recall set."
+                        ]
+                    }
+                },
+                { id: "p19", title: "Titration Case 5: Rising HbA1c at DAR (63yo Samoan Woman)", type: "titration", initialInfo: "63-year-old Samoan woman, attending her Diabetes Annual Review with a rising HbA1c on maximal oral therapy.",
+                    scenario: [
+                        "63 year old Samoan woman.",
+                        "Type 2 diabetes, hypertension, hyperlipidaemia.",
+                        "HbA1c 84mmol/mol (up from 65mmol/mol a year ago).",
+                        "eGFR >90ml/min. BP 132/78mmHg. BMI 32kg/m² — 82kg.",
+                        "Current medications: Jardiamet (metformin/empagliflozin) 1000mg/12.5mg TWICE daily; Vildagliptin 50mg TWICE daily.",
+                        "Attended for her Diabetes Annual Review (DAR) today."
+                    ],
+                    answer: {
+                        start: [
+                            "Discuss the DAR and blood test results — give her the actual numbers and discuss individualised targets.",
+                            "Review lifestyle — consider a food and BG diary.",
+                            "Self-monitor fasting BG at least ONCE a day — testing FOUR times daily for several days would give information about her BG profile to inform the ideal choice of long-acting insulin. Could trial a Freestyle Libre.",
+                            "Long-acting insulin (Lantus) 0.2 units/kg/day — 16 units ONCE daily (optimal in the evening, but fit it with her lifestyle)."
+                        ],
+                        titrate: ["Titrate REGULARLY every 3 days: if 3 consecutive fasting BGs are >7mmol/l, increase the dose by 10% or 2 units."],
+                        pause: ["Pause titrating if: any fasting BG <7mmol/l, OR hypoglycaemia (BG<4mmol/l), OR the dose reaches the weight-based maximum of 0.5 units/kg/day (41 units ONCE daily)."],
+                        whatNext: [
+                            "Continue medications and monitoring as before.",
+                            "Review in 4 weeks.",
+                            "Review HbA1c in 12 weeks — recall set.",
+                            "If not able to achieve her HbA1c target at the maximum weight-based dose of Lantus, consider prandial insulin OR a sulphonylurea, depending on her insulin production (measured by C-peptide)."
+                        ]
+                    }
+                },
+                { id: "p20", title: "Titration Case 6: Depression, Foot Complications & Overnight Hypos (65yo Māori Man)", type: "titration", initialInfo: "65-year-old Māori man with untreated depression, a previous toe amputation, and recurring overnight hypoglycaemia.",
+                    scenario: [
+                        "65 year old Māori man.",
+                        "Long-standing untreated depression — reluctant to take antidepressants because his brother died by suicide 3 weeks after starting them, and his mother also died by suicide when he was 11 years old.",
+                        "Type 2 diabetes — big toe amputated last year. Struggling with orthotic shoes, walks long distances to manage his mood and is getting blisters.",
+                        "eGFR 56ml/min — improving. ACR 68.4mg/mmol — stable.",
+                        "HbA1c 42mmol/mol (May 2023) — overnight hypos about once a week.",
+                        "Current medications: BD 5mm needles ONCE daily; Caresens N strips; Gliclazide 80mg TWICE daily; Jardiamet 12.5mg/500mg TWICE daily; Lantus 14 units ONCE daily; Vildagliptin 50mg TWICE daily; Escitalopram 15mg ONCE daily; Quinapril 20mg TWICE daily; Felodipine 10mg daily; Atorvastatin 40mg daily; Dabigatran 150mg TWICE daily; Pregabalin 50mg TWICE daily; Clonazepam 0.5mg TWICE daily when needed for anxiety, and 1mg at night for sleep."
+                    ],
+                    answer: {
+                        start: [
+                            "Listen — concerned about taking antidepressants, worried about the blister on his foot from his orthotic shoes (fearful of losing his feet), waking in the night sweating and hungry, sleeps with lollies under his pillow.",
+                            "Review his BGs — testing TWICE daily.",
+                            "Referred to the Regional Diabetes Service Active Foot Clinic and Orthotics.",
+                            "Referred to Mental Health Services for support with his depression.",
+                            "Checked in regarding diet — no concerns."
+                        ],
+                        titrate: ["Stop the evening gliclazide dose.", "Continue BG monitoring.", "Gave a written hypo management plan."],
+                        pause: ["Reviewed BGs — still having overnight hypos.", "Stopped gliclazide.", "Review in 1 week."],
+                        whatNext: [
+                            "Back-titrate Lantus — he may not need it at this time. Reducing slowly as he's anxious about his BGs and doesn't want to risk his feet.",
+                            "Review weekly, either by phone or in person, until overnight hypos have stopped and the antidepressant is fully effective."
+                        ]
+                    }
+                },
+                { id: "p21", title: "Titration Case 7: Focus on Insulin — Advanced CKD (77yo NZ European Man)", type: "titration", initialInfo: "77-year-old NZ European man with Type 2 diabetes and severe CKD, ruling out most oral/injectable options besides insulin.",
+                    scenario: [
+                        "77 year old NZ European gentleman with Type 2 diabetes.",
+                        "HbA1c 81mmol/mol and rising. No BGs <16mmol/l recorded in the week prior to his visit.",
+                        "Weight 70kg. ACR 45mg/mmol.",
+                        "eGFR 14ml/min with an IDC — so not a candidate for metformin, empagliflozin or dulaglutide.",
+                        "Current medications: Vildagliptin 50mg TWICE daily (needs reducing to 50mg ONCE daily because eGFR<50ml/min); Lantus Solostar 40 units TWICE daily; BD 8mm needles to inject insulin (last prescribed May 2023)."
+                    ],
+                    answer: {
+                        start: [
+                            "Start with lifestyle modifications — completed a food diary, no concerns, BUT noted a massive jar of lollies and a smaller lunchbox of Jaffas on his tray table by his chair. He admitted to snacking on lollies!",
+                            "Gave the lollies to his wife AND showed them where to buy sugar-free alternatives."
+                        ],
+                        titrate: [
+                            "Reviewed doses of medications — Lantus was above his weight-based maximum of 0.5 units/kg/day (his weight-based maximum was 35 units daily), so started titrating his Lantus DOWN while monitoring his BGs.",
+                            "Reduced vildagliptin to 50mg ONCE daily."
+                        ],
+                        pause: [
+                            "Stopped using 8mm needles — organised a script for 4mm needles, got him a sharps bin, and arranged for his wife to return the long needles to the pharmacy.",
+                            "Provided education about using needles ONCE only, priming them with 2 units before dialling up and injecting the dose, and discharging them safely.",
+                            "Storing insulin in the bottom of the fridge."
+                        ],
+                        whatNext: [
+                            "His BGs and HbA1c reduced significantly — HbA1c got to 43mmol/mol without hypos, BUT has since increased again. Dietary changes have been maintained.",
+                            "Will check C-peptide and paired glucose, and check for signs of infection, BUT he likely needs prandial insulin."
+                        ]
+                    }
+                },
+                { id: "p22", title: "Titration Case 8: Post-Admission for Empagliflozin-Related Syncope (82yo Pacific Man)", type: "titration", initialInfo: "82-year-old Pacific man with T2DM and memory loss, referred after a hospital admission for hypovolaemia and syncope secondary to empagliflozin.",
+                    scenario: [
+                        "82 year old Pacific gentleman living with Type 2 diabetes and memory loss.",
+                        "Usually walks one hour a day.",
+                        "BGL sitting in the low teens. HbA1c 79mmol/mol. eGFR 84ml/min. ACR 0.6mg/mmol. Weight 67.8kg.",
+                        "Current medications: Metformin 500mg at lunch time; Galvumet (vildagliptin/metformin) 50mg/1000mg, 1 tablet TWICE daily; Atorvastatin 40mg ONCE daily; Bendroflumethiazide 2.5mg ONCE daily; Felodipine 2.5mg ONCE daily.",
+                        "Referred after a hospital admission for hypovolaemia and syncope secondary to empagliflozin. Dulaglutide was initiated post-discharge."
+                    ],
+                    answer: {
+                        start: [
+                            "Reviewed the discharge summary.",
+                            "Lifestyle modifications — completed a food and BG diary for a few days. No concerns regarding exercise."
+                        ],
+                        titrate: [
+                            "Reviewed current medications — his metformin dose totalled 2.5g daily, above the recommended maximum of 2g daily, so this was reduced.",
+                            "Stopped the vildagliptin (in Galvumet) as there's no advantage to combining it with dulaglutide."
+                        ],
+                        pause: [
+                            "Checked injection technique.",
+                            "Monitored fasting BGs.",
+                            "Monitored for GI effects, particularly diarrhoea and/or vomiting, given his recent hospital admission.",
+                            "Considered whether he needs support to ensure adherence, given his memory loss."
+                        ],
+                        whatNext: [
+                            "Review in 4 weeks (check in by phone sooner).",
+                            "Review HbA1c in 12 weeks — recall set."
+                        ]
+                    }
                 }
             ];
+
+
 
             useEffect(() => {
     if (currentTab === 'clinical' && [13, 14, 15].includes(caseIndex)) {
@@ -1716,7 +2146,7 @@ const EthicalPrescriptionCard = ({ rx }) => (
 }, [caseIndex, currentTab]);
 
             const nextCase = () => {
-                const max = currentTab === 'clinical' ? clinicalCases.length - 1 : currentTab === 'case575' ? case575Cases.length - 1 : currentTab === 'workshop' ? workshopCases.length - 1 : ethicalScenarios.length - 1;
+                const max = currentTab === 'clinical' ? clinicalCases.length - 1 : currentTab === 'case575' ? case575Cases.length - 1 : ethicalScenarios.length - 1;
                 if (caseIndex < max) { setCaseIndex(caseIndex + 1); }
             };
             const prevCase = () => {
@@ -1751,7 +2181,7 @@ const EthicalPrescriptionCard = ({ rx }) => (
                             <div className="flex flex-col items-end gap-1">
                                 <select value={caseIndex} onChange={(e) => {setCaseIndex(parseInt(e.target.value)); setCheckedState({});}}
                                     className="bg-slate-800 text-white text-[11px] font-bold p-2 rounded-lg border border-white/20 focus:ring-2 focus:ring-amber-500">
-                                    {(currentTab === 'clinical' ? clinicalCases : currentTab === 'case575' ? case575Cases : currentTab === 'workshop' ? workshopCases : ethicalScenarios).map((c, i) => (
+                                    {(currentTab === 'clinical' ? clinicalCases : currentTab === 'case575' ? case575Cases : ethicalScenarios).map((c, i) => (
                                         <option key={i} value={i}>{(practicedCases[currentTab] || {})[i] ? '✅' : '⬜'} #{i+1}: {c.title ? (c.title.split(':')[1] || c.title) : c.title}</option>
                                     ))}
                                 </select>
@@ -1776,10 +2206,9 @@ const EthicalPrescriptionCard = ({ rx }) => (
                             <button onClick={() => {setCurrentTab('case575'); setCaseIndex(0); setCheckedState({});}} className={`flex-1 py-4 text-[11px] font-black transition-all ${currentTab === 'case575' ? 'bg-white text-purple-700 border-b-4 border-purple-700' : 'text-slate-400'}`}>575 - CASE</button>
                             <button onClick={() => {setCurrentTab('clinical'); setCaseIndex(0); setCheckedState({});}} className={`flex-1 py-4 text-[11px] font-black transition-all ${currentTab === 'clinical' ? 'bg-white text-[#1a365d] border-b-4 border-[#1a365d]' : 'text-slate-400'}`}>CLINICAL CASES</button>
                             <button onClick={() => {setCurrentTab('ethical'); setCaseIndex(0); setCheckedState({});}} className={`flex-1 py-4 text-[11px] font-black transition-all ${currentTab === 'ethical' ? 'bg-white text-red-700 border-b-4 border-red-700' : 'text-slate-400'}`}>ETHICAL SCENARIOS</button>
-                            <button onClick={() => {setCurrentTab('workshop'); setCaseIndex(0); setCheckedState({});}} className={`flex-1 py-4 text-[11px] font-black transition-all ${currentTab === 'workshop' ? 'bg-white text-teal-700 border-b-4 border-teal-700' : 'text-slate-400'}`}>DIABETES WORKSHOP</button>
                         </div>
 
-                        {currentTab !== 'workshop' && (
+                        {!(currentCase && (currentCase.type === 'workshop' || currentCase.type === 'titration')) && (
                         <div className="p-4 bg-slate-50 border-b flex justify-center gap-3 overflow-x-auto no-scrollbar">
                             <button onClick={() => setRole('pharmacist')} className={`flex items-center gap-1 px-5 py-2 rounded-xl text-[10px] font-black transition ${role === 'pharmacist' ? 'bg-sky-700 text-white shadow-lg' : 'bg-white border text-slate-400'}`}><Icon name="user" size={14} /> PHARMACIST</button>
                             <button onClick={() => setRole('patient')} className={`flex items-center gap-1 px-5 py-2 rounded-xl text-[10px] font-black transition ${role === 'patient' ? 'bg-orange-600 text-white shadow-lg' : 'bg-white border text-slate-400'}`}><Icon name="message-square" size={14} /> SIMULATED ACTOR</button>
@@ -1801,13 +2230,111 @@ const EthicalPrescriptionCard = ({ rx }) => (
                                         <p className="text-lg font-medium text-slate-700 italic leading-relaxed whitespace-pre-line">"{currentCase.initialInfo}"</p>
                                     </div>
 
+                                    {currentCase.type === 'workshop' && (
+                                        <>
+                                            <div className="grid sm:grid-cols-2 gap-4">
+                                                {[
+                                                    ["Medical History", currentCase.medicalHistory],
+                                                    ["Family History", currentCase.familyHistory],
+                                                    ["Social History", currentCase.socialHistory],
+                                                    ["Current Medications", currentCase.currentMedications],
+                                                    ["Recent Laboratory Results", currentCase.labs],
+                                                    ["Initial Management Plan", currentCase.managementPlan]
+                                                ].filter(([, list]) => Array.isArray(list) && list.length > 0).map(([label, list], i) => (
+                                                    <div key={i} className="bg-teal-50 border border-teal-200 rounded-2xl p-5">
+                                                        <p className="text-xs font-black text-teal-800 uppercase mb-2">{label}</p>
+                                                        <ul className="list-disc list-outside ml-5 space-y-1 text-sm text-teal-900">
+                                                            {list.map((line, li) => <li key={li}>{line}</li>)}
+                                                        </ul>
+                                                    </div>
+                                                ))}
+                                            </div>
+
+                                            {currentCase.patientConcerns && (
+                                                <div className="bg-orange-50 border border-orange-200 p-6 rounded-2xl">
+                                                    <p className="text-xs font-black text-orange-800 uppercase mb-2">Patient Concerns</p>
+                                                    <ul className="list-disc list-outside ml-5 space-y-1 text-sm text-orange-900">
+                                                        {currentCase.patientConcerns.map((line, li) => <li key={li}>{line}</li>)}
+                                                    </ul>
+                                                </div>
+                                            )}
+
+                                            <div className="space-y-5">
+                                                <p className="text-xs font-black text-slate-500 uppercase tracking-wide">Discussion Questions</p>
+                                                {currentCase.questions.map((part, pi) => (
+                                                    <div key={pi} className="bg-white border-2 border-slate-200 rounded-2xl p-5">
+                                                        <p className="text-sm font-black text-slate-800 mb-2">{part.part}</p>
+                                                        {part.context && <p className="text-sm text-slate-500 italic mb-2">{part.context}</p>}
+                                                        <ul className="list-disc list-outside ml-5 space-y-3 text-sm text-slate-700">
+                                                            {part.items.map((item, qi) => (
+                                                                <li key={qi}>
+                                                                    {(typeof item === 'object' && item !== null) ? (
+                                                                        <>
+                                                                            <span>{item.q}</span>
+                                                                            <div className="text-teal-700 font-medium mt-1">↳ {item.a}</div>
+                                                                        </>
+                                                                    ) : item}
+                                                                </li>
+                                                            ))}
+                                                        </ul>
+                                                    </div>
+                                                ))}
+                                            </div>
+
+                                            {currentCase.clinicalConsiderations && (
+                                                <div className="bg-teal-50 border border-teal-200 p-6 rounded-2xl">
+                                                    <p className="text-xs font-black text-teal-800 uppercase mb-2">Clinical Considerations for Discussion</p>
+                                                    <ul className="list-disc list-outside ml-5 space-y-1 text-sm text-teal-900">
+                                                        {currentCase.clinicalConsiderations.map((line, li) => <li key={li}>{line}</li>)}
+                                                    </ul>
+                                                </div>
+                                            )}
+
+                                            {currentCase.learningObjectives && (
+                                                <div className="bg-slate-50 border-2 border-slate-200 p-6 rounded-2xl">
+                                                    <p className="text-xs font-black text-slate-600 uppercase mb-2">Learning Objectives</p>
+                                                    <ul className="list-disc list-outside ml-5 space-y-1 text-sm text-slate-700">
+                                                        {currentCase.learningObjectives.map((line, li) => <li key={li}>{line}</li>)}
+                                                    </ul>
+                                                </div>
+                                            )}
+                                        </>
+                                    )}
+
+                                    {currentCase.type === 'titration' && (
+                                        <div className="grid md:grid-cols-2 gap-5">
+                                            <div className="bg-slate-50 border-2 border-slate-200 rounded-2xl p-5">
+                                                <p className="text-xs font-black text-slate-500 uppercase tracking-wide mb-3">Scenario</p>
+                                                <ul className="list-disc list-outside ml-5 space-y-2 text-sm text-slate-700">
+                                                    {currentCase.scenario.map((line, li) => <li key={li}>{line}</li>)}
+                                                </ul>
+                                            </div>
+                                            <div className="bg-teal-50 border border-teal-200 rounded-2xl p-5 space-y-4">
+                                                <p className="text-xs font-black text-teal-800 uppercase tracking-wide">Start • Titrate • Pause • What Next?</p>
+                                                {[
+                                                    ["Start", currentCase.answer.start],
+                                                    ["Titrate", currentCase.answer.titrate],
+                                                    ["Pause", currentCase.answer.pause],
+                                                    ["What Next?", currentCase.answer.whatNext]
+                                                ].filter(([, list]) => Array.isArray(list) && list.length > 0).map(([label, list], i) => (
+                                                    <div key={i}>
+                                                        <p className="text-[11px] font-bold text-teal-700 uppercase mb-1">{label}</p>
+                                                        <ul className="list-disc list-outside ml-5 space-y-1 text-sm text-teal-900">
+                                                            {list.map((line, li) => <li key={li}>{line}</li>)}
+                                                        </ul>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    )}
+
                                     {role === 'pharmacist' && currentCase.prescription && (
     <PrescriptionCard rx={currentCase.prescription} />
 )}
                                     {role === 'pharmacist' && currentCase.rxScript && (
     <EthicalPrescriptionCard rx={currentCase.rxScript} />
 )}
-                                    {role === 'patient' && (
+                                    {role === 'patient' && currentCase.hiddenInfo && (
                                         <div className="bg-orange-50 border border-orange-200 p-6 rounded-2xl space-y-4">
                                             <p className="text-xs font-black text-orange-800 uppercase mb-2">Patient Script (Hidden Details)</p>
                                             {Array.isArray(currentCase.hiddenInfo.actors) ? (
@@ -1860,7 +2387,7 @@ const EthicalPrescriptionCard = ({ rx }) => (
                                         </div>
                                     )}
 
-                                    {role === 'evaluator' && (
+                                    {role === 'evaluator' && currentCase.checklists && (
                                         <div className="space-y-4">
                                             <Stopwatch resetKey={`${currentTab}-${caseIndex}`} />
                                             <div className="border-2 border-emerald-600 rounded-3xl overflow-hidden shadow-xl bg-white">
@@ -1933,7 +2460,7 @@ const EthicalPrescriptionCard = ({ rx }) => (
                                         </div>
                                     )}
                                 </div>
-                            ) : currentTab === 'ethical' ? (
+                            ) : (
                                 <div className="space-y-8">
                                     <div className="flex items-center gap-3">
                                         <button onClick={togglePracticed}
@@ -2000,78 +2527,6 @@ const EthicalPrescriptionCard = ({ rx }) => (
                                         </div>
                                     )}
                                 </div>
-                            ) : (
-                                <div className="space-y-6">
-                                    <div className="flex items-center gap-3">
-                                        <button onClick={togglePracticed}
-                                            className={`w-7 h-7 rounded-lg border-2 flex items-center justify-center shrink-0 transition ${(practicedCases.workshop || {})[caseIndex] ? 'bg-emerald-500 border-emerald-500 text-white' : 'border-slate-300 hover:border-emerald-400'}`}>
-                                            {(practicedCases.workshop || {})[caseIndex] && <Icon name="check" size={16} className="text-white" />}
-                                        </button>
-                                        <h2 className="text-xl font-black text-slate-800 uppercase border-l-4 border-teal-700 pl-3">#{caseIndex + 1}: {workshopCases[caseIndex].title}</h2>
-                                    </div>
-
-                                    <div className="bg-slate-50 border-2 border-slate-200 p-6 rounded-2xl shadow-sm">
-                                        <p className="text-lg font-medium text-slate-700 italic leading-relaxed whitespace-pre-line">"{workshopCases[caseIndex].presentation}"</p>
-                                    </div>
-
-                                    <div className="grid sm:grid-cols-2 gap-4">
-                                        {[
-                                            ["Medical History", workshopCases[caseIndex].medicalHistory],
-                                            ["Family History", workshopCases[caseIndex].familyHistory],
-                                            ["Social History", workshopCases[caseIndex].socialHistory],
-                                            ["Current Medications", workshopCases[caseIndex].currentMedications],
-                                            ["Recent Laboratory Results", workshopCases[caseIndex].labs],
-                                            ["Initial Management Plan", workshopCases[caseIndex].managementPlan]
-                                        ].filter(([, list]) => Array.isArray(list) && list.length > 0).map(([label, list], i) => (
-                                            <div key={i} className="bg-teal-50 border border-teal-200 rounded-2xl p-5">
-                                                <p className="text-xs font-black text-teal-800 uppercase mb-2">{label}</p>
-                                                <ul className="list-disc list-outside ml-5 space-y-1 text-sm text-teal-900">
-                                                    {list.map((line, li) => <li key={li}>{line}</li>)}
-                                                </ul>
-                                            </div>
-                                        ))}
-                                    </div>
-
-                                    {workshopCases[caseIndex].patientConcerns && (
-                                        <div className="bg-orange-50 border border-orange-200 p-6 rounded-2xl">
-                                            <p className="text-xs font-black text-orange-800 uppercase mb-2">Patient Concerns</p>
-                                            <ul className="list-disc list-outside ml-5 space-y-1 text-sm text-orange-900">
-                                                {workshopCases[caseIndex].patientConcerns.map((line, li) => <li key={li}>{line}</li>)}
-                                            </ul>
-                                        </div>
-                                    )}
-
-                                    <div className="space-y-5">
-                                        <p className="text-xs font-black text-slate-500 uppercase tracking-wide">Discussion Questions</p>
-                                        {workshopCases[caseIndex].questions.map((part, pi) => (
-                                            <div key={pi} className="bg-white border-2 border-slate-200 rounded-2xl p-5">
-                                                <p className="text-sm font-black text-slate-800 mb-2">{part.part}</p>
-                                                {part.context && <p className="text-sm text-slate-500 italic mb-2">{part.context}</p>}
-                                                <ol className="list-decimal list-outside ml-5 space-y-2 text-sm text-slate-700">
-                                                    {part.items.map((q, qi) => <li key={qi}>{q}</li>)}
-                                                </ol>
-                                            </div>
-                                        ))}
-                                    </div>
-
-                                    {workshopCases[caseIndex].clinicalConsiderations && (
-                                        <div className="bg-teal-50 border border-teal-200 p-6 rounded-2xl">
-                                            <p className="text-xs font-black text-teal-800 uppercase mb-2">Clinical Considerations for Discussion</p>
-                                            <ul className="list-disc list-outside ml-5 space-y-1 text-sm text-teal-900">
-                                                {workshopCases[caseIndex].clinicalConsiderations.map((line, li) => <li key={li}>{line}</li>)}
-                                            </ul>
-                                        </div>
-                                    )}
-
-                                    {workshopCases[caseIndex].learningObjectives && (
-                                        <div className="bg-slate-50 border-2 border-slate-200 p-6 rounded-2xl">
-                                            <p className="text-xs font-black text-slate-600 uppercase mb-2">Learning Objectives</p>
-                                            <ul className="list-disc list-outside ml-5 space-y-1 text-sm text-slate-700">
-                                                {workshopCases[caseIndex].learningObjectives.map((line, li) => <li key={li}>{line}</li>)}
-                                            </ul>
-                                        </div>
-                                    )}
-                                </div>
                             )}
                         </div>
 
@@ -2079,13 +2534,13 @@ const EthicalPrescriptionCard = ({ rx }) => (
                             <button disabled={caseIndex === 0} onClick={prevCase} className="flex-1 py-3 rounded-xl border-2 border-slate-200 text-[11px] font-black uppercase text-slate-400 hover:border-slate-800 hover:text-slate-800 disabled:opacity-20 flex items-center justify-center gap-2 transition">
                                 <Icon name="chevron-left" size={16} /> PREVIOUS
                             </button>
-                            <button disabled={caseIndex === (currentTab === 'clinical' ? clinicalCases.length - 1 : currentTab === 'case575' ? case575Cases.length - 1 : currentTab === 'workshop' ? workshopCases.length - 1 : ethicalScenarios.length - 1)} onClick={nextCase} className="flex-1 py-3 rounded-xl border-2 border-slate-200 text-[11px] font-black uppercase text-slate-400 hover:border-slate-800 hover:text-slate-800 disabled:opacity-20 flex items-center justify-center gap-2 transition">
+                            <button disabled={caseIndex === (currentTab === 'clinical' ? clinicalCases.length - 1 : currentTab === 'case575' ? case575Cases.length - 1 : ethicalScenarios.length - 1)} onClick={nextCase} className="flex-1 py-3 rounded-xl border-2 border-slate-200 text-[11px] font-black uppercase text-slate-400 hover:border-slate-800 hover:text-slate-800 disabled:opacity-20 flex items-center justify-center gap-2 transition">
                                 NEXT <Icon name="chevron-right" size={16} />
                             </button>
                         </div>
 
                         <footer className="p-3 bg-slate-50 border-t flex flex-col sm:flex-row items-center justify-between gap-1 text-[8px] text-slate-400 font-bold uppercase tracking-[0.15em] px-6">
-                            <div>Latest Update: 2026-08-01</div>
+                            <div>Latest Update: 2026-08-07</div>
                             <div className="flex flex-col sm:flex-row items-center gap-2">
                                 <span>Maintained by Huichen Yu (Jen)</span>
                                 <span className="hidden sm:inline">·</span>
