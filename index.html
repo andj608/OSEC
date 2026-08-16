@@ -1846,3 +1846,856 @@ const EthicalPrescriptionCard = ({ rx }) => (
                     ],
                     patientConcerns: [
                         "\"I've tried dieting so many times, but the weight always comes back. My knees are getting worse, and my doctor says my diabetes isn't well controlled. I've heard about those new weight loss injections — would they help me? I'm worried about the cost though.\""
+                    ],
+                    questions: [
+                        { part: "Part 1: Assessment and Treatment Planning", items: [
+                            { q: "Calculate John's cardiovascular risk and identify his weight-related comorbidities.", a: "His weight-related comorbidities include type 2 diabetes, hypertension, obstructive sleep apnoea, and knee osteoarthritis — together with his lipid profile and elevated ALT (suggestive of fatty liver), these put him at significantly increased cardiovascular risk." },
+                            { q: "How does his ethnicity affect BMI interpretation and cardiovascular risk assessment in the New Zealand context?", a: "Pacific and Māori populations tend to have a higher proportion of lean mass at a given BMI, so standard BMI cut-offs can underestimate cardiovascular and metabolic risk — New Zealand guidance generally recommends applying lower BMI thresholds for defining overweight/obesity in Māori and Pacific peoples." },
+                            { q: "Is he a candidate for pharmacological obesity management? Justify your answer using current guidelines.", a: "Yes — his BMI of 37.3 kg/m² (obesity) with weight-related comorbidities (type 2 diabetes, hypertension, OSA, osteoarthritis) meets typical criteria for anti-obesity pharmacotherapy alongside lifestyle intervention." },
+                            { q: "Review John's current medications. Are any of his medications contributing to weight gain? What alternatives could you recommend to his GP?", a: "Gliclazide (a sulfonylurea) is associated with weight gain and hypoglycaemia risk — a GLP-1 receptor agonist could be considered as an alternative, since it lowers glucose, supports weight loss, and carries a low hypoglycaemia risk on its own." },
+                            { q: "What are the treatment goals for John? Consider both weight loss targets and improvements in comorbidities.", a: "A realistic target of 5–10%+ weight loss, alongside improved glycaemic control (lower HbA1c), better blood pressure control, reduced knee pain/improved mobility, and potential improvement in OSA severity." }
+                        ]},
+                        { part: "Part 2: Pharmacotherapy Selection", items: [
+                            { q: "Compare the available anti-obesity medications that would be appropriate for John, considering mechanism of action, expected weight loss, effects on his comorbidities, route/dosing, adverse effects, contraindications, and approximate cost in New Zealand.", a: "GLP-1 receptor agonists (e.g. semaglutide, liraglutide) — injectable, weekly or daily, expected weight loss ~10–15%, also improve glycaemic control and offer cardiovascular benefit; common side effects are nausea and GI upset; costly if not funded. Orlistat — oral, modest weight loss (~5%), GI side effects, cheaper but less effective and less suited given his comorbidities." },
+                            { q: "Which medication would you recommend as first-line for John and why? Provide evidence-based rationale.", a: "A GLP-1 receptor agonist — it addresses his obesity and his type 2 diabetes simultaneously, has strong evidence for weight loss and cardiometabolic benefit, and its appetite-suppressing effect fits his 'weight always comes back' history." },
+                            { q: "John's GP prescribes semaglutide 2.4mg weekly (Wegovy). Develop a titration schedule and explain the rationale for gradual dose escalation.", a: "Typically start at 0.25mg weekly for 4 weeks, then 0.5mg, 1mg, 1.7mg, and finally 2.4mg weekly, each step held for about 4 weeks — gradual escalation minimises gastrointestinal side effects (nausea, vomiting) which are dose-related and tend to improve with slow titration." }
+                        ]},
+                        { part: "Part 3: Patient Counselling and Monitoring", items: [
+                            { q: "How should John administer his subcutaneous injections?", a: "Inject into the abdomen, thigh, or upper arm, rotating sites each week to avoid irritation." },
+                            { q: "What are the storage requirements for semaglutide?", a: "Store in the fridge before first use; once in use, the pen can typically be kept at room temperature for a limited period (check product-specific advice) and should be protected from light and heat." },
+                            { q: "What should John do if a dose is missed?", a: "Take it as soon as possible within 5 days of the missed dose; if more than 5 days have passed, skip it and take the next dose on the usual scheduled day." },
+                            { q: "What is the expected timeline for weight loss?", a: "Weight loss is gradual, typically becoming noticeable over the first 3 months and continuing over 12+ months as the dose is titrated up." },
+                            { q: "What are the common adverse effects and how should they be managed?", a: "Nausea, vomiting, diarrhoea and constipation are common, especially during dose increases — eating smaller, lower-fat meals and staying hydrated can help, and symptoms typically settle over time." },
+                            { q: "What warning signs require medical attention?", a: "Severe abdominal pain (possible pancreatitis), signs of gallbladder problems, or persistent vomiting preventing fluid intake." },
+                            { q: "What are the key monitoring parameters, and when and why should they be checked?", a: "HbA1c and weight at each follow-up to assess response; renal function periodically (especially if GI side effects cause dehydration); and symptom review for tolerability and adherence." },
+                            { q: "John is also taking gliclazide, a sulfonylurea. What medication adjustment should be made when starting semaglutide, and why?", a: "The gliclazide dose usually needs to be reduced (or sometimes stopped) when starting semaglutide, because the combination increases the risk of hypoglycaemia as glycaemic control improves." }
+                        ]},
+                        { part: "Part 4: Lifestyle Integration and Cultural Considerations", items: [
+                            { q: "What dietary modifications would respect cultural food practices while supporting John's weight goals?", a: "Focus on adjusting portion sizes and cooking methods for familiar family meals rather than replacing them outright, keeping shared family meals central, and gradually introducing more vegetables and lean proteins." },
+                            { q: "What realistic physical activity goals would you set given his work schedule and knee osteoarthritis?", a: "Low-impact activity such as walking, swimming, or cycling, built up gradually, fitted around his work day (e.g. short walks at lunch) to protect his knees while still increasing activity." },
+                            { q: "What strategies could support family involvement?", a: "Involving his wife and children in meal planning and shared physical activity, so changes are a whole-family effort rather than something John does alone." },
+                            { q: "What barriers specific to John should be addressed?", a: "Limited time due to work and family commitments, knee pain limiting exercise options, and concern about the cost of ongoing medication." },
+                            { q: "What nutritional priorities should be emphasized when John starts GLP-1 therapy, given the appetite suppression effects?", a: "Ensuring adequate protein intake to preserve muscle mass, eating small nutrient-dense meals since appetite will be reduced, staying well hydrated, and taking care not to under-eat to the point of nutritional deficiency." }
+                        ]},
+                        { part: "Part 5: Access and Equity Issues", items: [
+                            { q: "What is the current funding status of anti-obesity medications in New Zealand, and what barriers to access exist?", a: "Anti-obesity medications such as semaglutide (Wegovy) are largely not government-funded in New Zealand and must be paid for privately, which is a major access barrier — patients should check the current PHARMAC schedule, as funding criteria do change over time." },
+                            { q: "How might these funding barriers affect John's treatment?", a: "The ongoing cost of an unfunded GLP-1 medication may be unaffordable long-term, risking early discontinuation and loss of the weight-loss benefit — cost was already a concern he raised himself." },
+                            { q: "If semaglutide is not funded or affordable for John, what alternative approaches would you recommend?", a: "Consider funded options such as metformin optimisation or other funded glucose-lowering agents with weight-neutral/weight-loss potential, alongside an intensive structured lifestyle programme, and revisit pharmacotherapy if his circumstances or funding criteria change." }
+                        ]},
+                        { part: "Part 6: Long-term Management", items: [
+                            { q: "After 3 months on semaglutide 2.4mg weekly, John has lost 6kg (6.1% weight loss), his HbA1c is now 55mmol/mol, and he reports improved knee pain but occasional nausea. How would you assess his response to treatment?", a: "This is a good response — meaningful weight loss, improved glycaemic control, and improved knee symptoms — with only mild, expected GI side effects." },
+                            { q: "What recommendations would you make at this point?", a: "Continue semaglutide at the current dose, reassure him that nausea is common and often improves, and continue monitoring weight, HbA1c and tolerability at follow-up." },
+                            { q: "John asks how long he needs to continue the medication. What does the evidence say about duration of obesity pharmacotherapy and weight maintenance?", a: "Evidence shows that stopping GLP-1 therapy is generally followed by significant weight regain, so obesity is best treated as a chronic condition requiring long-term, ongoing therapy rather than a fixed course." },
+                            { q: "What would constitute treatment failure or a need to intensify therapy?", a: "Less than about 5% weight loss after 3 months at the maximum tolerated dose would suggest an inadequate response, prompting reassessment of adherence, dose, or consideration of alternative therapy." },
+                            { q: "When would you consider adding additional interventions or referring for bariatric surgery?", a: "If weight loss remains inadequate despite optimised pharmacotherapy and lifestyle measures, particularly with severe obesity (BMI ≥40, or ≥35 with significant comorbidities), referral for bariatric surgery assessment should be considered." }
+                        ]}
+                    ],
+                    learningObjectives: [
+                        "Apply evidence-based guidelines for obesity management in a New Zealand context.",
+                        "Evaluate patient suitability for anti-obesity pharmacotherapy.",
+                        "Compare mechanisms, efficacy, and safety profiles of available anti-obesity medications.",
+                        "Develop appropriate monitoring and follow-up plans.",
+                        "Provide comprehensive patient counselling on GLP-1 receptor agonist therapy.",
+                        "Integrate pharmacotherapy with lifestyle interventions in a culturally sensitive manner.",
+                        "Identify and address medication-related problems in patients with obesity and multiple comorbidities.",
+                        "Understand access and equity issues affecting obesity treatment in New Zealand.",
+                        "Apply clinical reasoning to optimize long-term weight management outcomes."
+                    ]
+                },
+                { id: "p15", title: "Titration Case 1: Newly Diagnosed T2DM (65yo Māori Woman)", type: "titration", initialInfo: "65-year-old Māori woman with newly diagnosed Type 2 diabetes. You are seeing her for the first time.",
+                    scenario: [
+                        "65 year old Māori female.",
+                        "Type 2 diabetes — newly diagnosed.",
+                        "No other co-morbidities.",
+                        "HbA1c 63mmol/mol.",
+                        "BP 130/80mmHg.",
+                        "eGFR >90ml/min.",
+                        "ACR not raised.",
+                        "You are seeing her for the first time."
+                    ],
+                    answer: {
+                        start: [
+                            "Listen.",
+                            "Lifestyle — what does she know? What has she been told? What does she eat? How much does she exercise?",
+                            "Education — basic pathophysiology, progressive nature, management (diet, exercise and medications).",
+                            "Offer referral to dietician.",
+                            "Metformin — start low, 250–500mg ONCE daily.",
+                            "Optional self-monitoring of fasting BG ONCE a week — educate about setting up the finger pricker and using the meter."
+                        ],
+                        titrate: ["Start at 250mg ONCE daily and increase each week as GI symptoms allow, up to a maximum dose of 1g TWICE daily over a 4 week period."],
+                        pause: ["Review after 4 weeks.", "Fasting BGs ~5–6mmol/l. Improved diet. More activity as feeling better."],
+                        whatNext: [
+                            "Review in 8 weeks — repeat HbA1c, recall set.",
+                            "Add empagliflozin (or dulaglutide) if HbA1c not at target.",
+                            "If HbA1c in 1 year is 74mmol/mol and she's already on full-dose metformin/empagliflozin (or dulaglutide), what would you advocate for?"
+                        ]
+                    }
+                },
+                { id: "p16", title: "Titration Case 2: Refusing Medications After DAR (57yo NZ European Woman)", type: "titration", initialInfo: "57-year-old NZ European woman, referred to the prescribing pharmacist after refusing medications following her Diabetes Annual Review.",
+                    scenario: [
+                        "57 year old NZ European woman.",
+                        "Family history of type 2 diabetes — mother and sister both on insulin.",
+                        "Diagnosed 2006, aged 40 years.",
+                        "HbA1c (mmol/mol): 111 — April 2022, 104 — May 2023.",
+                        "BP 150/100mmHg — May 2023.",
+                        "Medical warning: metformin causes GI upset.",
+                        "At DAR in April 2023: HbA1c noted, nurse spoke to GP while she waited in the nurse's office. GP provided a script for dulaglutide (Trulicity); she was told (not demonstrated) how to inject it by the nurse, given the script, and sent away.",
+                        "May 2023 — referred to prescribing pharmacist because she is refusing medications."
+                    ],
+                    answer: {
+                        start: [
+                            "Listen — frustrated that she wasn't involved in the medication conversation at her DAR. Not keen on injections.",
+                            "Lifestyle — had lapsed, eating lots of 'junk' food. Feeling tired so not as active as before. Requested time to get back on track.",
+                            "Agreed to start monitoring fasting BGs ONCE or TWICE a week to determine the effect of dietary changes.",
+                            "Metformin — discussed her previous experience."
+                        ],
+                        titrate: ["Start at 250mg ONCE daily and increase each week as GI symptoms allow, up to a maximum of 1g TWICE daily over a 4–6 week period."],
+                        pause: [
+                            "Review after 4 weeks.",
+                            "Fasting BGs ~10mmol/l. Improved diet. More activity as feeling better. Lost weight.",
+                            "Metformin only 1g daily so far, so continuing to titrate.",
+                            "Discussed dulaglutide/empagliflozin. Gave written information. Encouraged questions."
+                        ],
+                        whatNext: [
+                            "Review in 4–6 weeks.",
+                            "Update (July 2023): HbA1c 62mmol/mol. Now on maximum dose of metformin. Diet improved further, increased activity. Not keen on more medications — her mum had thyroid cancer, and she got thrush/a UTI on empagliflozin previously. Discussed the progressive nature of diabetes. Will re-test HbA1c in 3 months and discuss options."
+                        ]
+                    }
+                },
+                { id: "p17", title: "Titration Case 3: HbA1c Above Target Despite Good Adherence (72yo NZ European Man)", type: "titration", initialInfo: "72-year-old NZ European man, taking all medications as prescribed, HbA1c remains above target.",
+                    scenario: [
+                        "72 year old NZ European man.",
+                        "Weight 80.5kg, BP 124/68mmHg.",
+                        "HbA1c 85mmol/mol.",
+                        "eGFR 74ml/min (ACR normal).",
+                        "Current medications: Metformin/Vildagliptin (Galvumet) 1000mg/50mg TWICE daily; Lantus 45 units once daily (above the weight-based maximum of 40 units ONCE daily); BD 4mm needles to inject insulin; Candesartan 4mg ONCE daily; Daviobet 50/500 Ointment applied to the affected area TWICE daily; Paracetamol 1g up to FOUR times daily when needed; Simvastatin 20mg ONCE daily in the evening.",
+                        "Taking all his medications as prescribed. His food diary showed appropriate food choices. Fit and active for his age."
+                    ],
+                    answer: {
+                        start: [
+                            "Listen — frustrated because he believed his dietary choices and exercise levels were appropriate, but his HbA1c remained above target.",
+                            "Agreed to start monitoring BGs FOUR times a day (before each meal and at bedtime) for a few days each week to see how his blood glucose tracked across the day.",
+                            "Did not want any more injections.",
+                            "Discussed options — prandial insulin OR self-funding empagliflozin (~$80/month = $20/week), including benefits and ADRs. Provided written information about empagliflozin."
+                        ],
+                        titrate: ["At the next visit (2 weeks later), started empagliflozin 10mg ONCE daily. Re-iterated sick day management and symptoms of DKA."],
+                        pause: [
+                            "Checked in by phone after 2 weeks — regarding ADRs, especially managing thirst.",
+                            "Review after 4 weeks.",
+                            "BGs almost all under 10mmol/l across the day."
+                        ],
+                        whatNext: [
+                            "Increase empagliflozin to 25mg ONCE daily.",
+                            "Back-titrate Lantus as he is losing weight and BGs are within target range across the day — continue reducing Lantus by 2 units per week as BGs indicate.",
+                            "Review HbA1c in 12 weeks — recall set."
+                        ]
+                    }
+                },
+                { id: "p18", title: "Titration Case 4: Multiple Medication Allergies, Solitary Kidney (60yo NZ European Woman)", type: "titration", initialInfo: "60-year-old NZ European woman with a solitary kidney and multiple medication intolerances, frustrated that her concerns haven't been heard.",
+                    scenario: [
+                        "60 year old NZ European woman.",
+                        "Type 2 diabetes (2017), sleep apnoea (2018), hypertension (2023), antithrombin III deficiency, atrophic left kidney (has one kidney).",
+                        "HbA1c 68mmol/mol (Dec 2022), 86mmol/mol (May 2023).",
+                        "eGFR 62ml/min, ACR raised.",
+                        "Multiple food allergies/medication warnings — metformin caused a swollen tongue, gliclazide caused headache, enalapril caused lethargy, empagliflozin caused headache and fatigue.",
+                        "Current medications: Bisoprolol 2.5mg ONCE daily; Caresens N test strips; Dermol Ointment applied TWICE daily to affected area; Omeprazole 20mg TWICE daily; Warfarin according to INR."
+                    ],
+                    answer: {
+                        start: [
+                            "Listen — frustrated because no-one has been listening. Worried about her kidneys because she only has one.",
+                            "Discussed the importance for her kidney of getting her BP and BGs controlled.",
+                            "Agreed to start monitoring fasting BG ONCE a day, home-test her BP, and complete a food diary for a few days prior to the next appointment.",
+                            "Explored her medication allergies with her, particularly regarding metformin. Discussed options.",
+                            "Started liraglutide (Victoza) 0.6mg ONCE daily (needs 4mm needles on script) — chosen because if she had a reaction, it would clear her system faster than the longer-acting dulaglutide."
+                        ],
+                        titrate: ["Liraglutide up to 1.8mg ONCE daily before the next visit in 4 weeks, guided by her GI tolerance and any unexpected reactions."],
+                        pause: [
+                            "Review after 4 weeks.",
+                            "Started 1.8mg ONCE daily today.",
+                            "Fasting BGs reduced from 21mmol/mol (day prior to liraglutide) to 8.9mmol/l. Feeling better and vision improving.",
+                            "Discussed the possible need for basal insulin — explained she may react to excipients in the injection, so if it's required it might take some trial and error to find the one that suits her."
+                        ],
+                        whatNext: [
+                            "Continue medications and monitoring as before, as she only started liraglutide 1.8mg ONCE daily today.",
+                            "Review in 4 weeks.",
+                            "Review HbA1c in 12 weeks — recall set."
+                        ]
+                    }
+                },
+                { id: "p19", title: "Titration Case 5: Rising HbA1c at DAR (63yo Samoan Woman)", type: "titration", initialInfo: "63-year-old Samoan woman, attending her Diabetes Annual Review with a rising HbA1c on maximal oral therapy.",
+                    scenario: [
+                        "63 year old Samoan woman.",
+                        "Type 2 diabetes, hypertension, hyperlipidaemia.",
+                        "HbA1c 84mmol/mol (up from 65mmol/mol a year ago).",
+                        "eGFR >90ml/min. BP 132/78mmHg. BMI 32kg/m² — 82kg.",
+                        "Current medications: Jardiamet (metformin/empagliflozin) 1000mg/12.5mg TWICE daily; Vildagliptin 50mg TWICE daily.",
+                        "Attended for her Diabetes Annual Review (DAR) today."
+                    ],
+                    answer: {
+                        start: [
+                            "Discuss the DAR and blood test results — give her the actual numbers and discuss individualised targets.",
+                            "Review lifestyle — consider a food and BG diary.",
+                            "Self-monitor fasting BG at least ONCE a day — testing FOUR times daily for several days would give information about her BG profile to inform the ideal choice of long-acting insulin. Could trial a Freestyle Libre.",
+                            "Long-acting insulin (Lantus) 0.2 units/kg/day — 16 units ONCE daily (optimal in the evening, but fit it with her lifestyle)."
+                        ],
+                        titrate: ["Titrate REGULARLY every 3 days: if 3 consecutive fasting BGs are >7mmol/l, increase the dose by 10% or 2 units."],
+                        pause: ["Pause titrating if: any fasting BG <7mmol/l, OR hypoglycaemia (BG<4mmol/l), OR the dose reaches the weight-based maximum of 0.5 units/kg/day (41 units ONCE daily)."],
+                        whatNext: [
+                            "Continue medications and monitoring as before.",
+                            "Review in 4 weeks.",
+                            "Review HbA1c in 12 weeks — recall set.",
+                            "If not able to achieve her HbA1c target at the maximum weight-based dose of Lantus, consider prandial insulin OR a sulphonylurea, depending on her insulin production (measured by C-peptide)."
+                        ]
+                    }
+                },
+                { id: "p20", title: "Titration Case 6: Depression, Foot Complications & Overnight Hypos (65yo Māori Man)", type: "titration", initialInfo: "65-year-old Māori man with untreated depression, a previous toe amputation, and recurring overnight hypoglycaemia.",
+                    scenario: [
+                        "65 year old Māori man.",
+                        "Long-standing untreated depression — reluctant to take antidepressants because his brother died by suicide 3 weeks after starting them, and his mother also died by suicide when he was 11 years old.",
+                        "Type 2 diabetes — big toe amputated last year. Struggling with orthotic shoes, walks long distances to manage his mood and is getting blisters.",
+                        "eGFR 56ml/min — improving. ACR 68.4mg/mmol — stable.",
+                        "HbA1c 42mmol/mol (May 2023) — overnight hypos about once a week.",
+                        "Current medications: BD 5mm needles ONCE daily; Caresens N strips; Gliclazide 80mg TWICE daily; Jardiamet 12.5mg/500mg TWICE daily; Lantus 14 units ONCE daily; Vildagliptin 50mg TWICE daily; Escitalopram 15mg ONCE daily; Quinapril 20mg TWICE daily; Felodipine 10mg daily; Atorvastatin 40mg daily; Dabigatran 150mg TWICE daily; Pregabalin 50mg TWICE daily; Clonazepam 0.5mg TWICE daily when needed for anxiety, and 1mg at night for sleep."
+                    ],
+                    answer: {
+                        start: [
+                            "Listen — concerned about taking antidepressants, worried about the blister on his foot from his orthotic shoes (fearful of losing his feet), waking in the night sweating and hungry, sleeps with lollies under his pillow.",
+                            "Review his BGs — testing TWICE daily.",
+                            "Referred to the Regional Diabetes Service Active Foot Clinic and Orthotics.",
+                            "Referred to Mental Health Services for support with his depression.",
+                            "Checked in regarding diet — no concerns."
+                        ],
+                        titrate: ["Stop the evening gliclazide dose.", "Continue BG monitoring.", "Gave a written hypo management plan."],
+                        pause: ["Reviewed BGs — still having overnight hypos.", "Stopped gliclazide.", "Review in 1 week."],
+                        whatNext: [
+                            "Back-titrate Lantus — he may not need it at this time. Reducing slowly as he's anxious about his BGs and doesn't want to risk his feet.",
+                            "Review weekly, either by phone or in person, until overnight hypos have stopped and the antidepressant is fully effective."
+                        ]
+                    }
+                },
+                { id: "p21", title: "Titration Case 7: Focus on Insulin — Advanced CKD (77yo NZ European Man)", type: "titration", initialInfo: "77-year-old NZ European man with Type 2 diabetes and severe CKD, ruling out most oral/injectable options besides insulin.",
+                    scenario: [
+                        "77 year old NZ European gentleman with Type 2 diabetes.",
+                        "HbA1c 81mmol/mol and rising. No BGs <16mmol/l recorded in the week prior to his visit.",
+                        "Weight 70kg. ACR 45mg/mmol.",
+                        "eGFR 14ml/min with an IDC — so not a candidate for metformin, empagliflozin or dulaglutide.",
+                        "Current medications: Vildagliptin 50mg TWICE daily (needs reducing to 50mg ONCE daily because eGFR<50ml/min); Lantus Solostar 40 units TWICE daily; BD 8mm needles to inject insulin (last prescribed May 2023)."
+                    ],
+                    answer: {
+                        start: [
+                            "Start with lifestyle modifications — completed a food diary, no concerns, BUT noted a massive jar of lollies and a smaller lunchbox of Jaffas on his tray table by his chair. He admitted to snacking on lollies!",
+                            "Gave the lollies to his wife AND showed them where to buy sugar-free alternatives."
+                        ],
+                        titrate: [
+                            "Reviewed doses of medications — Lantus was above his weight-based maximum of 0.5 units/kg/day (his weight-based maximum was 35 units daily), so started titrating his Lantus DOWN while monitoring his BGs.",
+                            "Reduced vildagliptin to 50mg ONCE daily."
+                        ],
+                        pause: [
+                            "Stopped using 8mm needles — organised a script for 4mm needles, got him a sharps bin, and arranged for his wife to return the long needles to the pharmacy.",
+                            "Provided education about using needles ONCE only, priming them with 2 units before dialling up and injecting the dose, and discharging them safely.",
+                            "Storing insulin in the bottom of the fridge."
+                        ],
+                        whatNext: [
+                            "His BGs and HbA1c reduced significantly — HbA1c got to 43mmol/mol without hypos, BUT has since increased again. Dietary changes have been maintained.",
+                            "Will check C-peptide and paired glucose, and check for signs of infection, BUT he likely needs prandial insulin."
+                        ]
+                    }
+                },
+                { id: "p22", title: "Titration Case 8: Post-Admission for Empagliflozin-Related Syncope (82yo Pacific Man)", type: "titration", initialInfo: "82-year-old Pacific man with T2DM and memory loss, referred after a hospital admission for hypovolaemia and syncope secondary to empagliflozin.",
+                    scenario: [
+                        "82 year old Pacific gentleman living with Type 2 diabetes and memory loss.",
+                        "Usually walks one hour a day.",
+                        "BGL sitting in the low teens. HbA1c 79mmol/mol. eGFR 84ml/min. ACR 0.6mg/mmol. Weight 67.8kg.",
+                        "Current medications: Metformin 500mg at lunch time; Galvumet (vildagliptin/metformin) 50mg/1000mg, 1 tablet TWICE daily; Atorvastatin 40mg ONCE daily; Bendroflumethiazide 2.5mg ONCE daily; Felodipine 2.5mg ONCE daily.",
+                        "Referred after a hospital admission for hypovolaemia and syncope secondary to empagliflozin. Dulaglutide was initiated post-discharge."
+                    ],
+                    answer: {
+                        start: [
+                            "Reviewed the discharge summary.",
+                            "Lifestyle modifications — completed a food and BG diary for a few days. No concerns regarding exercise."
+                        ],
+                        titrate: [
+                            "Reviewed current medications — his metformin dose totalled 2.5g daily, above the recommended maximum of 2g daily, so this was reduced.",
+                            "Stopped the vildagliptin (in Galvumet) as there's no advantage to combining it with dulaglutide."
+                        ],
+                        pause: [
+                            "Checked injection technique.",
+                            "Monitored fasting BGs.",
+                            "Monitored for GI effects, particularly diarrhoea and/or vomiting, given his recent hospital admission.",
+                            "Considered whether he needs support to ensure adherence, given his memory loss."
+                        ],
+                        whatNext: [
+                            "Review in 4 weeks (check in by phone sooner).",
+                            "Review HbA1c in 12 weeks — recall set."
+                        ]
+                    }
+                },
+                { id: "p23", title: "Station 1: T2DM First-Line Treatments (58yo Man, IHD)", initialInfo: "A 58-year-old man newly diagnosed with type 2 diabetes (HbA1c 64 mmol/mol) with established ischaemic heart disease (prior MI) and eGFR 75 mL/min/1.73m². His prescriber wants to start him on metformin and empagliflozin. He is not on any glucose-lowering medication. Counsel the patient on initial pharmacotherapy.", hiddenInfo: { background: [
+    "Counsel the patient on why these medications are recommended, how they work, and what precautions are needed.",
+    "Metformin is first-line for type 2 diabetes. Because he has established cardiovascular disease, guidelines also recommend adding an SGLT2 inhibitor (empagliflozin) for cardiovascular benefit independent of HbA1c.",
+    "Rationale: Metformin lowers HbA1c ~10–15mmol/mol; empagliflozin lowers HbA1c ~10mmol/mol and provides cardiovascular and renal protection.",
+    "Mechanisms: Metformin reduces gut glucose absorption, liver glucose production, and improves insulin sensitivity. Empagliflozin blocks renal glucose reabsorption.",
+    "Empagliflozin counselling: genital mycotic infection risk (good genital hygiene — women wash TWICE daily, men ONCE daily with foreskin pulled back); euglycaemic DKA risk (tiredness, nausea, vomiting, abdominal pain — seek urgent blood ketone test; avoid keto diets, eat ≥100g carbohydrates daily); sick-day rules (stop while not eating, restart when well); volume depletion risk (drink plenty of water, take care if dizzy when moving to standing).",
+    "Metformin counselling: start low (250–500mg) and titrate weekly per GI adverse effects; sick-day management (stop if not eating or drinking)."
+], medicalHistory: [
+    "58 year old man, newly diagnosed type 2 diabetes, HbA1c 64 mmol/mol.",
+    "Established ischaemic heart disease (prior MI).",
+    "eGFR 75 mL/min/1.73m².",
+    "Not currently on any glucose-lowering medication."
+] }, checklists: [
+    { step: "Greeting & Agenda", behaviour: "Introduces self and role; states purpose of consultation." },
+    { step: "Medication Rationale", behaviour: "★ Explains WHY both metformin and empagliflozin are being started — including the cardiovascular disease indication for the SGLT2 inhibitor independent of HbA1c.", critical: true },
+    { step: "Mechanism of Action", behaviour: "Explains in plain language how each medication works." },
+    { step: "Metformin Counselling", behaviour: "★ Start low and titrate weekly per GI tolerance; sick-day rule (stop if not eating/drinking); counsels on GI side effects.", critical: true },
+    { step: "Empagliflozin Counselling — DKA", behaviour: "★ Explains euglycaemic DKA risk, symptoms to watch for, and sick-day rule (stop while unwell, restart when eating normally).", critical: true },
+    { step: "Empagliflozin Counselling — Infections", behaviour: "Advises on genital mycotic infection risk and genital hygiene." },
+    { step: "Empagliflozin Counselling — Volume Depletion", behaviour: "Advises on volume depletion risk, hydration, and postural hypotension." },
+    { step: "Checking Understanding", behaviour: "Checks patient understanding (e.g. teach-back)." },
+    { step: "Closing", behaviour: "Confirms next steps; invites questions; sets follow-up." }
+]},
+                { id: "p24", title: "Station 2: T2DM — Renal Impairment & Hypoglycaemia Risk (72yo Woman)", initialInfo: "A 72-year-old woman with type 2 diabetes for 15 years, on metformin 1g TWICE daily and gliclazide 80mg TWICE daily, presents with eGFR now declined to 28 mL/min/1.73m². HbA1c is 58 mmol/mol. Review her medication regimen and counsel on changes.", hiddenInfo: { background: [
+    "Metformin needs dose adjustment at this eGFR — many guidelines recommend reducing the dose at eGFR <45mL/min and stopping below 15mL/min/1.73m². Her dose should be reduced to 500mg ONCE daily.",
+    "Gliclazide is renally cleared and carries significant hypoglycaemia risk with reduced renal function — hypoglycaemia increases the risk of falls and can impact cognition. Recommend switching.",
+    "Alternative options: SGLT2 inhibitors (empagliflozin) or GLP-1 receptor agonists (dulaglutide) have demonstrated kidney benefit (slowing eGFR decline) and carry NO risk of hypoglycaemia.",
+    "Dulaglutide — injection ONCE weekly; can cause transient GI effects. Can cause weight loss, which may not be ideal in those over 65 years old.",
+    "Individualised HbA1c target: given her age and comorbidities, a slightly relaxed target (e.g. 55–60mmol/mol) is appropriate, balancing tight control against hypoglycaemia risk."
+], medicalHistory: [
+    "72 year old woman, type 2 diabetes for 15 years.",
+    "Current medications: metformin 1g TWICE daily, gliclazide 80mg TWICE daily.",
+    "eGFR 28 mL/min/1.73m² (significantly declined).",
+    "HbA1c 58 mmol/mol."
+] }, checklists: [
+    { step: "Greeting & Agenda", behaviour: "Introduces self and role; states purpose of medication review." },
+    { step: "Metformin Review", behaviour: "★ Identifies that metformin is above the safe dose for her eGFR and recommends reducing to 500mg ONCE daily, explaining the lactic acidosis risk.", critical: true },
+    { step: "Gliclazide Review", behaviour: "★ Identifies that gliclazide carries high hypoglycaemia risk with reduced renal function and recommends switching to a safer alternative.", critical: true },
+    { step: "Alternative Options", behaviour: "★ Suggests an SGLT2 inhibitor or GLP-1 receptor agonist as alternatives with kidney benefit and no hypoglycaemia risk, and counsels on the chosen agent.", critical: true },
+    { step: "Individualised Target", behaviour: "Discusses an appropriate, slightly relaxed HbA1c target for her age and comorbidities (e.g. 55–60mmol/mol)." },
+    { step: "Checking Understanding", behaviour: "Checks patient understanding (e.g. teach-back)." },
+    { step: "Closing", behaviour: "Confirms plan; invites questions; arranges follow-up including renal function monitoring." }
+]},
+                { id: "p25", title: "Station 3: Type 1 Diabetes — Newly Diagnosed Son (Mum Collecting Meds)", initialInfo: "A mum comes in to collect medications for her son who has just been diagnosed with type 1 diabetes. She brings in a prescription for Humalog insulin (1 unit per 10g carbohydrates, plus correction of 1 unit per 2mmol/l above 8mmol/l, starting at 10mmol/l), Lantus 10 units ONCE daily in the evening, BD 8mm needles, Dexcom G7 CGM, Caresens Pro strips, Ketosens strips, Caresens Dual meter, and Glucagon. She is overwhelmed and asks if you have time to go through things with her so she can be more confident for her son.", hiddenInfo: { background: [
+    "Explain the difference between Humalog (rapid-acting, taken with food) and Lantus (long-acting basal insulin).",
+    "Note the BD 8mm needles are too long — needs a 4 or 5mm needle to ensure subcutaneous injection.",
+    "Injection technique: prime the needle, dial up and inject the dose, hold to count to 10, use each needle ONCE only, discard in the yellow sharps bin, rotate injection sites. Storage: spare pens in fridge, in-use pen at room temperature.",
+    "Monitoring: target BGs 4–8mmol/l most of the time; aim for 3.9–10mmol/l more than 70% of the time. Explain how to apply the Dexcom G7 CGM, when to use the meter and finger-pricking device, when to use ketone strips, and what to do if ketones >1mmol/l.",
+    "Hypoglycaemia management: treat with glucose (jellybeans etc.); explain when and how to use glucagon, and what to tell the ambulance when calling."
+], medicalHistory: [
+    "Child, newly diagnosed with type 1 diabetes.",
+    "Prescription includes: Humalog (rapid-acting) + Lantus (basal), BD 8mm needles (incorrect length — needs 4–5mm), Dexcom G7 CGM, Caresens Pro strips, Ketosens strips, Caresens Dual meter, Glucagon.",
+    "Mum is overwhelmed and requesting a full go-through at the pharmacy."
+] }, checklists: [
+    { step: "Greeting & Agenda", behaviour: "Warmly introduces self; acknowledges Mum's overwhelm; offers to go through everything with her." },
+    { step: "Insulin Types", behaviour: "★ Explains the difference between Humalog (rapid-acting with food) and Lantus (long-acting basal).", critical: true },
+    { step: "Needle Length", behaviour: "★ Identifies that BD 8mm needles are too long and recommends 4 or 5mm needles for correct subcutaneous injection.", critical: true },
+    { step: "Injection Technique", behaviour: "Demonstrates or explains the full injection technique: priming, dialling up, injecting, counting to 10, needle disposal, site rotation, and insulin storage." },
+    { step: "Monitoring — CGM & BG Meter", behaviour: "★ Explains how to apply the Dexcom G7 CGM, when to also use the BG meter and finger-pricking device, and target BG ranges.", critical: true },
+    { step: "Monitoring — Ketones", behaviour: "Explains when to use the Ketosens strips and what to do if ketones are >1mmol/l." },
+    { step: "Hypoglycaemia Management", behaviour: "★ Explains how to recognise and treat hypoglycaemia (fast-acting glucose), and when and how to use the glucagon, including what to tell the ambulance.", critical: true },
+    { step: "Checking Understanding", behaviour: "Checks Mum's understanding throughout (e.g. teach-back on injection technique)." },
+    { step: "Closing", behaviour: "Reassures Mum; invites further questions; confirms she knows when to seek urgent help." }
+]},
+                { id: "p26", title: "Station 4: Graves' Disease — Antithyroid Drug Therapy (28yo Woman)", initialInfo: "A 28-year-old woman is newly diagnosed with Graves' disease (suppressed TSH, elevated free T4). Counsel her on starting carbimazole/methimazole therapy, including safety monitoring.", hiddenInfo: { background: [
+    "First-line antithyroid drug: carbimazole (converted to active methimazole) is generally first-line.",
+    "KEY safety counselling: carbimazole can cause agranulocytosis — instruct her to seek urgent medical review and stop the drug immediately if she develops a sore throat, mouth ulcers, or fever, and to have an urgent FBC checked.",
+    "Teratogenic — she needs to be on reliable contraception, and any pregnancy needs to be planned and discussed with her specialist first.",
+    "Monitoring: baseline CBC and LFTs; TFTs repeated at 4–6 weeks to titrate the dose, then periodically; treat for 12–18 months before considering a trial of withdrawal to assess remission.",
+    "Adjunct therapy: beta-blockers (e.g. propranolol) for symptomatic control of tachycardia, tremor, and anxiety while awaiting thyroid levels to normalise.",
+    "Alternative definitive options: radioactive iodine or thyroidectomy if relapse or intolerance to antithyroid drugs; discuss the risk of transient worsening of Graves' ophthalmopathy with radioiodine."
+], medicalHistory: [
+    "28 year old woman, newly diagnosed Graves' disease.",
+    "Suppressed TSH, elevated free T4.",
+    "Starting carbimazole/methimazole therapy."
+] }, checklists: [
+    { step: "Greeting & Agenda", behaviour: "Introduces self and role; states purpose of counselling." },
+    { step: "First-Line Drug", behaviour: "Confirms carbimazole as the first-line antithyroid drug and explains its role." },
+    { step: "Agranulocytosis Warning", behaviour: "★ CRITICAL: Counsels on agranulocytosis risk — she must stop the drug IMMEDIATELY and seek urgent medical review if sore throat, mouth ulcers, or fever develop, and have an urgent FBC checked.", critical: true },
+    { step: "Teratogenicity", behaviour: "★ Explains carbimazole is teratogenic — she must use reliable contraception, and any pregnancy must be planned in advance with her specialist.", critical: true },
+    { step: "Monitoring Plan", behaviour: "Explains baseline tests (CBC, LFTs) and the monitoring schedule (TFTs at 4–6 weeks then periodically), and the expected duration of treatment (12–18 months before reassessing for remission)." },
+    { step: "Adjunct Therapy", behaviour: "Explains the role of beta-blockers (e.g. propranolol) for symptomatic relief while waiting for thyroid levels to normalise." },
+    { step: "Definitive Options", behaviour: "Briefly mentions alternative definitive options (radioactive iodine or thyroidectomy) for relapse or intolerance, and flags the ophthalmopathy risk with radioiodine." },
+    { step: "Checking Understanding", behaviour: "Checks patient understanding (e.g. teach-back on the sore throat warning)." },
+    { step: "Closing", behaviour: "Confirms she knows what to do in an emergency; invites questions; arranges monitoring follow-up." }
+]},
+                { id: "p27", title: "Station 5: Hypothyroidism — Suboptimal Response (52yo Woman)", initialInfo: "A 52-year-old woman presents with a new prescription for levothyroxine 75mcg once daily, recently started for hypothyroidism (TSH 12 mIU/L, free T4 low, TPO antibody positive). She is still tired, gaining weight, and feeling the cold despite taking the medication every day. Conduct a counselling session and medication review.", hiddenInfo: { background: [
+    "Dose timing — take as a single daily dose on an empty stomach, 30–60 minutes before breakfast, OR at bedtime at least 2 hours after the last meal. If this is impractical, a pragmatic approach of taking it consistently with breakfast and adjusting the dose by TSH may be more achievable for this patient.",
+    "Interactions (only give if asked): calcium carbonate and iron-containing multivitamins must be separated by at least 4 hours. Omeprazole reduces gastric acidity needed for absorption — monitor thyroid function more closely if she is taking it.",
+    "Time to effect: can take several weeks before symptoms improve; this medication is taken lifelong.",
+    "Monitoring: TSH checked every 6–8 weeks after initiation or dose change; dose titrated in 12.5–25mcg increments — if TSH is high, the dose is increased.",
+    "Adverse effects: partial hair loss (usually transient); signs of over-treatment include increased heart rate, anxiety, diarrhoea, weight loss, and increased appetite.",
+    "Current supplements (tell patient only if asked): omeprazole for reflux, plus magnesium, calcium, and multivitamin supplements purchased OTC — all potentially interacting with levothyroxine absorption."
+], medicalHistory: [
+    "52 year old woman, hypothyroidism (TSH 12 mIU/L, free T4 low, TPO antibody positive).",
+    "New prescription: levothyroxine 75mcg once daily.",
+    "Also taking: omeprazole for reflux, magnesium, calcium, and multivitamin supplements (OTC).",
+    "Has been taking levothyroxine with breakfast — too hard to take at 5.30am on empty stomach; doesn't usually remember at night.",
+    "Still symptomatic: tired, gaining weight, feeling the cold."
+] }, checklists: [
+    { step: "Greeting & Agenda", behaviour: "Introduces self and role; acknowledges her ongoing symptoms despite taking the medication." },
+    { step: "Dose Timing", behaviour: "★ Explores current timing (with breakfast) and explains the ideal approach (empty stomach 30–60 min before breakfast, or bedtime 2+ hours after last meal). Discusses a pragmatic approach if ideal timing isn't feasible.", critical: true },
+    { step: "Time to Effect", behaviour: "Explains that levothyroxine can take several weeks before symptoms improve, and is taken lifelong." },
+    { step: "Interactions", behaviour: "★ If asked, explains that her calcium and multivitamin supplements can reduce absorption (separate by ≥4 hours), and that omeprazole can also reduce absorption — closer TSH monitoring may be needed.", critical: true },
+    { step: "Monitoring", behaviour: "Explains the monitoring schedule: TSH every 6–8 weeks after initiation or dose change, titrated in 12.5–25mcg increments." },
+    { step: "Adverse Effects", behaviour: "Covers partial hair loss (usually transient) and signs of over-treatment (palpitations, anxiety, diarrhoea, weight loss, increased appetite)." },
+    { step: "Checking Understanding", behaviour: "Checks patient understanding (e.g. teach-back on dose timing and what to do if symptoms persist)." },
+    { step: "Closing", behaviour: "Confirms she knows when to return for blood tests; invites questions; sets recall." }
+]},
+                { id: "p28", title: "Station 6: Obesity — GLP-1/GIP Counselling (66yo Woman)", initialInfo: "A 66-year-old woman (161cm, 141.6kg) presents asking for information about Ozempic and the newer weight-loss medication. She wants to know which is better. She knows they are expensive but has heard that people 'click count' their doses to reduce costs.", hiddenInfo: { background: [
+    "Brand/class: Ozempic is semaglutide (for weight loss, branded Wegovy in NZ). The newer agent is tirzepatide (Mounjaro), a dual GIP and GLP-1 receptor agonist. Both are once-weekly injections.",
+    "Mechanism: both act centrally (increase satiety, reduce food intake), on the pancreas (increase insulin, reduce glucagon), slow gastric emptying, and improve insulin sensitivity in liver, muscle and adipose tissue.",
+    "Other benefits: reduce MACE risk, improve blood glucose control, treat MASLD (fatty liver disease), slow CKD progression, reduce systemic inflammation.",
+    "Side effects — how to mitigate: eat small meals often; eat slowly; stop when full; avoid lying down after eating; avoid eating near bedtime; avoid drinking through a straw; avoid high-fat, processed or refined foods; limit sweets, spices, dressings, and canned food; keep a food diary; try ginger-based drinks for nausea; use electrolytes and smaller meals for vomiting; use electrolytes and a lower-fibre diet for diarrhoea.",
+    "Duration: trial for 12–16 weeks — if <5% weight loss, stop as not effective. Usually taken long-term (weight returns at ~0.8kg/month when stopped). Best used alongside good nutrition and exercise — suggest consulting a dietitian.",
+    "Click counting: NOT recommended — off-label, unstudied, can't be sure of the dose being delivered.",
+    "Which is more effective? Evidence shows tirzepatide is more effective than semaglutide, likely because of its dual action. Bariatric surgery remains the gold standard with longer-term benefits."
+], medicalHistory: [
+    "66 year old woman, 161cm, 141.6kg.",
+    "Previously lost 50kg with healthy eating and exercise, but has regained it all after a period of low motivation.",
+    "High blood pressure, knee pain on walking.",
+    "Asking about Ozempic vs. tirzepatide and 'click counting' to reduce costs."
+] }, checklists: [
+    { step: "Greeting & Agenda", behaviour: "Introduces self and role; listens to her concerns and goals." },
+    { step: "Drug Identification", behaviour: "Clarifies that Ozempic (semaglutide) and Wegovy are the same drug — in NZ it is called Wegovy for weight management. Introduces tirzepatide (Mounjaro) as the newer dual GIP/GLP-1 agonist." },
+    { step: "Mechanism of Action", behaviour: "Explains in plain language how these medications work (satiety, slowing gastric emptying, insulin/glucagon effects)." },
+    { step: "Side Effects & Mitigation", behaviour: "★ Covers the GI side effects and practical strategies to manage them (small meals, avoid lying down, food diary, ginger drinks, etc.).", critical: true },
+    { step: "Duration of Treatment", behaviour: "★ Explains the need for long-term use, the trial period (12–16 weeks, ≥5% weight loss target), and the risk of weight regain when stopped. Mentions the value of combining with dietitian support.", critical: true },
+    { step: "Click Counting", behaviour: "★ Explains that click counting is NOT recommended — it is off-label, unstudied, and the actual dose delivered cannot be confirmed.", critical: true },
+    { step: "Comparative Efficacy", behaviour: "Explains that tirzepatide has stronger evidence for greater weight loss than semaglutide, likely because of its dual mechanism, but bariatric surgery remains the gold standard for long-term outcomes." },
+    { step: "Checking Understanding", behaviour: "Checks patient understanding (e.g. teach-back on side effect management and click counting)." },
+    { step: "Closing", behaviour: "Summarises key points; invites questions; recommends follow-up with prescriber if considering starting treatment." }
+]}
+            ];
+
+
+
+            useEffect(() => {
+    if (currentTab === 'clinical' && [13, 14, 15].includes(caseIndex)) {
+        setPrescriberMood(prescriberPersonalities[0]);
+    } else if (currentTab === 'ethical') {
+        // 確保在 ethical 模式下有防呆，只在資料存在時設定
+        if (typeof prescriberPersonalities !== 'undefined' && prescriberPersonalities.length > 0) {
+            setPrescriberMood(prescriberPersonalities[0]);
+        }
+    }
+}, [caseIndex, currentTab]);
+
+            const nextCase = () => {
+                const max = currentTab === 'clinical' ? clinicalCases.length - 1 : currentTab === 'case575' ? case575Cases.length - 1 : ethicalScenarios.length - 1;
+                if (caseIndex < max) { setCaseIndex(caseIndex + 1); }
+            };
+            const prevCase = () => {
+                if (caseIndex > 0) { setCaseIndex(caseIndex - 1); }
+            };
+
+            const resetCurrentCase = () => {
+                if (!currentCase) return;
+                setCheckedState(prev => ({ ...prev, [currentCase.id]: {} }));
+            };
+
+            const clearAllProgress = () => {
+                setCheckedState({});
+                setPracticedCases({ clinical: {}, ethical: {} });
+                try { localStorage.removeItem('osce_checked'); localStorage.removeItem('osce_practiced'); } catch {}
+                setShowConfirm(false);
+            };
+
+            const currentCase = currentTab === 'clinical' ? clinicalCases[caseIndex] : currentTab === 'case575' ? case575Cases[caseIndex] : null;
+
+            return (
+                <div className="min-h-screen bg-slate-100 p-2 sm:p-4 text-slate-900 flex flex-col items-center">
+                    <div className="max-w-4xl w-full shadow-2xl rounded-3xl overflow-hidden bg-white border border-slate-200 flex flex-col min-h-[90vh]">
+                        
+                        <header className="bg-[#0f172a] text-white p-4 border-b-4 border-amber-500 flex flex-col sm:flex-row justify-between items-center gap-4">
+                            <div className="flex items-center gap-3">
+                                <h1 className="text-xl sm:text-2xl font-black flex items-center gap-2 uppercase tracking-tighter">
+                                    <Icon name="stethoscope" className="text-amber-400" /> Waikato Pharmacy OSCE
+                                </h1>
+                                <img src="https://api.qrserver.com/v1/create-qr-code/?size=60x60&data=https://andj608.github.io/OSEC/&bgcolor=0f172a&color=ffffff&margin=2" alt="QR Code" className="rounded w-12 h-12 shrink-0" title="Scan to open" />
+                            </div>
+                            <div className="flex flex-col items-end gap-1">
+                                <select value={caseIndex} onChange={(e) => {setCaseIndex(parseInt(e.target.value)); setCheckedState({});}}
+                                    className="bg-slate-800 text-white text-[11px] font-bold p-2 rounded-lg border border-white/20 focus:ring-2 focus:ring-amber-500">
+                                    {(currentTab === 'clinical' ? clinicalCases : currentTab === 'case575' ? case575Cases : ethicalScenarios).map((c, i) => (
+                                        <option key={i} value={i}>{(practicedCases[currentTab] || {})[i] ? '✅' : '⬜'} #{i+1}: {c.title ? (c.title.split(':')[1] || c.title) : c.title}</option>
+                                    ))}
+                                </select>
+                                <button onClick={() => setShowConfirm(true)} className="text-[9px] text-red-300 hover:text-red-400 font-bold uppercase tracking-wider transition">↺ Clear All Progress</button>
+                            </div>
+                        </header>
+
+                        {showConfirm && (
+                            <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+                                <div className="bg-white rounded-2xl shadow-2xl p-6 max-w-sm w-full space-y-4">
+                                    <h3 className="font-black text-slate-800 text-base">Clear All Progress?</h3>
+                                    <p className="text-sm text-slate-500">This will delete all checked items and practice records. This cannot be undone.</p>
+                                    <div className="flex gap-3">
+                                        <button onClick={() => setShowConfirm(false)} className="flex-1 py-2 rounded-xl border-2 border-slate-200 text-sm font-black text-slate-400 hover:border-slate-400 transition">Cancel</button>
+                                        <button onClick={clearAllProgress} className="flex-1 py-2 rounded-xl bg-red-500 text-white text-sm font-black hover:bg-red-600 transition">Clear All</button>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        <div className="flex border-b bg-slate-50">
+                            <button onClick={() => {setCurrentTab('case575'); setCaseIndex(0); setCheckedState({});}} className={`flex-1 py-4 text-[11px] font-black transition-all ${currentTab === 'case575' ? 'bg-white text-purple-700 border-b-4 border-purple-700' : 'text-slate-400'}`}>575 - CASE</button>
+                            <button onClick={() => {setCurrentTab('clinical'); setCaseIndex(0); setCheckedState({});}} className={`flex-1 py-4 text-[11px] font-black transition-all ${currentTab === 'clinical' ? 'bg-white text-[#1a365d] border-b-4 border-[#1a365d]' : 'text-slate-400'}`}>CLINICAL CASES</button>
+                            <button onClick={() => {setCurrentTab('ethical'); setCaseIndex(0); setCheckedState({});}} className={`flex-1 py-4 text-[11px] font-black transition-all ${currentTab === 'ethical' ? 'bg-white text-red-700 border-b-4 border-red-700' : 'text-slate-400'}`}>ETHICAL SCENARIOS</button>
+                        </div>
+
+                        {!(currentCase && (currentCase.type === 'workshop' || currentCase.type === 'titration')) && (
+                        <div className="p-4 bg-slate-50 border-b flex justify-center gap-3 overflow-x-auto no-scrollbar">
+                            <button onClick={() => setRole('pharmacist')} className={`flex items-center gap-1 px-5 py-2 rounded-xl text-[10px] font-black transition ${role === 'pharmacist' ? 'bg-sky-700 text-white shadow-lg' : 'bg-white border text-slate-400'}`}><Icon name="user" size={14} /> PHARMACIST</button>
+                            <button onClick={() => setRole('patient')} className={`flex items-center gap-1 px-5 py-2 rounded-xl text-[10px] font-black transition ${role === 'patient' ? 'bg-orange-600 text-white shadow-lg' : 'bg-white border text-slate-400'}`}><Icon name="message-square" size={14} /> SIMULATED ACTOR</button>
+                            <button onClick={() => setRole('evaluator')} className={`flex items-center gap-1 px-5 py-2 rounded-xl text-[10px] font-black transition ${role === 'evaluator' ? 'bg-emerald-700 text-white shadow-lg' : 'bg-white border text-slate-400'}`}><Icon name="clipboard-check" size={14} /> ASSESSOR</button>
+                        </div>
+                        )}
+
+                        <div className="flex-1 p-4 sm:p-8">
+                            {(currentTab === 'clinical' || currentTab === 'case575') ? (
+                                <div className="space-y-6">
+                                <div className="flex items-center gap-3">
+                                    <button onClick={togglePracticed}
+                                        className={`w-7 h-7 rounded-lg border-2 flex items-center justify-center shrink-0 transition ${(practicedCases[currentTab] || {})[caseIndex] ? 'bg-emerald-500 border-emerald-500 text-white' : 'border-slate-300 hover:border-emerald-400'}`}>
+                                        {(practicedCases[currentTab] || {})[caseIndex] && <Icon name="check" size={16} className="text-white" />}
+                                    </button>
+                                    <h2 className="text-xl font-black text-slate-800 uppercase border-l-4 border-slate-800 pl-3">#{caseIndex + 1}: {currentCase.title}</h2>
+                                </div>
+                                    <div className="bg-slate-50 border-2 border-slate-200 p-6 rounded-2xl shadow-sm">
+                                        <p className="text-lg font-medium text-slate-700 italic leading-relaxed whitespace-pre-line">"{currentCase.initialInfo}"</p>
+                                    </div>
+
+                                    {currentCase.type === 'workshop' && (
+                                        <>
+                                            <div className="grid sm:grid-cols-2 gap-4">
+                                                {[
+                                                    ["Medical History", currentCase.medicalHistory],
+                                                    ["Family History", currentCase.familyHistory],
+                                                    ["Social History", currentCase.socialHistory],
+                                                    ["Current Medications", currentCase.currentMedications],
+                                                    ["Recent Laboratory Results", currentCase.labs],
+                                                    ["Initial Management Plan", currentCase.managementPlan]
+                                                ].filter(([, list]) => Array.isArray(list) && list.length > 0).map(([label, list], i) => (
+                                                    <div key={i} className="bg-teal-50 border border-teal-200 rounded-2xl p-5">
+                                                        <p className="text-xs font-black text-teal-800 uppercase mb-2">{label}</p>
+                                                        <ul className="list-disc list-outside ml-5 space-y-1 text-sm text-teal-900">
+                                                            {list.map((line, li) => <li key={li}>{line}</li>)}
+                                                        </ul>
+                                                    </div>
+                                                ))}
+                                            </div>
+
+                                            {currentCase.patientConcerns && (
+                                                <div className="bg-orange-50 border border-orange-200 p-6 rounded-2xl">
+                                                    <p className="text-xs font-black text-orange-800 uppercase mb-2">Patient Concerns</p>
+                                                    <ul className="list-disc list-outside ml-5 space-y-1 text-sm text-orange-900">
+                                                        {currentCase.patientConcerns.map((line, li) => <li key={li}>{line}</li>)}
+                                                    </ul>
+                                                </div>
+                                            )}
+
+                                            <div className="space-y-5">
+                                                <p className="text-xs font-black text-slate-500 uppercase tracking-wide">Discussion Questions</p>
+                                                {currentCase.questions.map((part, pi) => (
+                                                    <div key={pi} className="bg-white border-2 border-slate-200 rounded-2xl p-5">
+                                                        <p className="text-sm font-black text-slate-800 mb-2">{part.part}</p>
+                                                        {part.context && <p className="text-sm text-slate-500 italic mb-2">{part.context}</p>}
+                                                        <ul className="list-disc list-outside ml-5 space-y-3 text-sm text-slate-700">
+                                                            {part.items.map((item, qi) => (
+                                                                <li key={qi}>
+                                                                    {(typeof item === 'object' && item !== null) ? (
+                                                                        <>
+                                                                            <span>{item.q}</span>
+                                                                            <div className="text-teal-700 font-medium mt-1">↳ {item.a}</div>
+                                                                        </>
+                                                                    ) : item}
+                                                                </li>
+                                                            ))}
+                                                        </ul>
+                                                    </div>
+                                                ))}
+                                            </div>
+
+                                            {currentCase.clinicalConsiderations && (
+                                                <div className="bg-teal-50 border border-teal-200 p-6 rounded-2xl">
+                                                    <p className="text-xs font-black text-teal-800 uppercase mb-2">Clinical Considerations for Discussion</p>
+                                                    <ul className="list-disc list-outside ml-5 space-y-1 text-sm text-teal-900">
+                                                        {currentCase.clinicalConsiderations.map((line, li) => <li key={li}>{line}</li>)}
+                                                    </ul>
+                                                </div>
+                                            )}
+
+                                            {currentCase.learningObjectives && (
+                                                <div className="bg-slate-50 border-2 border-slate-200 p-6 rounded-2xl">
+                                                    <p className="text-xs font-black text-slate-600 uppercase mb-2">Learning Objectives</p>
+                                                    <ul className="list-disc list-outside ml-5 space-y-1 text-sm text-slate-700">
+                                                        {currentCase.learningObjectives.map((line, li) => <li key={li}>{line}</li>)}
+                                                    </ul>
+                                                </div>
+                                            )}
+                                        </>
+                                    )}
+
+                                    {currentCase.type === 'titration' && (
+                                        <div className="grid md:grid-cols-2 gap-5">
+                                            <div className="bg-slate-50 border-2 border-slate-200 rounded-2xl p-5">
+                                                <p className="text-xs font-black text-slate-500 uppercase tracking-wide mb-3">{Array.isArray(currentCase.answer.sections) ? "Patient Notes" : "Scenario"}</p>
+                                                <ul className="list-disc list-outside ml-5 space-y-2 text-sm text-slate-700">
+                                                    {currentCase.scenario.map((line, li) => <li key={li}>{line}</li>)}
+                                                </ul>
+                                            </div>
+                                            <div className="bg-teal-50 border border-teal-200 rounded-2xl p-5 space-y-4">
+                                                <p className="text-xs font-black text-teal-800 uppercase tracking-wide">{Array.isArray(currentCase.answer.sections) ? "Observer Notes" : "Start • Titrate • Pause • What Next?"}</p>
+                                                {[
+                                                    ["Start", currentCase.answer.start],
+                                                    ["Titrate", currentCase.answer.titrate],
+                                                    ["Pause", currentCase.answer.pause],
+                                                    ["What Next?", currentCase.answer.whatNext]
+                                                ].filter(([, list]) => Array.isArray(list) && list.length > 0).map(([label, list], i) => (
+                                                    <div key={i}>
+                                                        <p className="text-[11px] font-bold text-teal-700 uppercase mb-1">{label}</p>
+                                                        <ul className="list-disc list-outside ml-5 space-y-1 text-sm text-teal-900">
+                                                            {list.map((line, li) => <li key={li}>{line}</li>)}
+                                                        </ul>
+                                                    </div>
+                                                ))}
+                                                {Array.isArray(currentCase.answer.sections) && currentCase.answer.sections.map((sec, i) => (
+                                                    <div key={i}>
+                                                        <p className="text-[11px] font-bold text-teal-700 uppercase mb-1">{sec.label}</p>
+                                                        <ul className="list-disc list-outside ml-5 space-y-1 text-sm text-teal-900">
+                                                            {sec.points.map((line, li) => <li key={li}>{line}</li>)}
+                                                        </ul>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    {role === 'pharmacist' && currentCase.prescription && (
+    <PrescriptionCard rx={currentCase.prescription} />
+)}
+                                    {role === 'pharmacist' && currentCase.rxScript && (
+    <EthicalPrescriptionCard rx={currentCase.rxScript} />
+)}
+                                    {role === 'patient' && currentCase.hiddenInfo && (
+                                        <div className="bg-orange-50 border border-orange-200 p-6 rounded-2xl space-y-4">
+                                            <p className="text-xs font-black text-orange-800 uppercase mb-2">Patient Script (Hidden Details)</p>
+                                            {Array.isArray(currentCase.hiddenInfo.actors) ? (
+                                                currentCase.hiddenInfo.actors.map((actor, ai) => (
+                                                    <div key={ai} className={ai > 0 ? "border-t border-orange-200 pt-4" : ""}>
+                                                        <p className="text-sm font-black text-orange-800 mb-2">{actor.name}</p>
+                                                        {actor.sections.map((sec, si) => (
+                                                            <div key={si} className="mb-3 last:mb-0">
+                                                                <p className="text-[11px] font-bold text-orange-700 uppercase mb-1">{sec.heading}</p>
+                                                                <ul className="list-disc list-outside ml-5 space-y-1 text-sm text-orange-900">
+                                                                    {sec.points.map((pt, pi) => (
+                                                                        <li key={pi}>
+                                                                            {(typeof pt === 'object' && pt !== null) ? (
+                                                                                <>
+                                                                                    <span>{pt.q}</span>
+                                                                                    <div className="text-orange-700/80 not-italic font-medium mt-0.5">↳ {pt.a}</div>
+                                                                                </>
+                                                                            ) : pt}
+                                                                        </li>
+                                                                    ))}
+                                                                </ul>
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                ))
+                                            ) : (
+                                                <>
+                                                    <div className="text-sm text-orange-900 leading-relaxed">
+                                                        <strong>Background:</strong>
+                                                        {Array.isArray(currentCase.hiddenInfo.background) ? (
+                                                            <ul className="list-disc list-outside ml-5 mt-1 space-y-1">
+                                                                {currentCase.hiddenInfo.background.map((line, i) => <li key={i}>{line}</li>)}
+                                                            </ul>
+                                                        ) : (
+                                                            <span> {currentCase.hiddenInfo.background}</span>
+                                                        )}
+                                                    </div>
+                                                    <div className="text-sm text-orange-900 leading-relaxed mt-2">
+                                                        <strong>History/Status:</strong>
+                                                        {Array.isArray(currentCase.hiddenInfo.medicalHistory) ? (
+                                                            <ul className="list-disc list-outside ml-5 mt-1 space-y-1">
+                                                                {currentCase.hiddenInfo.medicalHistory.map((line, i) => <li key={i}>{line}</li>)}
+                                                            </ul>
+                                                        ) : (
+                                                            <span> {currentCase.hiddenInfo.medicalHistory}</span>
+                                                        )}
+                                                    </div>
+                                                </>
+                                            )}
+                                        </div>
+                                    )}
+
+                                    {role === 'evaluator' && currentCase.checklists && (
+                                        <div className="space-y-4">
+                                            <Stopwatch resetKey={`${currentTab}-${caseIndex}`} />
+                                            <div className="border-2 border-emerald-600 rounded-3xl overflow-hidden shadow-xl bg-white">
+                                                <table className="w-full text-sm">
+                                                    <thead className="bg-slate-100 uppercase font-black text-slate-500">
+                                                        <tr><th className="px-5 py-4 text-left border-b w-1/4">Step</th><th className="px-5 py-4 text-left border-b">Behaviour</th><th className="px-5 py-4 text-center border-b">✓</th></tr>
+                                                    </thead>
+                                                    <tbody className="divide-y divide-slate-100">
+                                                        {currentCase.checklists.map((item, i) => (
+                                                            <tr key={i} onClick={() => toggleCheck(currentCase.id, i)} className={`cursor-pointer ${checkedState[currentCase.id]?.[i] ? 'bg-emerald-50' : 'hover:bg-slate-50 transition-colors'}`}>
+                                                                <td className="px-5 py-5 font-bold text-[#1a365d] align-top">{i === 0 || currentCase.checklists[i-1].step !== item.step ? item.step : ""}</td>
+                                                                <td className="px-5 py-5 text-slate-600 border-l border-slate-50 leading-tight">
+                                                                    <div className="flex items-start gap-2">
+                                                                        {item.critical && <Icon name="star" size={16} className="text-red-500 shrink-0 mt-0.5" />}
+                                                                        {item.behaviour}
+                                                                    </div>
+                                                                </td>
+                                                                <td className="px-5 py-5 text-center border-l border-slate-50">
+                                                                    {checkedState[currentCase.id]?.[i] ? <Icon name="check-square" size={24} className="text-emerald-600 mx-auto" /> : <Icon name="square" size={24} className="text-slate-300 opacity-50 mx-auto" />}
+                                                                </td>
+                                                            </tr>
+                                                        ))}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div className="bg-emerald-50 border-2 border-emerald-400 rounded-2xl p-5 flex items-center justify-between">
+                                                <span className="text-sm font-black text-emerald-800 uppercase tracking-wider">Score</span>
+                                                <div className="flex items-center gap-4">
+                                                    <span className="text-3xl font-black text-emerald-700">
+                                                        {Object.values(checkedState[currentCase.id] || {}).filter(Boolean).length}
+                                                        <span className="text-lg text-emerald-400"> / {currentCase.checklists.length}</span>
+                                                    </span>
+                                                    <button onClick={resetCurrentCase} className="px-3 py-1.5 rounded-lg text-[10px] font-black uppercase bg-red-100 text-red-500 hover:bg-red-200 transition">↺ Reset</button>
+                                                </div>
+                                            </div>
+                                            <div className="bg-slate-800 text-white p-6 rounded-3xl">
+                                                <h3 className="font-black text-xs uppercase text-emerald-400 mb-3 tracking-widest">Grade Descriptors</h3>
+                                                <div className="grid gap-2 text-[10px]">
+                                                    {gradingDescriptors.map((g, i) => (
+                                                        <div key={i} className="flex gap-2 border-b border-white/10 pb-2 last:border-0">
+                                                            <strong className="text-amber-400 shrink-0 w-8">{g.grade}</strong>
+                                                            <span className="opacity-70">{g.desc}</span>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    {role === 'pharmacist' && currentCase.guideId && (
+                                        <PDFViewer guideId={currentCase.guideId} />
+                                    )}
+
+                                    {role === 'pharmacist' && currentCase.products && (
+                                        <ProductCards products={currentCase.products} />
+                                    )}
+
+                                    {(role === 'patient' || role === 'evaluator') && currentTab === 'clinical' && [13, 14, 15].includes(caseIndex) && (
+                                        <div className="bg-[#1e293b] text-white p-6 rounded-3xl shadow-xl border-l-8 border-amber-500 space-y-4">
+                                            <div className="flex flex-col sm:flex-row justify-between gap-4 border-b border-white/10 pb-4">
+                                                <h4 className="font-black text-xs uppercase text-amber-400 flex items-center gap-2"><Icon name="user-plus" size={14} /> Mood Switcher (Actor Reference)</h4>
+                                                <div className="flex flex-wrap gap-2">
+                                                    {prescriberPersonalities.map((p, idx) => (
+                                                        <button key={idx} onClick={() => setPrescriberMood(p)} className={`px-3 py-1.5 rounded-lg text-[9px] font-bold uppercase transition ${prescriberMood.mood === p.mood ? 'bg-amber-500 text-[#0f172a]' : 'bg-white/10 hover:bg-white/20'}`}>{p.mood.split(' ')[0]}</button>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                            <p className="text-xl font-black text-amber-400">{prescriberMood.mood}</p>
+                                            <p className="text-lg font-medium italic leading-relaxed text-slate-200">"{prescriberMood.dialogue}"</p>
+                                        </div>
+                                    )}
+                                </div>
+                            ) : (
+                                <div className="space-y-8">
+                                    <div className="flex items-center gap-3">
+                                        <button onClick={togglePracticed}
+                                            className={`w-7 h-7 rounded-lg border-2 flex items-center justify-center shrink-0 transition ${practicedCases.ethical[caseIndex] ? 'bg-emerald-500 border-emerald-500 text-white' : 'border-slate-300 hover:border-emerald-400'}`}>
+                                            {practicedCases.ethical[caseIndex] && <Icon name="check" size={16} className="text-white" />}
+                                        </button>
+                                        <h2 className="text-xl font-black text-slate-800 uppercase border-l-4 border-red-700 pl-3">#{caseIndex + 1}: {ethicalScenarios[caseIndex].title}</h2>
+                                    </div>
+ {!ethicalScenarios[caseIndex].rx && (
+    <div className="bg-red-50 border-2 border-red-100 p-8 rounded-3xl text-center relative overflow-hidden shadow-sm">
+        <Icon name="shield-alert" className="absolute -bottom-4 -right-4 text-red-200 opacity-30" size={120} />
+        <p className="text-[10px] font-black uppercase text-red-500 mb-4 tracking-widest italic">Professional Ethics Scenario</p>
+        <p className="text-xl font-serif italic text-red-900 leading-relaxed">"{ethicalScenarios[caseIndex].text}"</p>
+    </div>
+)}
+
+{role === 'pharmacist' && ethicalScenarios[caseIndex].rx && (
+    <EthicalPrescriptionCard rx={ethicalScenarios[caseIndex].rx} />
+)}{/* ✅ 模擬藥局系統/衛生部 SA 查詢畫面 */}
+{role === 'pharmacist' && ethicalScenarios[caseIndex].systemScreen && (
+    <div className="bg-slate-900 text-emerald-400 p-5 rounded-2xl font-mono border-2 border-slate-700 shadow-inner my-4 text-xs">
+        <div className="border-b border-emerald-500/30 pb-2 mb-3 flex justify-between items-center text-emerald-500 font-bold">
+            <span>🖥️ {ethicalScenarios[caseIndex].systemScreen.title}</span>
+            <span className="bg-red-500/20 text-red-400 px-2 py-0.5 rounded animate-pulse font-sans font-black">
+                {ethicalScenarios[caseIndex].systemScreen.status}
+            </span>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-slate-300">
+            <div><span className="text-emerald-500">Patient:</span> {ethicalScenarios[caseIndex].systemScreen.patientName} ({ethicalScenarios[caseIndex].systemScreen.nhi})</div>
+            <div><span className="text-emerald-500">Medicine:</span> {ethicalScenarios[caseIndex].systemScreen.drug}</div>
+            <div><span className="text-emerald-500">Approval Date:</span> {ethicalScenarios[caseIndex].systemScreen.approvedDate}</div>
+            <div className="text-red-400 font-bold"><span className="text-emerald-500">Expiry Date:</span> {ethicalScenarios[caseIndex].systemScreen.expiryDate} ⚠️</div>
+        </div>
+        <div className="mt-3 text-[10px] text-slate-500 italic border-t border-slate-800 pt-2">
+            * Dispensing Note: SA expired on the date of presentation. Contact prescriber for renewal.
+        </div>
+    </div>
+)}
+{role === 'evaluator' && ethicalScenarios[caseIndex].issues && (
+    <div className="bg-white border-2 border-emerald-600 rounded-2xl overflow-hidden shadow">
+        <div className="bg-emerald-700 text-white px-5 py-3 text-xs font-black uppercase tracking-widest">📋 Assessor Notes — Prescription Issues</div>
+        <ul className="p-5 space-y-3">
+            {ethicalScenarios[caseIndex].issues.map((issue, i) => (
+                <li key={i} className={`flex gap-3 text-sm ${issue.startsWith('This is a VALID') || issue.startsWith('Can be') ? 'text-emerald-700 font-bold' : 'text-slate-700'}`}>
+                    <span className="shrink-0">{issue.startsWith('This is a VALID') || issue.startsWith('Can be') ? '✅' : '⚠️'}</span>
+                    {issue}
+                </li>
+            ))}
+        </ul>
+    </div>
+)}
+                                    {(role === 'patient' || role === 'evaluator') && (
+                                        <div className="bg-[#1e293b] text-white p-6 rounded-3xl shadow-xl border-l-8 border-amber-500 space-y-4">
+                                            <div className="flex flex-col sm:flex-row justify-between gap-4 border-b border-white/10 pb-4">
+                                                <h4 className="font-black text-xs uppercase text-amber-400 flex items-center gap-2"><Icon name="user-plus" size={14} /> Mood Switcher (Actor Reference)</h4>
+                                                <div className="flex flex-wrap gap-2">
+                                                    {prescriberPersonalities.map((p, idx) => (
+                                                        <button key={idx} onClick={() => setPrescriberMood(p)} className={`px-3 py-1.5 rounded-lg text-[9px] font-bold uppercase transition ${prescriberMood.mood === p.mood ? 'bg-amber-500 text-[#0f172a]' : 'bg-white/10 hover:bg-white/20'}`}>{p.mood.split(' ')[0]}</button>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                            <p className="text-xl font-black text-amber-400">{prescriberMood.mood}</p>
+                                            <p className="text-lg font-medium italic leading-relaxed text-slate-200">"{prescriberMood.dialogue}"</p>
+                                        </div>
+                                    )}
+                                </div>
+                            )}
+                        </div>
+
+                        <div className="px-6 py-4 bg-white border-t flex justify-between gap-4 mt-auto">
+                            <button disabled={caseIndex === 0} onClick={prevCase} className="flex-1 py-3 rounded-xl border-2 border-slate-200 text-[11px] font-black uppercase text-slate-400 hover:border-slate-800 hover:text-slate-800 disabled:opacity-20 flex items-center justify-center gap-2 transition">
+                                <Icon name="chevron-left" size={16} /> PREVIOUS
+                            </button>
+                            <button disabled={caseIndex === (currentTab === 'clinical' ? clinicalCases.length - 1 : currentTab === 'case575' ? case575Cases.length - 1 : ethicalScenarios.length - 1)} onClick={nextCase} className="flex-1 py-3 rounded-xl border-2 border-slate-200 text-[11px] font-black uppercase text-slate-400 hover:border-slate-800 hover:text-slate-800 disabled:opacity-20 flex items-center justify-center gap-2 transition">
+                                NEXT <Icon name="chevron-right" size={16} />
+                            </button>
+                        </div>
+
+                        <footer className="p-3 bg-slate-50 border-t flex flex-col sm:flex-row items-center justify-between gap-1 text-[8px] text-slate-400 font-bold uppercase tracking-[0.15em] px-6">
+                            <div>Latest Update: 2026-08-12</div>
+                            <div className="flex flex-col sm:flex-row items-center gap-2">
+                                <span>Maintained by Huichen Yu (Jen)</span>
+                                <span className="hidden sm:inline">·</span>
+                                <a href="mailto:andj608@gmail.com" className="normal-case tracking-normal hover:text-slate-600 hover:underline">andj608@gmail.com</a>
+                            </div>
+                        </footer>
+                    </div>
+                </div>
+            );
+        };
+
+        const container = document.getElementById('root');
+        const root = ReactDOM.createRoot(container);
+        root.render(<App />);
+    </script>
+</body>
+</html>
